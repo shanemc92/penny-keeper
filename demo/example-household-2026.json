@@ -1,0 +1,5617 @@
+{
+ "kind": "penny-keeper-year",
+ "year": 2026,
+ "data": {
+  "year": 2026,
+  "currency": "€",
+  "taxBands": {
+   "srcopSingle": 44000,
+   "srcopMax": 53000,
+   "lowRate": 0.2,
+   "highRate": 0.4,
+   "prsiRate1": 0.042,
+   "prsiRate2": 0.0435,
+   "prsiChangeMonth": 10,
+   "uscExempt": 13000,
+   "uscBands": [
+    {
+     "to": 12012,
+     "rate": 0.005
+    },
+    {
+     "to": 28700,
+     "rate": 0.02
+    },
+    {
+     "to": 70044,
+     "rate": 0.03
+    },
+    {
+     "to": 1000000000000,
+     "rate": 0.08
+    }
+   ],
+   "personalCredit": 2000,
+   "employeeCredit": 2000
+  },
+  "people": [
+   {
+    "id": "aoife",
+    "name": "Aoife",
+    "gross": 68000,
+    "pensionPct": 5,
+    "avcMonthly": 0,
+    "bikMonthly": 0,
+    "srcop": 53000,
+    "bonus": 6000,
+    "credits": [
+     {
+      "name": "Personal Tax Credit",
+      "amount": 2000
+     },
+     {
+      "name": "Employee Tax Credit",
+      "amount": 2000
+     }
+    ],
+    "status": "married2",
+    "personalType": "marriedHalf"
+   },
+   {
+    "id": "cian",
+    "name": "Cian",
+    "gross": 41000,
+    "pensionPct": 3,
+    "avcMonthly": 50,
+    "bikMonthly": 0,
+    "srcop": 35000,
+    "bonus": 0,
+    "credits": [
+     {
+      "name": "Personal Tax Credit",
+      "amount": 2000
+     },
+     {
+      "name": "Employee Tax Credit",
+      "amount": 2000
+     }
+    ],
+    "status": "married2",
+    "personalType": "marriedHalf"
+   }
+  ],
+  "splitMode": "income",
+  "splitManual": {},
+  "bills": [
+   {
+    "id": "b0",
+    "name": "Mortgage",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 1518.02,
+    "nextDue": "2026-09-01",
+    "kind": "bill"
+   },
+   {
+    "id": "b1",
+    "name": "Creche",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 650,
+    "nextDue": "2026-09-03",
+    "kind": "bill"
+   },
+   {
+    "id": "b2",
+    "name": "Groceries",
+    "freq": "Weekly",
+    "holder": "Joint",
+    "amount": 165,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b3",
+    "name": "Electricity",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 92,
+    "nextDue": "2026-09-12",
+    "kind": "bill"
+   },
+   {
+    "id": "b4",
+    "name": "Gas",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 58,
+    "nextDue": "2026-09-12",
+    "kind": "bill"
+   },
+   {
+    "id": "b5",
+    "name": "Broadband",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 45,
+    "nextDue": "2026-09-18",
+    "kind": "bill"
+   },
+   {
+    "id": "b6",
+    "name": "Car Loan",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 310,
+    "nextDue": "2026-09-06",
+    "kind": "bill"
+   },
+   {
+    "id": "b7",
+    "name": "Credit Union Loan",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 145,
+    "nextDue": "2026-09-06",
+    "kind": "bill"
+   },
+   {
+    "id": "b8",
+    "name": "Car Insurance",
+    "freq": "Annual",
+    "holder": "Joint",
+    "amount": 720,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b9",
+    "name": "Motor Tax",
+    "freq": "Annual",
+    "holder": "Joint",
+    "amount": 280,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b10",
+    "name": "Health Insurance",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 168,
+    "nextDue": "2026-08-20",
+    "kind": "bill"
+   },
+   {
+    "id": "b11",
+    "name": "Home Insurance",
+    "freq": "Annual",
+    "holder": "Joint",
+    "amount": 340,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b12",
+    "name": "Bins",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 22,
+    "nextDue": "2026-09-15",
+    "kind": "bill"
+   },
+   {
+    "id": "b13",
+    "name": "Diesel",
+    "freq": "Weekly",
+    "holder": "Aoife",
+    "amount": 50,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b14",
+    "name": "Leap Card",
+    "freq": "Weekly",
+    "holder": "Cian",
+    "amount": 30,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b15",
+    "name": "Phone - Aoife",
+    "freq": "Monthly",
+    "holder": "Aoife",
+    "amount": 22,
+    "nextDue": "2026-08-25",
+    "kind": "bill"
+   },
+   {
+    "id": "b16",
+    "name": "Phone - Cian",
+    "freq": "Monthly",
+    "holder": "Cian",
+    "amount": 19,
+    "nextDue": "2026-08-25",
+    "kind": "bill"
+   },
+   {
+    "id": "b17",
+    "name": "Dining Out",
+    "freq": "Weekly",
+    "holder": "Joint",
+    "amount": 55,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b18",
+    "name": "Netflix",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 18,
+    "nextDue": "2026-09-08",
+    "kind": "bill"
+   },
+   {
+    "id": "b19",
+    "name": "Spotify",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 19,
+    "nextDue": "2026-09-16",
+    "kind": "bill"
+   },
+   {
+    "id": "b20",
+    "name": "Gym",
+    "freq": "Monthly",
+    "holder": "Aoife",
+    "amount": 45,
+    "nextDue": "2026-09-02",
+    "kind": "bill"
+   },
+   {
+    "id": "b21",
+    "name": "Dog Insurance",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 24,
+    "nextDue": "2026-09-11",
+    "kind": "bill"
+   },
+   {
+    "id": "b22",
+    "name": "Vet",
+    "freq": "Annual",
+    "holder": "Joint",
+    "amount": 240,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b23",
+    "name": "Swimming Lessons",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 65,
+    "nextDue": "2026-09-07",
+    "kind": "bill"
+   },
+   {
+    "id": "b24",
+    "name": "Cloud Storage",
+    "freq": "Monthly",
+    "holder": "Cian",
+    "amount": 8,
+    "nextDue": "",
+    "kind": "bill"
+   },
+   {
+    "id": "b25",
+    "name": "Charity",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 20,
+    "nextDue": "2026-08-28",
+    "kind": "bill"
+   },
+   {
+    "id": "b26",
+    "name": "Emergency Fund",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 300,
+    "nextDue": "2026-09-01",
+    "kind": "savings"
+   },
+   {
+    "id": "b27",
+    "name": "Home Improvements",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 450,
+    "nextDue": "2026-09-01",
+    "kind": "savings"
+   },
+   {
+    "id": "b28",
+    "name": "Kids Savings",
+    "freq": "Monthly",
+    "holder": "Joint",
+    "amount": 80,
+    "nextDue": "2026-09-01",
+    "kind": "savings"
+   },
+   {
+    "id": "b29",
+    "name": "Bank Fees",
+    "freq": "Quarterly",
+    "holder": "Joint",
+    "amount": 12,
+    "nextDue": "",
+    "kind": "bill"
+   }
+  ],
+  "loans": [
+   {
+    "id": "car",
+    "name": "Car Loan - 231 Kia Niro",
+    "opening": 18400,
+    "rate": 7.9,
+    "freq": "Monthly",
+    "repayment": 310,
+    "proposedRepayment": 420,
+    "startDate": "2024-09-15",
+    "endDate": "2029-09-15",
+    "extras": {
+     "14": 1500,
+     "26": 1000
+    }
+   },
+   {
+    "id": "cu",
+    "name": "Credit Union - Kitchen",
+    "opening": 6200,
+    "rate": 6.5,
+    "freq": "Monthly",
+    "repayment": 145,
+    "proposedRepayment": 200,
+    "startDate": "2025-03-10",
+    "endDate": "2029-03-10",
+    "extras": {
+     "9": 800
+    }
+   },
+   {
+    "id": "solar",
+    "name": "Solar Panel Loan (green rate)",
+    "opening": 9500,
+    "rate": 3.9,
+    "freq": "Monthly",
+    "repayment": 180,
+    "proposedRepayment": 180,
+    "startDate": "2026-02-01",
+    "endDate": "2031-02-01",
+    "extras": {}
+   }
+  ],
+  "mortgages": [
+   {
+    "id": "mtg1",
+    "name": "Home mortgage",
+    "lender": "AIB",
+    "startDate": "2023-09-01",
+    "principal": 295000,
+    "termMonths": 360,
+    "propertyValue": 385000,
+    "repayment": 1418.02,
+    "rates": [
+     {
+      "id": "mr1",
+      "from": "2023-09-01",
+      "rate": 4.05,
+      "kind": "fixed"
+     },
+     {
+      "id": "mr2",
+      "from": "2026-12-01",
+      "rate": 3.85,
+      "kind": "variable"
+     }
+    ],
+    "overpayMonthly": 100,
+    "overpayFrom": "2026-01-01",
+    "allowancePct": 10,
+    "insuranceMonthly": 38,
+    "lumps": [
+     {
+      "id": "ml1",
+      "date": "2025-07-10",
+      "amount": 3000,
+      "note": "Wedding gift money"
+     }
+    ],
+    "statements": [
+     {
+      "id": "ms1",
+      "date": "2023-12-31",
+      "amount": 4254.06,
+      "interest": 3964.53,
+      "balance": 294710.47,
+      "note": "First statement, four months in"
+     },
+     {
+      "id": "ms2",
+      "date": "2024-12-31",
+      "amount": 17016.24,
+      "interest": 11839.54,
+      "balance": 289533.77,
+      "note": ""
+     },
+     {
+      "id": "ms3",
+      "date": "2025-12-31",
+      "amount": 17016.24,
+      "interest": 11532.2,
+      "balance": 281049.73,
+      "note": "After the July lump sum"
+     }
+    ]
+   }
+  ],
+  "savings": {
+   "startDate": "2026-01-01",
+   "months": 36,
+   "growthPct": 2.5,
+   "accounts": [
+    {
+     "name": "Emergency Fund",
+     "opening": 8400,
+     "monthly": 300,
+     "adjust": {}
+    },
+    {
+     "name": "Home Improvements",
+     "opening": 21500,
+     "monthly": 450,
+     "adjust": {}
+    },
+    {
+     "name": "Kids - Credit Union",
+     "opening": 3150,
+     "monthly": 80,
+     "adjust": {}
+    },
+    {
+     "name": "Holiday Fund",
+     "opening": 900,
+     "monthly": 120,
+     "adjust": {}
+    }
+   ]
+  },
+  "rules": [
+   {
+    "match": "D/D AIB MORTGAGE",
+    "category": "Mortgage"
+   },
+   {
+    "match": "D/D LITTLE ACORNS CRECHE",
+    "category": "Creche"
+   },
+   {
+    "match": "D/D ELECTRIC IRELAND",
+    "category": "Electricity"
+   },
+   {
+    "match": "D/D BORD GAIS ENERGY",
+    "category": "Gas"
+   },
+   {
+    "match": "D/D SIRO FIBRE",
+    "category": "Broadband"
+   },
+   {
+    "match": "D/D BOI CAR FINANCE",
+    "category": "Car Loan"
+   },
+   {
+    "match": "D/D CORK CU LOAN",
+    "category": "Credit Union Loan"
+   },
+   {
+    "match": "D/D IRISH LIFE HEALTH",
+    "category": "Health Insurance"
+   },
+   {
+    "match": "D/D CITY BIN CO",
+    "category": "Bins"
+   },
+   {
+    "match": "D/D NETFLIX.COM",
+    "category": "Netflix"
+   },
+   {
+    "match": "VDP-Spotify",
+    "category": "Spotify"
+   },
+   {
+    "match": "D/D BEN DUNNE GYM",
+    "category": "Gym"
+   },
+   {
+    "match": "D/D ALLIANZ PETCOVER",
+    "category": "Dog Insurance"
+   },
+   {
+    "match": "D/D DOUGLAS SWIM CLUB",
+    "category": "Swimming Lessons"
+   },
+   {
+    "match": "VDP-THREE IRELAND",
+    "category": "Phone - Aoife"
+   },
+   {
+    "match": "VDP-VODAFONE IE",
+    "category": "Phone - Cian"
+   },
+   {
+    "match": "VDP-PROTON AG",
+    "category": "Cloud Storage"
+   },
+   {
+    "match": "D/D TROCAIRE",
+    "category": "Charity"
+   },
+   {
+    "match": "VDC-SUPERVALU DOUGLAS",
+    "category": "Groceries"
+   },
+   {
+    "match": "VDC-LIDL BALLINCOLLIG",
+    "category": "Groceries"
+   },
+   {
+    "match": "VDC-TESCO WILTON",
+    "category": "Groceries"
+   },
+   {
+    "match": "VDC-CIRCLE K DOUGLAS",
+    "category": "Diesel"
+   },
+   {
+    "match": "VDC-LEAP TOP UP",
+    "category": "Leap Card"
+   },
+   {
+    "match": "VDC-BARBAROSSA CAFE",
+    "category": "Dining Out"
+   },
+   {
+    "match": "VDA-THE FRANCISCAN WELL",
+    "category": "Dining Out"
+   },
+   {
+    "match": "VDC-TOM BARRYS",
+    "category": "Dining Out"
+   },
+   {
+    "match": "VDP-AVIVA HOME",
+    "category": "Home Insurance"
+   },
+   {
+    "match": "VDP-AXA MOTOR",
+    "category": "Car Insurance"
+   },
+   {
+    "match": "VDP-MOTORTAX.IE",
+    "category": "Motor Tax"
+   },
+   {
+    "match": "VDC-DOUGLAS VET CLINIC",
+    "category": "Vet"
+   },
+   {
+    "match": "FEE-QTR TO 28FEB26",
+    "category": "Bank Fees"
+   },
+   {
+    "match": "FEE-QTR TO 30MAY26",
+    "category": "Bank Fees"
+   },
+   {
+    "match": "FEE-QTR TO 29AUG26",
+    "category": "Bank Fees"
+   },
+   {
+    "match": "PAYROLL",
+    "category": "Salary"
+   },
+   {
+    "match": "SO EMERGENCY FUND",
+    "category": "Emergency Fund"
+   },
+   {
+    "match": "SO HOUSE DEPOSIT",
+    "category": "Home Improvements"
+   },
+   {
+    "match": "SO KIDS CU",
+    "category": "Kids Savings"
+   },
+   {
+    "match": "FEE-QTR",
+    "category": "Bank Fees"
+   }
+  ],
+  "txns": [
+   {
+    "date": "2026-01-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-01-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-01-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-01-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-01-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-01-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 34.23,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 80.85,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 58.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-01-02",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 14.82,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-02",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 30.44,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 25.25,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-01-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-01-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-01-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-01-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-01-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 79.25,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 41.87,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 85.34,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-09",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 52.04,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-01-09",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 30.66,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-01-10",
+    "desc": "ATM-DOUGLAS COURT",
+    "desc2": "",
+    "debit": 100,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-01-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-01-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 11.67,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-11",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 47.63,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 29.35,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 149.1,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-01-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 111.19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-01-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-01-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-01-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-01-16",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 50.49,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-16",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 85.12,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-16",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 32.45,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-01-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-01-18",
+    "desc": "VDP-AMAZON PRIME",
+    "desc2": "",
+    "debit": 8.99,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-01-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-01-20",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 12.33,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-20",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 50.38,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-20",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 33.18,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-01-23",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 45.95,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-23",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 60.56,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-23",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 66.35,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-01-23",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 47.1,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-01-23",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 32.99,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-01-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-01-25",
+    "desc": "VDP-THREE IRELAND",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Aoife"
+   },
+   {
+    "date": "2026-01-25",
+    "desc": "VDP-VODAFONE IE",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Cian"
+   },
+   {
+    "date": "2026-01-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-01-28",
+    "desc": "D/D TROCAIRE",
+    "desc2": "",
+    "debit": 20,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Charity"
+   },
+   {
+    "date": "2026-02-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-02-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-02-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-02-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 81.59,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 55.23,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 54.05,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 46.33,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 28.21,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 18.58,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 14.13,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-02-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-02-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-02-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-02-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-02-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 51.07,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 29.13,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 50.71,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-09",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 53.15,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-02-09",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 28.59,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-02-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-02-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 11.3,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-11",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 33.46,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 38.87,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 137.75,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-02-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 105.97,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-02-13",
+    "desc": "FEE-QTR TO 28FEB26",
+    "desc2": "",
+    "debit": 12,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Bank Fees"
+   },
+   {
+    "date": "2026-02-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-02-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-02-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-02-16",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 39.73,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-16",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 71.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-16",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 31.25,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-02-16",
+    "desc": "VDP-EIR SPORT",
+    "desc2": "",
+    "debit": 29,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-02-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-02-18",
+    "desc": "VDP-MOTORTAX.IE",
+    "desc2": "",
+    "debit": 280,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Motor Tax"
+   },
+   {
+    "date": "2026-02-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-02-20",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 14.14,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-20",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 56.45,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-20",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 36.8,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-02-23",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 50.43,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-23",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 66.66,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-23",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 51.41,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-02-23",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 45.67,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-02-23",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 31.16,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-02-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-02-25",
+    "desc": "VDP-THREE IRELAND",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Aoife"
+   },
+   {
+    "date": "2026-02-25",
+    "desc": "VDP-VODAFONE IE",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Cian"
+   },
+   {
+    "date": "2026-02-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-02-28",
+    "desc": "D/D TROCAIRE",
+    "desc2": "",
+    "debit": 20,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Charity"
+   },
+   {
+    "date": "2026-03-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-03-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-03-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-03-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 52.77,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 32.74,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 48.43,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 48.12,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 30.89,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 15.18,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 27.83,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 13.47,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-03-02",
+    "desc": "ATM-DOUGLAS COURT",
+    "desc2": "",
+    "debit": 100,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-03-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-03-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-03-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-03-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-03-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-03-08",
+    "desc": "VDC-SMYTHS TOYS DOUGLAS",
+    "desc2": "",
+    "debit": 64,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-03-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 58.56,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 64.44,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 94.1,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-09",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 51.53,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-03-09",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 31.04,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-03-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-03-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 14.89,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-03-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 30.64,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-03-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 122.17,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-03-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 89.33,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-03-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-03-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-03-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-03-16",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 70.08,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-16",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 48.57,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-16",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 50.73,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-03-16",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 31.27,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-03-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-03-18",
+    "desc": "VDP-AVIVA HOME",
+    "desc2": "",
+    "debit": 340,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Home Insurance"
+   },
+   {
+    "date": "2026-03-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-03-20",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 26.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-03-20",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 21.2,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-03-23",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 41.4,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-23",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 55.88,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-03-23",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 50.03,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-03-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-03-25",
+    "desc": "PAYROLL BYRNE A BONUS",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2961.2,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-03-25",
+    "desc": "VDP-THREE IRELAND",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Aoife"
+   },
+   {
+    "date": "2026-03-25",
+    "desc": "VDP-VODAFONE IE",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Cian"
+   },
+   {
+    "date": "2026-03-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-03-28",
+    "desc": "D/D TROCAIRE",
+    "desc2": "",
+    "debit": 20,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Charity"
+   },
+   {
+    "date": "2026-04-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-04-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-04-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-04-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-04-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-04-02",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 71.17,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 67.03,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 50.14,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 52.77,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-04-02",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 32.05,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-04-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 23.9,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-04-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-04-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-04-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-04-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-04-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-04-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 77.2,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 31.43,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 67.13,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-09",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 60.08,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-04-09",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 28.97,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-04-09",
+    "desc": "VDC-DOUGLAS VET CLINIC",
+    "desc2": "",
+    "debit": 120,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Vet"
+   },
+   {
+    "date": "2026-04-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-04-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 8.84,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-04-11",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 49.06,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-04-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 16.06,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-04-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 89.35,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-04-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 56.9,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-04-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-04-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-04-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-04-16",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 76.46,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-16",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 36.12,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-16",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 88.8,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-16",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 41.8,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-04-16",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 28.78,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-04-17",
+    "desc": "VDP-AMAZON PRIME",
+    "desc2": "",
+    "debit": 8.99,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-04-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-04-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-04-20",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 9.75,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-04-20",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 31.4,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-04-20",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 32.81,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-04-23",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 61.77,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-23",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 43.86,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-23",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 74.07,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-04-23",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 27.53,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-04-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-04-25",
+    "desc": "VDP-THREE IRELAND",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Aoife"
+   },
+   {
+    "date": "2026-04-25",
+    "desc": "VDP-VODAFONE IE",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Cian"
+   },
+   {
+    "date": "2026-04-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-04-28",
+    "desc": "D/D TROCAIRE",
+    "desc2": "",
+    "debit": 20,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Charity"
+   },
+   {
+    "date": "2026-05-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-05-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-05-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-05-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 42.03,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 48.11,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 70.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 60.84,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 29.34,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 10.76,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 45.26,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 27.05,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-05-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-05-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-05-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-05-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-05-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 81.34,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 28.91,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 84.74,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-09",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 54.71,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-05-09",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 30.99,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-05-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-05-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 12.75,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-11",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 42.84,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 16.27,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 62.99,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-05-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 32.33,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-05-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-05-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-05-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-05-16",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 66.34,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-16",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 52.69,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-16",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 68.39,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-16",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 56.74,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-05-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-05-18",
+    "desc": "FEE-QTR TO 30MAY26",
+    "desc2": "",
+    "debit": 12,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Bank Fees"
+   },
+   {
+    "date": "2026-05-18",
+    "desc": "VDP-RYANAIR.COM",
+    "desc2": "",
+    "debit": 298,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-05-18",
+    "desc": "ATM-DOUGLAS COURT",
+    "desc2": "",
+    "debit": 100,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-05-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-05-20",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 13.12,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-20",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 52.15,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-20",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 13.24,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-05-23",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 51.1,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-23",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 38.61,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-23",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 83.47,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-05-23",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 43.77,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-05-23",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 32.42,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-05-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-05-25",
+    "desc": "VDP-THREE IRELAND",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Aoife"
+   },
+   {
+    "date": "2026-05-25",
+    "desc": "VDP-VODAFONE IE",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Cian"
+   },
+   {
+    "date": "2026-05-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-05-28",
+    "desc": "D/D TROCAIRE",
+    "desc2": "",
+    "debit": 20,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Charity"
+   },
+   {
+    "date": "2026-06-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-06-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-06-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-06-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-06-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-06-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 59.38,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 58.18,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 61.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-06-02",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 30.46,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-06-02",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 15.58,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 31.47,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-06-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-06-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-06-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-06-07",
+    "desc": "VDP-AXA MOTOR",
+    "desc2": "",
+    "debit": 720,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Car Insurance"
+   },
+   {
+    "date": "2026-06-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-06-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 54.27,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 66.21,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 84.16,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-09",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 43.46,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-06-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-06-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 11.75,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-11",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 26.52,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 13.57,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 51.16,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-06-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 21.24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-06-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-06-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-06-15",
+    "desc": "VDC-HALFORDS CORK",
+    "desc2": "",
+    "debit": 112,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-06-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-06-16",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 55.42,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-16",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 45.18,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-16",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 46.99,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-16",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 46.5,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-06-16",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 29.87,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-06-16",
+    "desc": "VDC-SMYTHS TOYS DOUGLAS",
+    "desc2": "",
+    "debit": 64,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-06-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-06-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-06-20",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 10.53,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-20",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 29.05,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-20",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 35.91,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-06-23",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 44.6,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-23",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 67.68,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-06-23",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 57.15,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-06-23",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 32.58,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-06-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-06-25",
+    "desc": "VDP-THREE IRELAND",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Aoife"
+   },
+   {
+    "date": "2026-06-25",
+    "desc": "VDP-VODAFONE IE",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Cian"
+   },
+   {
+    "date": "2026-06-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-06-28",
+    "desc": "D/D TROCAIRE",
+    "desc2": "",
+    "debit": 20,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Charity"
+   },
+   {
+    "date": "2026-07-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-07-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-07-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-07-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 68.05,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 39.19,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 93.91,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 41.84,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 31.35,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 47.72,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-07-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 18.42,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-07-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-07-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-07-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-07-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-07-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-07-08",
+    "desc": "VDP-AMAZON PRIME",
+    "desc2": "",
+    "debit": 8.99,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-07-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 82.01,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 64.42,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 68.04,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-09",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 59.47,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-07-09",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 30.73,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-07-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-07-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 9.09,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-07-11",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 49.75,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-07-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 25.67,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-07-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 48.86,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-07-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 18.31,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-07-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-07-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-07-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-07-16",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 62.86,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-16",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 38.14,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-16",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 73.04,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-16",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 49.29,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-07-16",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 29.19,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-07-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-07-18",
+    "desc": "VDC-DOUGLAS VET CLINIC",
+    "desc2": "",
+    "debit": 120,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Vet"
+   },
+   {
+    "date": "2026-07-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-07-20",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 10.52,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-07-23",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 62.2,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-23",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 47.36,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-23",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 58.69,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-07-23",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 56.43,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-07-23",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 27.04,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-07-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-07-25",
+    "desc": "VDP-THREE IRELAND",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Aoife"
+   },
+   {
+    "date": "2026-07-25",
+    "desc": "VDP-VODAFONE IE",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Phone - Cian"
+   },
+   {
+    "date": "2026-07-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-07-28",
+    "desc": "D/D TROCAIRE",
+    "desc2": "",
+    "debit": 20,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Charity"
+   },
+   {
+    "date": "2026-08-01",
+    "desc": "SO EMERGENCY FUND",
+    "desc2": "",
+    "debit": 300,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Emergency Fund"
+   },
+   {
+    "date": "2026-08-01",
+    "desc": "SO HOUSE DEPOSIT",
+    "desc2": "",
+    "debit": 450,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Home Improvements"
+   },
+   {
+    "date": "2026-08-01",
+    "desc": "SO KIDS CU",
+    "desc2": "",
+    "debit": 80,
+    "credit": 0,
+    "balance": "",
+    "type": "Standing Order",
+    "category": "Kids Savings"
+   },
+   {
+    "date": "2026-08-01",
+    "desc": "D/D AIB MORTGAGE",
+    "desc2": "",
+    "debit": 1518.02,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Mortgage"
+   },
+   {
+    "date": "2026-08-02",
+    "desc": "D/D BEN DUNNE GYM",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gym"
+   },
+   {
+    "date": "2026-08-02",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 65.27,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-08-02",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 65.16,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-08-02",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 60.7,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-08-02",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 32.78,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-08-02",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 18.22,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-08-02",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 20.09,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-08-03",
+    "desc": "D/D LITTLE ACORNS CRECHE",
+    "desc2": "",
+    "debit": 650,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Creche"
+   },
+   {
+    "date": "2026-08-03",
+    "desc": "FEE-QTR TO 29AUG26",
+    "desc2": "",
+    "debit": 12,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Bank Fees"
+   },
+   {
+    "date": "2026-08-06",
+    "desc": "D/D BOI CAR FINANCE",
+    "desc2": "",
+    "debit": 310,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Car Loan"
+   },
+   {
+    "date": "2026-08-06",
+    "desc": "D/D CORK CU LOAN",
+    "desc2": "",
+    "debit": 145,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Credit Union Loan"
+   },
+   {
+    "date": "2026-08-07",
+    "desc": "D/D DOUGLAS SWIM CLUB",
+    "desc2": "",
+    "debit": 65,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Swimming Lessons"
+   },
+   {
+    "date": "2026-08-08",
+    "desc": "D/D NETFLIX.COM",
+    "desc2": "",
+    "debit": 18,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Netflix"
+   },
+   {
+    "date": "2026-08-09",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 46.19,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-08-09",
+    "desc": "VDC-LIDL BALLINCOLLIG",
+    "desc2": "",
+    "debit": 49.28,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-08-09",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 76.41,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-08-09",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 32.61,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-08-11",
+    "desc": "D/D ALLIANZ PETCOVER",
+    "desc2": "",
+    "debit": 24,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Dog Insurance"
+   },
+   {
+    "date": "2026-08-11",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 10.93,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-08-11",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 16.5,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-08-12",
+    "desc": "D/D ELECTRIC IRELAND",
+    "desc2": "",
+    "debit": 56.29,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Electricity"
+   },
+   {
+    "date": "2026-08-12",
+    "desc": "D/D BORD GAIS ENERGY",
+    "desc2": "",
+    "debit": 22.42,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Gas"
+   },
+   {
+    "date": "2026-08-14",
+    "desc": "VDP-PROTON AG",
+    "desc2": "",
+    "debit": 8,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Cloud Storage"
+   },
+   {
+    "date": "2026-08-15",
+    "desc": "D/D CITY BIN CO",
+    "desc2": "",
+    "debit": 22,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Bins"
+   },
+   {
+    "date": "2026-08-16",
+    "desc": "VDP-Spotify",
+    "desc2": "",
+    "debit": 19,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Spotify"
+   },
+   {
+    "date": "2026-08-16",
+    "desc": "VDC-SUPERVALU DOUGLAS",
+    "desc2": "",
+    "debit": 73.34,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-08-16",
+    "desc": "VDC-TESCO WILTON",
+    "desc2": "",
+    "debit": 95.72,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Groceries"
+   },
+   {
+    "date": "2026-08-16",
+    "desc": "VDC-CIRCLE K DOUGLAS",
+    "desc2": "",
+    "debit": 53.78,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Diesel"
+   },
+   {
+    "date": "2026-08-16",
+    "desc": "VDC-LEAP TOP UP",
+    "desc2": "",
+    "debit": 28.1,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Leap Card"
+   },
+   {
+    "date": "2026-08-18",
+    "desc": "D/D SIRO FIBRE",
+    "desc2": "",
+    "debit": 45,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Broadband"
+   },
+   {
+    "date": "2026-08-18",
+    "desc": "ATM-DOUGLAS COURT",
+    "desc2": "",
+    "debit": 100,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": ""
+   },
+   {
+    "date": "2026-08-20",
+    "desc": "D/D IRISH LIFE HEALTH",
+    "desc2": "",
+    "debit": 168,
+    "credit": 0,
+    "balance": "",
+    "type": "Direct Debit",
+    "category": "Health Insurance"
+   },
+   {
+    "date": "2026-08-20",
+    "desc": "VDC-BARBAROSSA CAFE",
+    "desc2": "",
+    "debit": 11.13,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-08-20",
+    "desc": "VDA-THE FRANCISCAN WELL",
+    "desc2": "",
+    "debit": 51,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-08-20",
+    "desc": "VDC-TOM BARRYS",
+    "desc2": "",
+    "debit": 24.63,
+    "credit": 0,
+    "balance": "",
+    "type": "Debit",
+    "category": "Dining Out"
+   },
+   {
+    "date": "2026-08-25",
+    "desc": "PAYROLL BYRNE A",
+    "desc2": "",
+    "debit": 0,
+    "credit": 4075.47,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   },
+   {
+    "date": "2026-08-27",
+    "desc": "PAYROLL DOYLE C",
+    "desc2": "",
+    "debit": 0,
+    "credit": 2750.15,
+    "balance": "",
+    "type": "Credit",
+    "category": "Salary"
+   }
+  ],
+  "history": [
+   {
+    "month": "2024-01",
+    "category": "Electricity",
+    "amount": 151
+   },
+   {
+    "month": "2024-01",
+    "category": "Gas",
+    "amount": 118
+   },
+   {
+    "month": "2024-01",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-01",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-02",
+    "category": "Electricity",
+    "amount": 144
+   },
+   {
+    "month": "2024-02",
+    "category": "Gas",
+    "amount": 109
+   },
+   {
+    "month": "2024-02",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-02",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-03",
+    "category": "Electricity",
+    "amount": 126
+   },
+   {
+    "month": "2024-03",
+    "category": "Gas",
+    "amount": 92
+   },
+   {
+    "month": "2024-03",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-03",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-04",
+    "category": "Electricity",
+    "amount": 95
+   },
+   {
+    "month": "2024-04",
+    "category": "Gas",
+    "amount": 61
+   },
+   {
+    "month": "2024-04",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-04",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-05",
+    "category": "Electricity",
+    "amount": 71
+   },
+   {
+    "month": "2024-05",
+    "category": "Gas",
+    "amount": 35
+   },
+   {
+    "month": "2024-05",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-05",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-06",
+    "category": "Electricity",
+    "amount": 55
+   },
+   {
+    "month": "2024-06",
+    "category": "Gas",
+    "amount": 22
+   },
+   {
+    "month": "2024-06",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-06",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-07",
+    "category": "Electricity",
+    "amount": 52
+   },
+   {
+    "month": "2024-07",
+    "category": "Gas",
+    "amount": 19
+   },
+   {
+    "month": "2024-07",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-07",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-08",
+    "category": "Electricity",
+    "amount": 58
+   },
+   {
+    "month": "2024-08",
+    "category": "Gas",
+    "amount": 23
+   },
+   {
+    "month": "2024-08",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-08",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-09",
+    "category": "Electricity",
+    "amount": 73
+   },
+   {
+    "month": "2024-09",
+    "category": "Gas",
+    "amount": 38
+   },
+   {
+    "month": "2024-09",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-09",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-10",
+    "category": "Electricity",
+    "amount": 99
+   },
+   {
+    "month": "2024-10",
+    "category": "Gas",
+    "amount": 64
+   },
+   {
+    "month": "2024-10",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-10",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-11",
+    "category": "Electricity",
+    "amount": 128
+   },
+   {
+    "month": "2024-11",
+    "category": "Gas",
+    "amount": 96
+   },
+   {
+    "month": "2024-11",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-11",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2024-12",
+    "category": "Electricity",
+    "amount": 147
+   },
+   {
+    "month": "2024-12",
+    "category": "Gas",
+    "amount": 114
+   },
+   {
+    "month": "2024-12",
+    "category": "Broadband",
+    "amount": 39
+   },
+   {
+    "month": "2024-12",
+    "category": "Health Insurance",
+    "amount": 151
+   },
+   {
+    "month": "2025-01",
+    "category": "Electricity",
+    "amount": 158
+   },
+   {
+    "month": "2025-01",
+    "category": "Gas",
+    "amount": 121
+   },
+   {
+    "month": "2025-01",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-01",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-02",
+    "category": "Electricity",
+    "amount": 149
+   },
+   {
+    "month": "2025-02",
+    "category": "Gas",
+    "amount": 113
+   },
+   {
+    "month": "2025-02",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-02",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-03",
+    "category": "Electricity",
+    "amount": 131
+   },
+   {
+    "month": "2025-03",
+    "category": "Gas",
+    "amount": 95
+   },
+   {
+    "month": "2025-03",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-03",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-04",
+    "category": "Electricity",
+    "amount": 97
+   },
+   {
+    "month": "2025-04",
+    "category": "Gas",
+    "amount": 63
+   },
+   {
+    "month": "2025-04",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-04",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-05",
+    "category": "Electricity",
+    "amount": 69
+   },
+   {
+    "month": "2025-05",
+    "category": "Gas",
+    "amount": 34
+   },
+   {
+    "month": "2025-05",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-05",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-06",
+    "category": "Electricity",
+    "amount": 54
+   },
+   {
+    "month": "2025-06",
+    "category": "Gas",
+    "amount": 20
+   },
+   {
+    "month": "2025-06",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-06",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-07",
+    "category": "Electricity",
+    "amount": 51
+   },
+   {
+    "month": "2025-07",
+    "category": "Gas",
+    "amount": 18
+   },
+   {
+    "month": "2025-07",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-07",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-08",
+    "category": "Electricity",
+    "amount": 56
+   },
+   {
+    "month": "2025-08",
+    "category": "Gas",
+    "amount": 24
+   },
+   {
+    "month": "2025-08",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-08",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-09",
+    "category": "Electricity",
+    "amount": 75
+   },
+   {
+    "month": "2025-09",
+    "category": "Gas",
+    "amount": 41
+   },
+   {
+    "month": "2025-09",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-09",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-10",
+    "category": "Electricity",
+    "amount": 104
+   },
+   {
+    "month": "2025-10",
+    "category": "Gas",
+    "amount": 69
+   },
+   {
+    "month": "2025-10",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-10",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-11",
+    "category": "Electricity",
+    "amount": 133
+   },
+   {
+    "month": "2025-11",
+    "category": "Gas",
+    "amount": 99
+   },
+   {
+    "month": "2025-11",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-11",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2025-12",
+    "category": "Electricity",
+    "amount": 152
+   },
+   {
+    "month": "2025-12",
+    "category": "Gas",
+    "amount": 119
+   },
+   {
+    "month": "2025-12",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2025-12",
+    "category": "Health Insurance",
+    "amount": 162
+   },
+   {
+    "month": "2026-01",
+    "category": "Electricity",
+    "amount": 148
+   },
+   {
+    "month": "2026-01",
+    "category": "Gas",
+    "amount": 112
+   },
+   {
+    "month": "2026-01",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-01",
+    "category": "Health Insurance",
+    "amount": 168
+   },
+   {
+    "month": "2026-02",
+    "category": "Electricity",
+    "amount": 139
+   },
+   {
+    "month": "2026-02",
+    "category": "Gas",
+    "amount": 104
+   },
+   {
+    "month": "2026-02",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-02",
+    "category": "Health Insurance",
+    "amount": 168
+   },
+   {
+    "month": "2026-03",
+    "category": "Electricity",
+    "amount": 121
+   },
+   {
+    "month": "2026-03",
+    "category": "Gas",
+    "amount": 88
+   },
+   {
+    "month": "2026-03",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-03",
+    "category": "Health Insurance",
+    "amount": 168
+   },
+   {
+    "month": "2026-04",
+    "category": "Electricity",
+    "amount": 88
+   },
+   {
+    "month": "2026-04",
+    "category": "Gas",
+    "amount": 57
+   },
+   {
+    "month": "2026-04",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-04",
+    "category": "Health Insurance",
+    "amount": 168
+   },
+   {
+    "month": "2026-05",
+    "category": "Electricity",
+    "amount": 64
+   },
+   {
+    "month": "2026-05",
+    "category": "Gas",
+    "amount": 32
+   },
+   {
+    "month": "2026-05",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-05",
+    "category": "Health Insurance",
+    "amount": 168
+   },
+   {
+    "month": "2026-06",
+    "category": "Electricity",
+    "amount": 52
+   },
+   {
+    "month": "2026-06",
+    "category": "Gas",
+    "amount": 21
+   },
+   {
+    "month": "2026-06",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-06",
+    "category": "Health Insurance",
+    "amount": 168
+   },
+   {
+    "month": "2026-07",
+    "category": "Electricity",
+    "amount": 49
+   },
+   {
+    "month": "2026-07",
+    "category": "Gas",
+    "amount": 18
+   },
+   {
+    "month": "2026-07",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-07",
+    "category": "Health Insurance",
+    "amount": 168
+   },
+   {
+    "month": "2026-08",
+    "category": "Electricity",
+    "amount": 57
+   },
+   {
+    "month": "2026-08",
+    "category": "Gas",
+    "amount": 22
+   },
+   {
+    "month": "2026-08",
+    "category": "Broadband",
+    "amount": 45
+   },
+   {
+    "month": "2026-08",
+    "category": "Health Insurance",
+    "amount": 168
+   }
+  ],
+  "analysis": {
+   "from": "2026-01-01",
+   "to": "2026-09-01"
+  },
+  "accounts": [
+   {
+    "id": "a1",
+    "name": "Joint current",
+    "owner": "Joint",
+    "bank": "AIB",
+    "type": "Current",
+    "iban": "IE29AIBK93115212345678",
+    "bic": "AIBKIE2D",
+    "notes": "Bills and direct debits"
+   },
+   {
+    "id": "a2",
+    "name": "Aoife personal",
+    "owner": "Aoife",
+    "bank": "Revolut",
+    "type": "Current",
+    "iban": "IE64IRCE92050112345678",
+    "bic": "REVOIE23",
+    "notes": "Salary lands here"
+   },
+   {
+    "id": "a3",
+    "name": "Cian personal",
+    "owner": "Cian",
+    "bank": "Bank of Ireland",
+    "type": "Current",
+    "iban": "IE12BOFI90000112345678",
+    "bic": "BOFIIE2D",
+    "notes": ""
+   },
+   {
+    "id": "a4",
+    "name": "Home improvements",
+    "owner": "Joint",
+    "bank": "An Post",
+    "type": "Savings",
+    "iban": "IE86PBST99999112345678",
+    "bic": "",
+    "notes": "Do not touch"
+   },
+   {
+    "id": "a5",
+    "name": "Kids credit union",
+    "owner": "Joint",
+    "bank": "Cork CU",
+    "type": "Credit Union",
+    "iban": "",
+    "bic": "",
+    "notes": "Member no. 44812"
+   }
+  ],
+  "payees": [
+   {
+    "id": "p1",
+    "name": "Murphy Plumbing",
+    "owner": "Sean Murphy",
+    "bank": "Bank of Ireland",
+    "type": "Current",
+    "iban": "IE12BOFI90000187654321",
+    "bic": "BOFIIE2D",
+    "notes": "Kitchen job, invoice on completion"
+   },
+   {
+    "id": "p2",
+    "name": "Little Acorns Creche",
+    "owner": "Little Acorns Ltd",
+    "bank": "AIB",
+    "type": "Current",
+    "iban": "IE29AIBK93115287654321",
+    "bic": "AIBKIE2D",
+    "notes": "Monthly, 3rd"
+   },
+   {
+    "id": "p3",
+    "name": "Douglas Swim Club",
+    "owner": "Douglas Swim Club",
+    "bank": "Cork CU",
+    "type": "Current",
+    "iban": "",
+    "bic": "",
+    "notes": "Term fees"
+   },
+   {
+    "id": "p4",
+    "name": "Mam",
+    "owner": "Mary Byrne",
+    "bank": "AIB",
+    "type": "Current",
+    "iban": "IE29AIBK93115211112222",
+    "bic": "",
+    "notes": "Birthdays, odds and ends"
+   }
+  ],
+  "energy": {
+   "bands": {
+    "nightStart": 23,
+    "nightEnd": 8,
+    "peakStart": 17,
+    "peakEnd": 19
+   },
+   "vat": 9,
+   "summary": {
+    "mprn": "10014385328",
+    "from": "2025-08-01",
+    "to": "2026-07-31",
+    "months": 12,
+    "intervals": 17520,
+    "intervalMins": 30,
+    "day": 2299.09,
+    "night": 745.08,
+    "peak": 753.43,
+    "total": 3797.6,
+    "byMonth": [
+     {
+      "month": "2025-08",
+      "day": 149.32,
+      "night": 49.36,
+      "peak": 48.64,
+      "total": 247.32
+     },
+     {
+      "month": "2025-09",
+      "day": 181.56,
+      "night": 57.96,
+      "peak": 59.67,
+      "total": 299.19
+     },
+     {
+      "month": "2025-10",
+      "day": 186.32,
+      "night": 60.26,
+      "peak": 60.42,
+      "total": 307.01
+     },
+     {
+      "month": "2025-11",
+      "day": 241.99,
+      "night": 79.12,
+      "peak": 79.33,
+      "total": 400.45
+     },
+     {
+      "month": "2025-12",
+      "day": 250.2,
+      "night": 81.58,
+      "peak": 83.44,
+      "total": 415.22
+     },
+     {
+      "month": "2026-01",
+      "day": 253.29,
+      "night": 80.57,
+      "peak": 84.32,
+      "total": 418.18
+     },
+     {
+      "month": "2026-02",
+      "day": 229.21,
+      "night": 72.85,
+      "peak": 72.53,
+      "total": 374.59
+     },
+     {
+      "month": "2026-03",
+      "day": 186.99,
+      "night": 60.4,
+      "peak": 61.86,
+      "total": 309.24
+     },
+     {
+      "month": "2026-04",
+      "day": 178.49,
+      "night": 58.53,
+      "peak": 60.31,
+      "total": 297.33
+     },
+     {
+      "month": "2026-05",
+      "day": 149.52,
+      "night": 49.09,
+      "peak": 48.56,
+      "total": 247.18
+     },
+     {
+      "month": "2026-06",
+      "day": 142.79,
+      "night": 47.35,
+      "peak": 45.96,
+      "total": 236.11
+     },
+     {
+      "month": "2026-07",
+      "day": 149.4,
+      "night": 48.01,
+      "peak": 48.37,
+      "total": 245.78
+     }
+    ],
+    "profile": [
+     0.096,
+     0.097,
+     0.096,
+     0.096,
+     0.096,
+     0.097,
+     0.097,
+     0.096,
+     0.099,
+     0.096,
+     0.096,
+     0.096,
+     0.097,
+     0.098,
+     0.095,
+     0.4,
+     0.396,
+     0.226,
+     0.227,
+     0.222,
+     0.229,
+     0.226,
+     0.222,
+     0.224,
+     0.229,
+     0.229,
+     0.226,
+     0.227,
+     0.224,
+     0.23,
+     0.227,
+     0.226,
+     0.228,
+     0.61,
+     0.616,
+     0.616,
+     0.607,
+     0.226,
+     0.223,
+     0.224,
+     0.225,
+     0.226,
+     0.224,
+     0.226,
+     0.227,
+     0.097,
+     0.097,
+     0.097
+    ],
+    "importedAt": "2026-08-22"
+   },
+   "offers": [
+    {
+     "id": "e1",
+     "name": "SSE Airtricity smart",
+     "day": 38.33,
+     "night": 24.63,
+     "peak": 42.93,
+     "standing": 265,
+     "discount": 0,
+     "incVat": true,
+     "current": true
+    },
+    {
+     "id": "e2",
+     "name": "Electric Ireland 24hr",
+     "day": 25.86,
+     "night": 25.86,
+     "peak": 25.86,
+     "standing": 280,
+     "discount": 0,
+     "incVat": true
+    },
+    {
+     "id": "e3",
+     "name": "Bord Gais smart saver",
+     "day": 32.65,
+     "night": 20.98,
+     "peak": 36.5,
+     "standing": 250,
+     "discount": 12,
+     "incVat": true
+    },
+    {
+     "id": "e4",
+     "name": "Pinergy night boost",
+     "day": 35.1,
+     "night": 14.62,
+     "peak": 44.2,
+     "standing": 242,
+     "discount": 0,
+     "incVat": true
+    }
+   ],
+   "mprn": "10014385328"
+  },
+  "maternity": {
+   "enabled": false,
+   "personId": "",
+   "start": "",
+   "paidWeeks": 26,
+   "unpaidWeeks": 0,
+   "stateWeekly": 299,
+   "stateWeeks": 26,
+   "benefitTaxPct": 20,
+   "employerPhases": [],
+   "pausePension": true,
+   "pauseSavings": false
+  }
+ }
+}

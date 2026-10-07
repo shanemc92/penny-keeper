@@ -1,0 +1,30 @@
+<body>
+<a class="sr" href="#pages">Skip to content</a>
+<div class="app">
+  <aside class="side" id="side" aria-label="Main menu">
+    <div class="brand"><!--@LOGO--><div>Penny Keeper<small>Take care of the pennies...</small></div></div>
+    <div class="yearbox">
+      <select id="yearSel" aria-label="Tax year"></select>
+      <button class="btn sm" id="newYear" title="Start a new tax year - your bills, loans and savings carry over">+ Year</button>
+    </div>
+    <nav id="tabs" aria-label="Sections"></nav>
+    <div class="grow"></div>
+    <div class="sidefoot" id="sidefoot"></div>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <button class="btn burger" id="burger" aria-label="Show or hide the menu" aria-controls="side" title="Show or hide the menu">&#9776;</button>
+      <div class="crumb" id="crumb"></div>
+      <span class="status" id="status"></span>
+      <button class="btn sm" id="helpBtn" title="Help, glossary and a quick tour">? Help</button>
+      <button class="btn sm" id="themeBtn">Dark</button>
+    </div>
+    <main id="pages"></main>
+  </div>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Help"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+<div id="spot"></div><div id="tourcard" role="dialog"></div>
+<div id="tipbox" role="tooltip"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

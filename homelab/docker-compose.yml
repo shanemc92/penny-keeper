@@ -1,0 +1,33 @@
+services:
+  penny-keeper:
+    image: ghcr.io/shanemc92/penny-keeper:latest
+    # To build locally instead of pulling, comment the image line above, uncomment
+    # these, and run `docker compose up -d --build`. The context is the repo root
+    # because the image serves the index.html that lives there:
+    # build:
+    #   context: ..
+    #   dockerfile: homelab/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/data
+    environment:
+      # The server will not start without one of AUTH_TOKEN or ALLOW_NO_AUTH,
+      # so that "no auth" is always a decision rather than an oversight.
+      #
+      # This deployment runs behind a reverse proxy with forward auth, which
+      # already authenticates every request before it reaches the container,
+      # so there is no second secret to check here.
+      ALLOW_NO_AUTH: "1"
+      # If you expose this port anywhere the proxy does not cover, swap the
+      # line above for a real token:
+      #
+      #   AUTH_TOKEN: ${AUTH_TOKEN:?AUTH_TOKEN is not set - see homelab/README.md}
+      #
+      # generated with `openssl rand -hex 32` and kept in a .env file next to
+      # this compose file. Note the page does not send the token yet - see the
+      # security notes in homelab/README.md before turning it on, or sync will
+      # start failing with 401s.
+      PORT: "8080"
+      DATA_DIR: "/data"

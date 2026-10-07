@@ -1,0 +1,71 @@
+name: Build and test
+
+# index.html is generated from src/ by build.py, so nobody has to remember to run it. On every push to main
+# this rebuilds the page, runs the tests, and commits index.html (and tests/run.html) back if the sources
+# changed it. Pull requests are built and tested but not committed to.
+#
+# The commit is made with the repository's own GITHUB_TOKEN, and a push made that way does not start other
+# workflows - which is why docker-publish.yml listens for THIS workflow finishing instead of for pushes.
+# If main is protected so that nothing may push to it directly, either allow github-actions[bot] to bypass
+# the rule or run `python build.py` before committing and let this workflow just verify it.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'demo/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'build.py'
+      - 'homelab/**'
+      - '.github/workflows/build.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'demo/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'build.py'
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build and test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # to commit the rebuilt index.html; pull requests from forks get a read-only token regardless
+    steps:
+      # Pinned to a full commit SHA, like the shared static-checks workflow: a tag can be repointed, a SHA cannot.
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # python3 and node are on the runner already; build.py, the tests and the checks use only their standard libraries.
+      - name: Build index.html from src/
+        run: python3 build.py
+
+      - name: Maths tests
+        run: node tests/run.js
+
+      - name: Page checks (compiles, no duplicate functions, self-contained)
+        run: node tests/page.js
+
+      - name: Colour contrast (light and dark themes)
+        run: python3 tests/contrast.py
+
+      - name: Commit the rebuilt page
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- index.html tests/run.html; then
+            echo "index.html is already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html tests/run.html
+          git commit -m "Rebuild index.html from src [skip ci]"
+          git push

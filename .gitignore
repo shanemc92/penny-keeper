@@ -1,0 +1,3 @@
+# The live data file the homelab server writes - never commit this.
+/data/
+homelab/data/

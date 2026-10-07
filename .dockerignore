@@ -1,0 +1,17 @@
+# The image needs index.html and homelab/server.js and nothing else. Screenshots and
+# the demo file are the bulk of the repo, so keeping them out keeps the build context
+# small; data/ is here as well so local data can never be sent to the daemon.
+.git
+.github
+docs
+demo
+data
+homelab/data
+homelab/README.md
+homelab/docker-compose.yml
+README.md
+LICENSE
+.gitignore
+src
+tests
+build.py
