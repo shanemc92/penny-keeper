@@ -47,7 +47,7 @@ function renderReliefs(el){
     const age = num(p.age);
     const lim = age ? pensionLimitPct(age) : 0;
     const allowed = lim/100 * Math.min(num(p.gross)+num(p.bonus), PENSION_EARNINGS_CAP);   // relevant earnings include a bonus
-    const paid = num(p.gross)*num(p.pensionPct)/100 + num(p.avcMonthly)*12;
+    const paid = num(p.gross)*num(p.pensionPct)/100 + avcYearly(p);
     const head = Math.max(allowed-paid,0);
     return `<tr>
       <td><b>${esc(p.name)}</b></td>

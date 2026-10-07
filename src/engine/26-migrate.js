@@ -127,6 +127,7 @@ function migrateEasy(y){
     if(y.taxBands[k]===undefined) y.taxBands[k] = preset[k];
   });
   y.people.forEach(p=>{ if(!p.status) p.status = guessStatus(p, y.taxBands); });
+  y.people.forEach(p=>{ if(p.avcMode!=='percent') p.avcMode = 'amount'; p.avcPct = num(p.avcPct); });   // AVC: a set amount a month, or a % of gross
   /* the disposable-income tracker */
   if(!y.disposable || typeof y.disposable!=='object') y.disposable = blankDisposable();
   const dp = y.disposable;

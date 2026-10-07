@@ -226,7 +226,7 @@ If `main` is protected against direct pushes, let `github-actions[bot]` bypass t
   and never touches your data.
 - Editing a box and pressing Tab keeps your place: the page rebuilds after the field is committed and puts
   focus back, so you can fill a form with the keyboard.
-- Light and dark themes (follows your device on first visit), keyboard focus states, works down to a 320px
+- Light and dark themes (light to start with; switch in the top bar), keyboard focus states, works down to a 320px
   screen, and has a print stylesheet.
 
 ## Maternity leave notes

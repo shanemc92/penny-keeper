@@ -63,7 +63,10 @@ function renderTax(el){
           <div class="hint">Your workplace pension contribution.</div></label>
       </div>
       <div class="grid g4">
-        <label class="f"><span>AVC / month</span><input class="num" data-path="people.${i}.avcMonthly" data-type="number" value="${num(p.avcMonthly)||''}" placeholder="0"></label>
+        <label class="f"><span>AVC</span>
+          <div style="display:flex;gap:6px"><input class="num" style="min-width:0" data-path="people.${i}.${p.avcMode==='percent'?'avcPct':'avcMonthly'}" data-type="number" inputmode="decimal" step="${p.avcMode==='percent'?'0.5':'1'}" value="${num(p.avcMode==='percent'?p.avcPct:p.avcMonthly)||''}" placeholder="0">
+            <select data-path="people.${i}.avcMode" aria-label="AVC: set amount or percentage" style="width:auto;flex:none"><option value="amount" ${p.avcMode==='percent'?'':'selected'}>${esc(CUR)} a month</option><option value="percent" ${p.avcMode==='percent'?'selected':''}>% of gross</option></select></div>
+          ${avcYearly(p)>0 ? `<div class="hint">${p.avcMode==='percent' ? '= '+fmt(avcYearly(p)/12)+' a month' : (num(p.gross)>0 ? '= '+pct(avcYearly(p)/num(p.gross)*100)+' of gross' : '')}</div>` : ''}</label>
         <label class="f"><span>BIK / month</span><input class="num" data-path="people.${i}.bikMonthly" data-type="number" value="${num(p.bikMonthly)||''}" placeholder="0"></label>
         <label class="f"><span>Bonus (gross)</span><input class="num" data-path="people.${i}.bonus" data-type="number" value="${num(p.bonus)||''}" placeholder="0"></label>
         ${status==='custom'?`<label class="f"><span>Standard rate band</span><input class="num" data-path="people.${i}.srcop" data-type="number" value="${num(p.srcop)}"></label>`:''}

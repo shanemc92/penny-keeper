@@ -154,7 +154,7 @@ function renderSetup(el){
 
 function addPerson(){
   const p = presetFor(Y.year);
-  Y.people.push({id:uid(), name:'Person '+(Y.people.length+1), gross:0, pensionPct:0, avcMonthly:0,
+  Y.people.push({id:uid(), name:'Person '+(Y.people.length+1), gross:0, pensionPct:0, avcMode:'amount', avcMonthly:0, avcPct:0,
     bikMonthly:0, srcop:p.srcopSingle, status:'single', personalType:'single', bonus:0,
     credits:[{name:'Personal Tax Credit',amount:p.personalCredit},{name:'Employee Tax Credit',amount:p.employeeCredit}]});
   save(); render();

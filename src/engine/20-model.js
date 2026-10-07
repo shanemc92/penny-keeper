@@ -6,7 +6,7 @@ function blankYear(year, seed){
     currency: '€',
     taxBands: p,
     people: seed ? seed.people : [
-      {id:uid(), name:'Person 1', gross:0, pensionPct:0, avcMonthly:0, bikMonthly:0,
+      {id:uid(), name:'Person 1', gross:0, pensionPct:0, avcMode:'amount', avcMonthly:0, avcPct:0, bikMonthly:0,
        srcop:p.srcopSingle, credits:[{name:'Personal Tax Credit',amount:p.personalCredit},{name:'Employee Tax Credit',amount:p.employeeCredit}],
        bonus:0}
     ],
@@ -104,7 +104,7 @@ function load(){
   try{ DB = JSON.parse(storedDB()); }catch(e){ DB = null; }
   if(!DB || !DB.years || !Object.keys(DB.years).length){
     const y = new Date().getFullYear();
-    DB = {version:1, active:String(y), theme:(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light', years:{}};
+    DB = {version:1, active:String(y), theme:'light', years:{}};   // light until someone picks dark - it does not follow the device setting
     DB.years[String(y)] = blankYear(y);
   }
   if(!DB.years[DB.active]) DB.active = Object.keys(DB.years).sort()[0];

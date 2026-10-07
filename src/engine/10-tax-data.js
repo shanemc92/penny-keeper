@@ -110,10 +110,15 @@ const BAND_STATUS = {
   custom:  {label:'Something else (type it in)',            pick:null}
 };
 
+/* A person's AVC for the year. Either a set amount each month (the default, and what every older save holds),
+   or a percentage of gross salary - the same base the workplace pension % uses. Both figures are kept, so
+   switching the mode back and forth does not lose what was typed. */
+const avcYearly = p => p.avcMode==='percent' ? num(p.gross)*(num(p.avcPct)/100) : num(p.avcMonthly)*12;
+
 /* Income that the standard rate band is measured against: pay plus benefit-in-kind, less pension and AVC. */
 function taxableOf(p){
   const gross = num(p.gross);
-  return gross + num(p.bikMonthly)*12 - gross*(num(p.pensionPct)/100) - num(p.avcMonthly)*12;
+  return gross + num(p.bikMonthly)*12 - gross*(num(p.pensionPct)/100) - avcYearly(p);
 }
 /* The standard rate band that really applies to a person.
    Two people marked "married, both working" share the couple's allowance the way Revenue's limit works:

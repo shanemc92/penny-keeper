@@ -612,10 +612,15 @@ const BAND_STATUS = {
   custom:  {label:'Something else (type it in)',            pick:null}
 };
 
+/* A person's AVC for the year. Either a set amount each month (the default, and what every older save holds),
+   or a percentage of gross salary - the same base the workplace pension % uses. Both figures are kept, so
+   switching the mode back and forth does not lose what was typed. */
+const avcYearly = p => p.avcMode==='percent' ? num(p.gross)*(num(p.avcPct)/100) : num(p.avcMonthly)*12;
+
 /* Income that the standard rate band is measured against: pay plus benefit-in-kind, less pension and AVC. */
 function taxableOf(p){
   const gross = num(p.gross);
-  return gross + num(p.bikMonthly)*12 - gross*(num(p.pensionPct)/100) - num(p.avcMonthly)*12;
+  return gross + num(p.bikMonthly)*12 - gross*(num(p.pensionPct)/100) - avcYearly(p);
 }
 /* The standard rate band that really applies to a person.
    Two people marked "married, both working" share the couple's allowance the way Revenue's limit works:
@@ -705,7 +710,7 @@ function blankYear(year, seed){
     currency: '€',
     taxBands: p,
     people: seed ? seed.people : [
-      {id:uid(), name:'Person 1', gross:0, pensionPct:0, avcMonthly:0, bikMonthly:0,
+      {id:uid(), name:'Person 1', gross:0, pensionPct:0, avcMode:'amount', avcMonthly:0, avcPct:0, bikMonthly:0,
        srcop:p.srcopSingle, credits:[{name:'Personal Tax Credit',amount:p.personalCredit},{name:'Employee Tax Credit',amount:p.employeeCredit}],
        bonus:0}
     ],
@@ -803,7 +808,7 @@ function load(){
   try{ DB = JSON.parse(storedDB()); }catch(e){ DB = null; }
   if(!DB || !DB.years || !Object.keys(DB.years).length){
     const y = new Date().getFullYear();
-    DB = {version:1, active:String(y), theme:(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light', years:{}};
+    DB = {version:1, active:String(y), theme:'light', years:{}};   // light until someone picks dark - it does not follow the device setting
     DB.years[String(y)] = blankYear(y);
   }
   if(!DB.years[DB.active]) DB.active = Object.keys(DB.years).sort()[0];
@@ -1001,6 +1006,7 @@ function migrateEasy(y){
     if(y.taxBands[k]===undefined) y.taxBands[k] = preset[k];
   });
   y.people.forEach(p=>{ if(!p.status) p.status = guessStatus(p, y.taxBands); });
+  y.people.forEach(p=>{ if(p.avcMode!=='percent') p.avcMode = 'amount'; p.avcPct = num(p.avcPct); });   // AVC: a set amount a month, or a % of gross
   /* the disposable-income tracker */
   if(!y.disposable || typeof y.disposable!=='object') y.disposable = blankDisposable();
   const dp = y.disposable;
@@ -1186,7 +1192,7 @@ function calcTax(person, bands){
   const gross = num(p.gross);
   const bik = num(p.bikMonthly)*12;
   const pension = gross*(num(p.pensionPct)/100);
-  const avc = num(p.avcMonthly)*12;
+  const avc = avcYearly(p);
   const grossPay = gross + bik;                       // incl. notional pay
   const taxable = grossPay - pension - avc;
   const srcop = effectiveSrcop(p, b);                 // the band that applies to this person
@@ -2745,7 +2751,7 @@ const LABEL_TIPS = {
   'yearly salary (before tax)':'Your yearly pay before anything is taken off. It is on your contract and at the top of your payslip. Only know the monthly figure? Multiply by 12.',
   'pension %':'The percentage of your pay that goes into a workplace pension. It reduces your income tax, so it costs you less than it looks.',
   'pension (% of salary)':'The percentage of your pay that goes into a workplace pension. It reduces your income tax, so it costs you less than it looks.',
-  'avc / month':'Additional Voluntary Contributions: extra pension payments you make yourself each month. They also get tax relief, up to age-based limits.',
+  'avc':'Additional Voluntary Contributions: extra pension payments you make yourself. Enter a set amount each month, or switch to a percentage of your gross salary (the same basis as your workplace pension %). They also get tax relief, up to age-based limits.',
   'bik / month':'Benefit-in-kind: the monthly taxable value of perks from your employer, such as a company car or health insurance. See your payslip.',
   'standard rate band':'How much of your income is taxed at the lower 20% rate. Anything above it is taxed at 40%. It depends on your situation: single, married or a single parent.',
   'standard rate band (single)':'How much income is taxed at the lower 20% rate for a single person. Above it, 40% applies.',
@@ -3600,7 +3606,7 @@ function renderSetup(el){
 
 function addPerson(){
   const p = presetFor(Y.year);
-  Y.people.push({id:uid(), name:'Person '+(Y.people.length+1), gross:0, pensionPct:0, avcMonthly:0,
+  Y.people.push({id:uid(), name:'Person '+(Y.people.length+1), gross:0, pensionPct:0, avcMode:'amount', avcMonthly:0, avcPct:0,
     bikMonthly:0, srcop:p.srcopSingle, status:'single', personalType:'single', bonus:0,
     credits:[{name:'Personal Tax Credit',amount:p.personalCredit},{name:'Employee Tax Credit',amount:p.employeeCredit}]});
   save(); render();
@@ -3683,7 +3689,10 @@ function renderTax(el){
           <div class="hint">Your workplace pension contribution.</div></label>
       </div>
       <div class="grid g4">
-        <label class="f"><span>AVC / month</span><input class="num" data-path="people.${i}.avcMonthly" data-type="number" value="${num(p.avcMonthly)||''}" placeholder="0"></label>
+        <label class="f"><span>AVC</span>
+          <div style="display:flex;gap:6px"><input class="num" style="min-width:0" data-path="people.${i}.${p.avcMode==='percent'?'avcPct':'avcMonthly'}" data-type="number" inputmode="decimal" step="${p.avcMode==='percent'?'0.5':'1'}" value="${num(p.avcMode==='percent'?p.avcPct:p.avcMonthly)||''}" placeholder="0">
+            <select data-path="people.${i}.avcMode" aria-label="AVC: set amount or percentage" style="width:auto;flex:none"><option value="amount" ${p.avcMode==='percent'?'':'selected'}>${esc(CUR)} a month</option><option value="percent" ${p.avcMode==='percent'?'selected':''}>% of gross</option></select></div>
+          ${avcYearly(p)>0 ? `<div class="hint">${p.avcMode==='percent' ? '= '+fmt(avcYearly(p)/12)+' a month' : (num(p.gross)>0 ? '= '+pct(avcYearly(p)/num(p.gross)*100)+' of gross' : '')}</div>` : ''}</label>
         <label class="f"><span>BIK / month</span><input class="num" data-path="people.${i}.bikMonthly" data-type="number" value="${num(p.bikMonthly)||''}" placeholder="0"></label>
         <label class="f"><span>Bonus (gross)</span><input class="num" data-path="people.${i}.bonus" data-type="number" value="${num(p.bonus)||''}" placeholder="0"></label>
         ${status==='custom'?`<label class="f"><span>Standard rate band</span><input class="num" data-path="people.${i}.srcop" data-type="number" value="${num(p.srcop)}"></label>`:''}
@@ -6116,7 +6125,7 @@ function renderReliefs(el){
     const age = num(p.age);
     const lim = age ? pensionLimitPct(age) : 0;
     const allowed = lim/100 * Math.min(num(p.gross)+num(p.bonus), PENSION_EARNINGS_CAP);   // relevant earnings include a bonus
-    const paid = num(p.gross)*num(p.pensionPct)/100 + num(p.avcMonthly)*12;
+    const paid = num(p.gross)*num(p.pensionPct)/100 + avcYearly(p);
     const head = Math.max(allowed-paid,0);
     return `<tr>
       <td><b>${esc(p.name)}</b></td>

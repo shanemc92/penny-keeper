@@ -12,7 +12,7 @@ function calcTax(person, bands){
   const gross = num(p.gross);
   const bik = num(p.bikMonthly)*12;
   const pension = gross*(num(p.pensionPct)/100);
-  const avc = num(p.avcMonthly)*12;
+  const avc = avcYearly(p);
   const grossPay = gross + bik;                       // incl. notional pay
   const taxable = grossPay - pension - avc;
   const srcop = effectiveSrcop(p, b);                 // the band that applies to this person

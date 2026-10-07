@@ -249,6 +249,39 @@ function runMathsTests(){
     const H = household(); near(H.left, H.net - 1200);
   });
 
+  /* ---------------- AVC: a set amount a month, or a percentage of gross ---------------- */
+  test('AVC: a percentage of gross gives the same tax as the equivalent monthly amount', () => {
+    fresh(2026);
+    const asAmount = calcTax(person({gross:60000, avcMonthly:250}), b26);                 // 3,000 a year
+    const asPct = calcTax(person({gross:60000, avcMode:'percent', avcPct:5}), b26);       // 5% of 60,000
+    near(asPct.avc, 3000); near(asAmount.avc, 3000);
+    near(asPct.taxable, 57000);
+    near(asPct.netMonthly, asAmount.netMonthly);
+    near(asPct.paye, asAmount.paye);
+  });
+  test('AVC: older people with no mode set are read as a monthly amount, and the unused figure is ignored', () => {
+    fresh(2026);
+    near(avcYearly({gross:60000, avcMonthly:100}), 1200);                                  // no avcMode, as in every older save
+    near(avcYearly({gross:60000, avcMode:'amount', avcMonthly:100, avcPct:9}), 1200);      // the % left behind does nothing
+    near(avcYearly({gross:60000, avcMode:'percent', avcMonthly:100, avcPct:2.5}), 1500);   // and the amount left behind does nothing
+    near(avcYearly({gross:0, avcMode:'percent', avcPct:5}), 0);
+  });
+  test('AVC: a percentage follows the salary, and counts against the standard rate band like any pension payment', () => {
+    fresh(2026);
+    const p = person({gross:50000, avcMode:'percent', avcPct:10});
+    near(taxableOf(p), 45000);
+    near(taxableOf(Object.assign({}, p, {gross:60000})), 54000);
+    near(calcTax(p, b26).taxable, taxableOf(p));
+  });
+  test('AVC: restoring fills in the mode, and keeps both figures', () => {
+    fresh(2026);
+    Y.people = [person({gross:50000, avcMonthly:80}), person({id:'b', name:'B', gross:50000, avcMode:'percent', avcPct:'4'})];
+    delete Y.people[0].avcMode;
+    migrate(Y);
+    same([Y.people[0].avcMode, Y.people[0].avcMonthly, Y.people[0].avcPct], ['amount', 80, 0]);
+    same([Y.people[1].avcMode, Y.people[1].avcPct], ['percent', 4]);
+  });
+
   /* ---------------- disposable income ---------------- */
   test('a new year starts with the maternity planner on and an empty disposable-income tracker', () => {
     fresh(2026);

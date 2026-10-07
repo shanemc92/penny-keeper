@@ -113,7 +113,7 @@ const LABEL_TIPS = {
   'yearly salary (before tax)':'Your yearly pay before anything is taken off. It is on your contract and at the top of your payslip. Only know the monthly figure? Multiply by 12.',
   'pension %':'The percentage of your pay that goes into a workplace pension. It reduces your income tax, so it costs you less than it looks.',
   'pension (% of salary)':'The percentage of your pay that goes into a workplace pension. It reduces your income tax, so it costs you less than it looks.',
-  'avc / month':'Additional Voluntary Contributions: extra pension payments you make yourself each month. They also get tax relief, up to age-based limits.',
+  'avc':'Additional Voluntary Contributions: extra pension payments you make yourself. Enter a set amount each month, or switch to a percentage of your gross salary (the same basis as your workplace pension %). They also get tax relief, up to age-based limits.',
   'bik / month':'Benefit-in-kind: the monthly taxable value of perks from your employer, such as a company car or health insurance. See your payslip.',
   'standard rate band':'How much of your income is taxed at the lower 20% rate. Anything above it is taxed at 40%. It depends on your situation: single, married or a single parent.',
   'standard rate band (single)':'How much income is taxed at the lower 20% rate for a single person. Above it, 40% applies.',
