@@ -18,6 +18,7 @@ function blankYear(year, seed){
     mortgages: seed ? seed.mortgages : [],
     savings: seed ? seed.savings : {startDate: year+'-01-01', months:24, growthPct:0, accounts:[]},
     maternity: seed ? seed.maternity : blankMaternity(),
+    disposable: seed ? seed.disposable : blankDisposable(),
     renewals: seed ? seed.renewals : blankRenewals(),
     rules: seed ? seed.rules : [],
     accounts: seed ? seed.accounts : [],
@@ -44,10 +45,11 @@ function blankEnergy(){
 
 /* Maternity Benefit is taxable but exempt from PRSI and USC - Revenue collects the
    tax by reducing credits and rate band, which usually works out at the 20% rate
-   while income is down. 2026 rate is 299 a week for 26 weeks, plus up to 16 unpaid. */
+   while income is down. 2026 rate is 299 a week for 26 weeks, plus up to 16 unpaid.
+   The page is on by default and can be switched off in Backup & settings. */
 function blankMaternity(){
   return {
-    enabled:false, personId:'', start:'',
+    enabled:true, personId:'', start:'',
     paidWeeks:26, unpaidWeeks:0,
     stateWeekly:299, stateWeeks:26, benefitTaxPct:20,
     employerPhases:[],

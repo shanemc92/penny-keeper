@@ -108,6 +108,10 @@ function renderSetup(el){
       <div><h2 style="margin:0">${sp.done===sp.total?'You are all set up 🎉':'Getting started'}</h2>
         <div class="note" style="margin:4px 0 0">${sp.done} of ${sp.total} steps complete. ${sp.done===sp.total?'Everything else is optional - explore from the menu.':'Take them in order, or open any step.'}</div></div>
     </div>
+    ${DB.ui.hideSetup
+      ? `<div class="row" style="margin-top:12px;align-items:center"><button class="btn" id="showSetup">Show the set-up guide in the menu again</button><span class="hint" style="margin:0">It is hidden from the menu at the moment.</span></div>`
+      : sp.done===sp.total
+        ? `<div class="row" style="margin-top:12px;align-items:center"><button class="btn" id="hideSetup">Hide the set-up guide</button><span class="hint" style="margin:0">Takes it out of the menu. You can bring it back any time in Backup &amp; settings.</span></div>` : ''}
   </div>
   ${sp.steps.map(s=>`<div class="step ${s.ok?'done':''} ${(sp.next&&sp.next.id===s.id)?'cur':''} ${open===s.id?'open':''}" data-step="${s.id}">
     <header data-toggle="${s.id}" tabindex="0" role="button" aria-expanded="${open===s.id}">
@@ -144,6 +148,8 @@ function renderSetup(el){
   if($('#addBlankBill')) $('#addBlankBill').onclick = ()=>{ Y.bills.push({id:uid(), name:'New bill', freq:'Monthly', holder:'Joint', amount:0, nextDue:'', kind:'bill'}); save(); render(); };
   if($('#markCredits')) $('#markCredits').onclick = ()=>{ DB.ui.done = DB.ui.done||{}; DB.ui.done.credits = !DB.ui.done.credits; save(true); render(); };
   if($('#setupBackup')) $('#setupBackup').onclick = ()=>{ backupAll(); render(); };
+  if($('#hideSetup')) $('#hideSetup').onclick = ()=>{ DB.ui.hideSetup = true; save(true); go('dashboard'); toast('Set-up guide hidden - bring it back in Backup & settings'); };
+  if($('#showSetup')) $('#showSetup').onclick = ()=>{ DB.ui.hideSetup = false; save(true); render(); toast('The set-up guide is back in the menu'); };
 }
 
 function addPerson(){

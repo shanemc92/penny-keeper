@@ -97,8 +97,10 @@ function renderData(el){
       <label class="f"><span>Theme</span><select id="themeSel"><option value="light" ${DB.theme==='light'?'selected':''}>Light</option><option value="dark" ${DB.theme==='dark'?'selected':''}>Dark</option></select></label>
       <label class="f"><span>Currency</span><input data-path="currency" value="${esc(Y.currency)}" maxlength="3"></label>
     </div>
-    <label style="display:flex;gap:8px;align-items:flex-start;margin-top:4px"><input type="checkbox" id="matToggle" ${Y.maternity.enabled?'checked':''} style="margin-top:4px">
-      <span><b>Maternity leave planner</b><span class="hint" style="display:block;margin:0">Models a period of leave - State benefit, employer top-up and the monthly shortfall. Adds a page to "More tools".</span></span></label>
+    <label style="display:flex;gap:8px;align-items:flex-start;margin-top:4px"><input type="checkbox" id="setupToggle" ${DB.ui.hideSetup?'':'checked'} style="margin-top:4px">
+      <span><b>Show the set-up guide in the menu</b><span class="hint" style="display:block;margin:0">Turn this off once you are set up to keep the menu shorter. You can turn it back on here whenever you like.</span></span></label>
+    <label style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><input type="checkbox" id="matToggle" ${Y.maternity.enabled?'checked':''} style="margin-top:4px">
+      <span><b>Maternity leave planner</b><span class="hint" style="display:block;margin:0">Models a period of leave - State benefit, employer top-up and the monthly shortfall. Shown under "More tools"; turn it off if you do not need it.</span></span></label>
     <div class="row" style="margin-top:12px"><button class="btn" id="replayTour">Replay the app tour</button><button class="btn" id="replayWelcome">Show the welcome screen</button></div>
   </div>
 
@@ -188,6 +190,11 @@ function renderData(el){
     Y.maternity.enabled = e.target.checked;
     save(); render();
     if(e.target.checked) toast('Maternity leave added under More tools');
+  };
+  $('#setupToggle').onchange = e=>{
+    DB.ui.hideSetup = !e.target.checked;
+    save(true); render();
+    toast(e.target.checked ? 'The set-up guide is back in the menu' : 'Set-up guide hidden from the menu');
   };
   $('#replayTour').onclick = startTour;
   $('#replayWelcome').onclick = showWelcome;

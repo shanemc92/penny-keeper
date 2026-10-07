@@ -9,7 +9,7 @@ function init(){
   applyTheme();
   $('#pages').innerHTML = ALL_TABS.map(([id])=>`<section id="tab-${id}" aria-label="${esc(id)}"></section>`).join('');
   Object.assign(RENDERERS, {
-    dashboard:renderDashboard, setup:renderSetup, tax:renderTax, budget:renderBudget, bank:renderBank,
+    dashboard:renderDashboard, setup:renderSetup, tax:renderTax, budget:renderBudget, disposable:renderDisposable, bank:renderBank,
     renewals:renderRenewals, savings:renderSavingsPage, loans:renderLoans, mortgage:renderMortgage,
     networth:renderNetWorth, reliefs:renderReliefs, energy:renderEnergy, history:renderHistory,
     accounts:renderAccounts, maternity:renderMaternity, tracker:renderTracker, data:renderData

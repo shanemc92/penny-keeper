@@ -6,7 +6,9 @@ to someone without handing over real finances.
 A two-income household for 2026:
 
 - 2 earners (68,000 and 41,000 gross), one with a March bonus
-- 27 bills and 3 savings commitments, across weekly, monthly, quarterly and annual frequencies
+- 23 bills and 3 savings commitments, across weekly, monthly, quarterly and annual frequencies
+- A disposable-income tracker: 8 subscriptions (streaming, a gym, an AI plan...) and 20 meals out, takeaways and
+  other treats logged across August to October, shared between the two of them
 - 401 bank transactions from January to 20 August, 45 distinct merchants, with 38 category rules
   that apply themselves on load
 - A mortgage: 295,000 drawn down in September 2023 over 30 years, fixed at 4.05% until December

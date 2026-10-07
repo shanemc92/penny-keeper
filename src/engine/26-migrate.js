@@ -127,4 +127,21 @@ function migrateEasy(y){
     if(y.taxBands[k]===undefined) y.taxBands[k] = preset[k];
   });
   y.people.forEach(p=>{ if(!p.status) p.status = guessStatus(p, y.taxBands); });
+  /* the disposable-income tracker */
+  if(!y.disposable || typeof y.disposable!=='object') y.disposable = blankDisposable();
+  const dp = y.disposable;
+  if(!Array.isArray(dp.items)) dp.items = [];
+  if(!Array.isArray(dp.entries)) dp.entries = [];
+  dp.items.forEach(it=>{
+    if(!it.id) it.id = uid();
+    it.name = String(it.name||''); it.amount = num(it.amount);
+    it.who = it.who ? String(it.who) : 'Joint';
+    if(!FREQ[it.freq]) it.freq = 'Monthly';
+  });
+  dp.entries.forEach(e=>{
+    if(!e.id) e.id = uid();
+    e.date = String(e.date||''); e.what = String(e.what||''); e.amount = num(e.amount);
+    e.who = e.who ? String(e.who) : 'Joint';
+    if(!DISPOSABLE_CATS.some(c=>c[0]===e.category)) e.category = 'Other';
+  });
 }

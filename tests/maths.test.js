@@ -249,6 +249,84 @@ function runMathsTests(){
     const H = household(); near(H.left, H.net - 1200);
   });
 
+  /* ---------------- disposable income ---------------- */
+  test('a new year starts with the maternity planner on and an empty disposable-income tracker', () => {
+    fresh(2026);
+    same(Y.maternity.enabled, true);
+    same(Y.disposable, {items:[], entries:[]});
+  });
+  test('disposable: a subscription costs its yearly total over 12, whatever it is charged by', () => {
+    near(dispMonthly({amount:18, freq:'Monthly'}), 18);
+    near(dispMonthly({amount:99, freq:'Annual'}), 8.25);
+    near(dispMonthly({amount:10, freq:'Weekly'}), 520/12);
+    near(dispMonthly({amount:30, freq:'Quarterly'}), 10);
+  });
+  test('disposable: the household has its spare money, less subscriptions, less what was logged that month', () => {
+    fresh(2026);
+    Y.people = [person({gross:60000})];
+    Y.bills = [{id:'1', name:'Rent', freq:'Monthly', amount:1000, holder:'Joint', kind:'bill'}, {id:'2', name:'Save', freq:'Monthly', amount:200, holder:'Joint', kind:'savings'}];
+    Y.disposable.items = [{id:'s', name:'Netflix', amount:18, freq:'Monthly', who:'Joint'}, {id:'t', name:'Prime', amount:96, freq:'Annual', who:'Joint'}];
+    Y.disposable.entries = [{id:'a', date:'2026-09-03', what:'Lunch', category:'Eating out', who:'Joint', amount:64},
+                            {id:'b', date:'2026-09-20', what:'Chipper', category:'Takeaways', who:'Joint', amount:40.5},
+                            {id:'c', date:'2026-08-30', what:'Not this month', category:'Eating out', who:'Joint', amount:999}];
+    const H = household(), S = disposableSummary('2026-09').household;
+    near(S.spare, H.left);
+    near(S.subs, 26);
+    near(S.spent, 104.5);
+    near(S.left, H.left - 26 - 104.5);
+    near(disposableSummary('2026-08').household.spent, 999);
+    near(disposableSummary('2026-07').household.spent, 0);
+  });
+  test('disposable: per person - own items plus a share of Joint ones, and the people add up to the household', () => {
+    fresh(2026);
+    Y.people = [person({id:'a', name:'A', gross:60000}), person({id:'b', name:'B', gross:30000})];
+    Y.bills = [{id:'1', name:'Rent', freq:'Monthly', amount:1000, holder:'Joint', kind:'bill'}, {id:'2', name:'Phone', freq:'Monthly', amount:40, holder:'A', kind:'bill'},
+               {id:'3', name:'Save', freq:'Monthly', amount:100, holder:'Joint', kind:'savings'}];
+    Y.disposable.items = [{id:'s', name:'Gym', amount:40, freq:'Monthly', who:'A'}, {id:'t', name:'Netflix', amount:20, freq:'Monthly', who:'Joint'}];
+    Y.disposable.entries = [{id:'a', date:'2026-09-05', what:'Dinner', category:'Eating out', who:'Joint', amount:100},
+                            {id:'b', date:'2026-09-06', what:'Coffee', category:'Coffee & snacks', who:'A', amount:30},
+                            {id:'c', date:'2026-09-07', what:'Pints', category:'Drinks & nights out', who:'B', amount:50},
+                            {id:'d', date:'2026-08-07', what:'Last month', category:'Eating out', who:'B', amount:999}];
+    const S = disposableSummary('2026-09'), sh = jointShares().shares, [ra, rb] = S.rows;
+    near(ra.spentOwn, 30); near(ra.spentShared, 100*sh[0]); near(ra.spent, 30 + 100*sh[0]);
+    near(rb.spent, 50 + 100*sh[1]);
+    near(ra.subs, 40 + 20*sh[0]); near(rb.subs, 20*sh[1]);
+    near(ra.spare + rb.spare, S.household.spare, 0.01, 'spare money adds up to what the household has left');
+    near(ra.left + rb.left, S.household.left, 0.01, 'what is left adds up');
+    near(ra.spent + rb.spent, S.household.spent);
+    // the same spare money the Bills page shows each person as "left over", before any of this
+    const nets = Y.people.map(p => calcTax(p, Y.taxBands).netMonthly), bt = billTotals('bill'), sp = savingsSplit();
+    near(ra.spare, nets[0] - bt.joint/12*sh[0] - 40 - sp.rows[0].total);
+  });
+  test('disposable: categories are totalled biggest first, and something for someone who has gone still counts for the household', () => {
+    fresh(2026);
+    Y.people = [person({gross:60000})];
+    Y.disposable.entries = [{id:'a', date:'2026-09-05', category:'Takeaways', who:'Joint', amount:30}, {id:'b', date:'2026-09-09', category:'Eating out', who:'Joint', amount:80},
+                            {id:'c', date:'2026-09-12', category:'Takeaways', who:'Joint', amount:25}, {id:'d', date:'2026-09-14', category:'Gifts', who:'Ghost', amount:10}];
+    const S = disposableSummary('2026-09');
+    same(S.byCategory.map(c => [c.name, c.amount, c.count]), [['Eating out', 80, 1], ['Takeaways', 55, 2], ['Gifts', 10, 1]]);
+    near(S.stray, 10); near(S.household.spent, 145);
+    same(S.entries.map(e => e.date), ['2026-09-14', '2026-09-12', '2026-09-09', '2026-09-05']);
+  });
+  test('disposable: the month shown is this one, or else the latest month that has anything logged', () => {
+    fresh(2026);
+    const now = monthKey(new Date());
+    same(dispDefaultMonth(), now);                                              // nothing logged at all
+    Y.disposable.entries = [{id:'a', date:'2026-03-02', category:'Gifts', who:'Joint', amount:5}, {id:'b', date:'2026-05-02', category:'Gifts', who:'Joint', amount:5}];
+    same(dispDefaultMonth(), '2026-05');
+    Y.disposable.entries.push({id:'c', date:iso(new Date()), category:'Gifts', who:'Joint', amount:5});
+    same(dispDefaultMonth(), now);
+    same(dispMonths()[0] >= dispMonths()[dispMonths().length-1], true);        // newest first
+  });
+  test('disposable: restoring tidies up entries and subscriptions', () => {
+    fresh(2026);
+    Y.disposable = {items:[{name:'X', amount:'12', freq:'Fortnightly-ish'}], entries:[{date:'2026-09-01', amount:'5.5', category:'Nonsense'}]};
+    migrate(Y);
+    same([Y.disposable.items[0].amount, Y.disposable.items[0].freq, Y.disposable.items[0].who, !!Y.disposable.items[0].id], [12, 'Monthly', 'Joint', true]);
+    same([Y.disposable.entries[0].amount, Y.disposable.entries[0].category, Y.disposable.entries[0].who, Y.disposable.entries[0].what], [5.5, 'Other', 'Joint', '']);
+    Y.disposable = undefined; migrate(Y); same(Y.disposable, {items:[], entries:[]});
+  });
+
   /* ---------------- savings goals, projections, reliefs ---------------- */
   test('a goal needs the remaining amount spread over the months left', () => {
     near(goalFigures({target:2400, saved:400, due:iso(addMonths(new Date(), 10))}).monthly, 200);

@@ -4,6 +4,7 @@ const NAV = [
   {title:'Money in & out', items:[
     ['tax','💶','Take-home pay','Salary, tax and what you keep'],
     ['budget','🧾','Bills & budget','What you spend and save'],
+    ['disposable','🛍️','Disposable income','Where spare money goes'],
     ['bank','🏦','Spending','Import a bank statement'],
     ['renewals','🔔','Renewals','Contracts ending soon']]},
   {title:'Saving & borrowing', items:[
@@ -23,6 +24,8 @@ const NAV = [
 const ALL_TABS = NAV.flatMap(g=>g.items);
 /* the optional maternity page is switched on in Backup & settings */
 const tabEnabled = id => id!=='maternity' || !!(Y.maternity && Y.maternity.enabled);
+/* the set-up guide can be hidden from the menu once it is done (and brought back in Backup & settings); links to it still open it */
+const navVisible = id => tabEnabled(id) && (id!=='setup' || !DB.ui.hideSetup);
 let active = 'dashboard';
 const charts = [];   // redraw hooks for theme/resize
 let RO = null, redrawTimer = null;
@@ -41,7 +44,7 @@ function observeCharts(){
 function renderTabs(){
   const sp = setupProgress();
   $('#tabs').innerHTML = NAV.map(g=>{
-    const items = g.items.filter(([id])=>tabEnabled(id));
+    const items = g.items.filter(([id])=>navVisible(id));
     if(!items.length) return '';
     return `<div class="navgroup">${g.title?`<h6>${esc(g.title)}</h6>`:''}${items.map(([id,ico,label,sub])=>{
       const badge = id==='setup' ? (sp.done===sp.total ? '<span class="ok" title="All done">✓</span>' : `<span class="dot" title="${sp.done} of ${sp.total} steps done"></span>`) : '';
@@ -174,6 +177,7 @@ function wireFields(root){
       if(/^people\.\d+\.name$/.test(el.dataset.path) && ref[key] !== v){
         const old = ref[key];
         Y.bills.forEach(b=>{ if(b.holder===old) b.holder = v; });
+        Y.disposable.items.concat(Y.disposable.entries).forEach(x=>{ if(x.who===old) x.who = v; });
       }
       ref[key] = v;
       save();

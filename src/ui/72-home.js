@@ -28,9 +28,9 @@ function renderDashboard(el){
 
   const upcoming = comingUp(30);
   const nudges = [];
-  if(blank) nudges.push(callout('tipc','🚀','Welcome! Nothing is entered yet','Start with the set-up guide - it takes about five minutes and the whole app comes to life.',
-    `<button class="btn primary" data-go="setup">Start the set-up guide</button> <button class="btn" id="homeDemo">Or see an example household</button>`));
-  else if(sp.done<sp.total && sp.next) nudges.push(callout('tipc','🧭',`Set-up is ${Math.round(sp.done/sp.total*100)}% done`,
+  if(blank) nudges.push(callout('tipc','🚀','Welcome! Nothing is entered yet',DB.ui.hideSetup ? 'Add your pay and bills to get going, or look around with an example household.' : 'Start with the set-up guide - it takes about five minutes and the whole app comes to life.',
+    (DB.ui.hideSetup ? `<button class="btn primary" data-go="tax">Add your salary</button> ` : `<button class="btn primary" data-go="setup">Start the set-up guide</button> `)+`<button class="btn" id="homeDemo">${DB.ui.hideSetup?'See':'Or see'} an example household</button>`));
+  else if(sp.done<sp.total && sp.next && !DB.ui.hideSetup) nudges.push(callout('tipc','🧭',`Set-up is ${Math.round(sp.done/sp.total*100)}% done`,
     `Next up: <b>${esc(sp.next.title)}</b> - ${esc(sp.next.sub.toLowerCase())}.`,
     `<button class="btn primary sm" data-go="setup">Continue set-up</button>`));
   if(!blank && (lb===null || lb>30)) nudges.push(callout('warn','💾', lb===null?'You have not backed up yet':'Your last backup was '+lb+' days ago',

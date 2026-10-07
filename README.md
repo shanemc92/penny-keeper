@@ -21,6 +21,9 @@ phone or a laptop.
   figures. Savings are kept apart from bills. Shared bills can be split three ways: by share of net income, by
   percentages you choose, or so everyone is left with the same spending money each week. A *year ahead* view
   shows which months yearly bills like motor tax and insurance land in. Common Irish bills can be added in a tap.
+- **Disposable income** - what is left after bills and savings, and where it goes. Keep a list of subscriptions
+  (streaming, a gym, an AI plan), log meals out, takeaways and treats as they happen, and see each month by
+  category and per person, with anything shared split the same way as your joint bills.
 - **Spending** - import a CSV statement from your bank, teach it your categories with simple rules, and see
   real spending against your budget. Duplicates are skipped when you re-import.
 - **Renewals** and **Bill history** - when contracts end so you can switch in time, and what bills really cost
@@ -50,6 +53,7 @@ phone or a laptop.
   actually used.
 - **Accounts & payees** - bank accounts and the people and companies you pay, with IBANs masked and checked.
 - **Maternity leave** - plan the cash flow of a period of leave: State benefit, employer top-up, what is left.
+  On by default; switch it off in Backup & settings if you do not need it.
 - **Budget tracker** - plan and track a renovation, a wedding or a build: stages and items with a budget and
   an actual cost, funding sources, a forecast, and how much is left. Files from the standalone [Budget Tracker](https://github.com/shanemc92/budget-tracker)
   import unchanged.
@@ -59,7 +63,8 @@ start a new tax year with your bills carried over, or make a what-if copy of a y
 
 ## Made to be easy to pick up
 
-- A welcome screen, a five-step **Set-up guide** and a short tour.
+- A welcome screen, a five-step **Set-up guide** (hide it from the menu once you are done, and bring it back in
+  Backup & settings) and a short tour.
 - Boxes the maths is waiting on are outlined in **amber**, with a count at the top of the page.
 - A **?** tooltip beside most labels, a "How this page works" panel on every page, and a built-in glossary.
 - A menu grouped by what you want to do, each item with a one-line description. Fold it away on a big screen.
@@ -74,12 +79,13 @@ start a new tax year with your bills carried over, or make a what-if copy of a y
 | Bills & budget | Credits & reliefs |
 | ![Savings and goals](docs/screenshots/savings-desktop.jpg) | ![Net worth](docs/screenshots/networth-desktop.jpg) |
 | Savings & goals | Net worth |
-| ![Budget tracker](docs/screenshots/tracker-desktop.jpg) | |
-| Budget tracker | |
+| ![Budget tracker](docs/screenshots/tracker-desktop.jpg) | ![Disposable income](docs/screenshots/disposable-desktop.jpg) |
+| Budget tracker | Disposable income |
 
 <p align="center">
   <img src="docs/screenshots/home-mobile.jpg" width="220" alt="Home on a phone">
   <img src="docs/screenshots/tracker-mobile.jpg" width="220" alt="Budget tracker on a phone">
+  <img src="docs/screenshots/disposable-mobile.jpg" width="220" alt="Disposable income on a phone">
 </p>
 
 ## Running it

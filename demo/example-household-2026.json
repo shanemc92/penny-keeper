@@ -246,33 +246,6 @@
     "kind": "bill"
    },
    {
-    "id": "b18",
-    "name": "Netflix",
-    "freq": "Monthly",
-    "holder": "Joint",
-    "amount": 18,
-    "nextDue": "2026-09-08",
-    "kind": "bill"
-   },
-   {
-    "id": "b19",
-    "name": "Spotify",
-    "freq": "Monthly",
-    "holder": "Joint",
-    "amount": 19,
-    "nextDue": "2026-09-16",
-    "kind": "bill"
-   },
-   {
-    "id": "b20",
-    "name": "Gym",
-    "freq": "Monthly",
-    "holder": "Aoife",
-    "amount": 45,
-    "nextDue": "2026-09-02",
-    "kind": "bill"
-   },
-   {
     "id": "b21",
     "name": "Dog Insurance",
     "freq": "Monthly",
@@ -297,15 +270,6 @@
     "holder": "Joint",
     "amount": 65,
     "nextDue": "2026-09-07",
-    "kind": "bill"
-   },
-   {
-    "id": "b24",
-    "name": "Cloud Storage",
-    "freq": "Monthly",
-    "holder": "Cian",
-    "amount": 8,
-    "nextDue": "",
     "kind": "bill"
    },
    {
@@ -5601,7 +5565,7 @@
    "mprn": "10014385328"
   },
   "maternity": {
-   "enabled": false,
+   "enabled": true,
    "personId": "",
    "start": "",
    "paidWeeks": 26,
@@ -5612,6 +5576,228 @@
    "employerPhases": [],
    "pausePension": true,
    "pauseSavings": false
+  },
+  "disposable": {
+   "items": [
+    {
+     "id": "ds1",
+     "name": "Netflix",
+     "amount": 18,
+     "freq": "Monthly",
+     "who": "Joint"
+    },
+    {
+     "id": "ds2",
+     "name": "Spotify",
+     "amount": 19,
+     "freq": "Monthly",
+     "who": "Joint"
+    },
+    {
+     "id": "ds3",
+     "name": "Gym",
+     "amount": 45,
+     "freq": "Monthly",
+     "who": "Aoife"
+    },
+    {
+     "id": "ds4",
+     "name": "Cloud Storage",
+     "amount": 8,
+     "freq": "Monthly",
+     "who": "Cian"
+    },
+    {
+     "id": "ds5",
+     "name": "Disney+",
+     "amount": 11.99,
+     "freq": "Monthly",
+     "who": "Joint"
+    },
+    {
+     "id": "ds6",
+     "name": "Amazon Prime",
+     "amount": 99,
+     "freq": "Annual",
+     "who": "Joint"
+    },
+    {
+     "id": "ds7",
+     "name": "Claude Pro",
+     "amount": 18,
+     "freq": "Monthly",
+     "who": "Cian"
+    },
+    {
+     "id": "ds8",
+     "name": "Audible",
+     "amount": 7.99,
+     "freq": "Monthly",
+     "who": "Aoife"
+    }
+   ],
+   "entries": [
+    {
+     "id": "de1",
+     "date": "2026-08-09",
+     "what": "Lunch out",
+     "category": "Eating out",
+     "who": "Joint",
+     "amount": 38.5
+    },
+    {
+     "id": "de2",
+     "date": "2026-08-15",
+     "what": "Takeaway",
+     "category": "Takeaways",
+     "who": "Joint",
+     "amount": 33
+    },
+    {
+     "id": "de3",
+     "date": "2026-08-22",
+     "what": "Pints",
+     "category": "Drinks & nights out",
+     "who": "Cian",
+     "amount": 27
+    },
+    {
+     "id": "de4",
+     "date": "2026-08-29",
+     "what": "Coffees",
+     "category": "Coffee & snacks",
+     "who": "Aoife",
+     "amount": 12.6
+    },
+    {
+     "id": "de5",
+     "date": "2026-09-01",
+     "what": "Sunday lunch",
+     "category": "Eating out",
+     "who": "Joint",
+     "amount": 64
+    },
+    {
+     "id": "de6",
+     "date": "2026-09-06",
+     "what": "Takeaway curry",
+     "category": "Takeaways",
+     "who": "Joint",
+     "amount": 41.5
+    },
+    {
+     "id": "de7",
+     "date": "2026-09-08",
+     "what": "Coffees",
+     "category": "Coffee & snacks",
+     "who": "Aoife",
+     "amount": 14.2
+    },
+    {
+     "id": "de8",
+     "date": "2026-09-12",
+     "what": "Night out",
+     "category": "Drinks & nights out",
+     "who": "Cian",
+     "amount": 58
+    },
+    {
+     "id": "de9",
+     "date": "2026-09-13",
+     "what": "Night out",
+     "category": "Drinks & nights out",
+     "who": "Aoife",
+     "amount": 52
+    },
+    {
+     "id": "de10",
+     "date": "2026-09-15",
+     "what": "Hair appointment",
+     "category": "Personal care",
+     "who": "Aoife",
+     "amount": 65
+    },
+    {
+     "id": "de11",
+     "date": "2026-09-19",
+     "what": "Football tickets",
+     "category": "Entertainment",
+     "who": "Cian",
+     "amount": 48
+    },
+    {
+     "id": "de12",
+     "date": "2026-09-20",
+     "what": "Brunch",
+     "category": "Eating out",
+     "who": "Joint",
+     "amount": 42
+    },
+    {
+     "id": "de13",
+     "date": "2026-09-24",
+     "what": "Takeaway pizza",
+     "category": "Takeaways",
+     "who": "Joint",
+     "amount": 29.9
+    },
+    {
+     "id": "de14",
+     "date": "2026-09-27",
+     "what": "Clothes shopping",
+     "category": "Shopping & clothes",
+     "who": "Aoife",
+     "amount": 89
+    },
+    {
+     "id": "de15",
+     "date": "2026-10-02",
+     "what": "Date night - Italian",
+     "category": "Eating out",
+     "who": "Joint",
+     "amount": 78.5
+    },
+    {
+     "id": "de16",
+     "date": "2026-10-03",
+     "what": "Chipper Friday",
+     "category": "Takeaways",
+     "who": "Joint",
+     "amount": 34.8
+    },
+    {
+     "id": "de17",
+     "date": "2026-10-04",
+     "what": "Coffees",
+     "category": "Coffee & snacks",
+     "who": "Aoife",
+     "amount": 11.4
+    },
+    {
+     "id": "de18",
+     "date": "2026-10-05",
+     "what": "Pints after five-a-side",
+     "category": "Drinks & nights out",
+     "who": "Cian",
+     "amount": 36
+    },
+    {
+     "id": "de19",
+     "date": "2026-10-06",
+     "what": "Birthday present",
+     "category": "Gifts",
+     "who": "Joint",
+     "amount": 45
+    },
+    {
+     "id": "de20",
+     "date": "2026-10-06",
+     "what": "Cinema",
+     "category": "Entertainment",
+     "who": "Joint",
+     "amount": 26
+    }
+   ]
   }
  }
 }
