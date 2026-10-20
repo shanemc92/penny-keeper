@@ -216,13 +216,17 @@ function runMathsTests(){
     const ya = yearAhead();
     near(ya.months[3].total, 9500/12); near(ya.months.reduce((s, m) => s + m.total, 0), 9500);
   });
-  test('year ahead: a dated yearly bill lands once, a weekly bill about 52 times', () => {
+  test('year ahead: a dated yearly bill lands once, a weekly bill lands once a week until the window closes', () => {
     fresh(2026); Y.bills = billSet();
     Y.bills[4].nextDue = iso(addMonths(new Date(), 3)); Y.bills[0].nextDue = iso(new Date());
     const ya = yearAhead();
     same(ya.months.filter(m => m.items.some(i => i.name === 'Annual')).length, 1);
     const weeks = ya.months.reduce((s, m) => s + m.items.filter(i => i.name === 'Weekly').reduce((q, i) => q + i.count, 0), 0);
-    if(weeks < 52 || weeks > 53) throw new Error('weekly bill counted ' + weeks + ' times');
+    // The window is the rest of this month plus eleven more, so it only holds a full year on the 1st. Count
+    // the weeks it really holds instead of assuming 52 or 53, which made this fail from mid-month onwards.
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const end = addMonths(new Date(today.getFullYear(), today.getMonth(), 1), 12);
+    same(weeks, Math.ceil(daysBetween(today, end) / 7));
   });
   test('joint bills: income split follows net pay, shares total one', () => {
     fresh(2026);
