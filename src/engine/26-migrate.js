@@ -100,6 +100,7 @@ function ensureDB(){
   delete DB.ui.mode;                                   // the old Simple / Full switch no longer exists
   if(!DB.ui.done || typeof DB.ui.done!=='object') DB.ui.done = {};
   DB.tracker = trackerNormalise(DB.tracker) || trackerBlank();         // Budget tracker projects
+  DB.payslips = psStore(DB.payslips);                                  // saved payslips and the one being worked on
   if(!DB.netWorth || typeof DB.netWorth!=='object') DB.netWorth = {};
   ['assets','liabs','snaps'].forEach(k=>{ if(!Array.isArray(DB.netWorth[k])) DB.netWorth[k] = []; });
   DB.netWorth.assets.forEach(a=>{ if(!a.id) a.id = uid(); });

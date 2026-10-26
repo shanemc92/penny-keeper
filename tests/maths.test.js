@@ -479,5 +479,143 @@ function runMathsTests(){
     same([fmt(-0.3, 0), fmt(-5.4, 0), fmt(1234.5)], ['€0', '-€5', '€1,234.50']);
   });
 
+  /* ---------------- payslips ---------------- */
+  /* Sage's published sample payslip (week 42, 17 October 2024): the figures are theirs, the names are placeholders. */
+  const sageSample = () => {
+    const p = psBlank('sage');
+    p.employer = {name:'Example Ltd', regNo:'123456'};
+    p.employee = {name:'Soap, Joe', number:'023', dept:'11', cost:'ACC', ppsn:'1234567T'};
+    p.period = {freq:'W', number:42, date:'2024-10-17', method:'Cheque'};
+    p.payments = [psNewPay('basic', 1750)];
+    const d = (kind, amount, ytd) => { const x = psNewDed(kind, amount); x.ytd = ytd; return x; };
+    p.deductions = [d('paye', 534.61, 24481.55), d('prsi', 71.75, 3149.35), d('usc', 66.14, 2980.68)];
+    p.cum = {gross:78570.04, nonTaxDeds:0, taxable:78570.04, credit:1938.72, cutoff:25038.72, taxPaid:24481.55};
+    p.tax = Object.assign(p.tax, {status:'N', creditPeriod:46.16, prsiClass:'A1', insWeeks:34});
+    p.er = {prsiPeriod:195.13, prsiYtd:8688.38, bikYtd:0};
+    return p;
+  };
+  const byId = (checks, id) => checks.find(x => x.id === id);
+  test('payslip: Sage sample adds up (1750 - 672.50 = 1077.50)', () => {
+    const c = psCalc(sageSample());
+    same([c.gross, c.totalDeds, c.net, c.taxablePay], [1750, 672.5, 1077.5, 1750]);
+    same([c.n, c.no, c.year], [52, 42, 2024]);
+  });
+  test('payslip: the PAYE to date on the Sage sample works out exactly from cut-off, taxable pay and credits', () => {
+    const p = sageSample(), ck = psChecks(p, psCalc(p));
+    same(byId(ck, 'paye').status, 'ok');
+    near(psPayeToDate(78570.04, 25038.72, 1938.72, presetFor(2024)), 24481.55, 0.01);       // 20% of 25,038.72 + 40% of the rest, less credits
+  });
+  test('payslip: the Sage sample PRSI is 4.1% (the October 2024 rate) and employer PRSI 11.15%', () => {
+    const p = sageSample(), ck = psChecks(p, psCalc(p));
+    same([byId(ck, 'prsi').status, byId(ck, 'erprsi').status], ['ok', 'ok']);
+    near(psPrsiRates('2024-10-17').ee, 0.041, 1e-9); near(psPrsiRates('2024-09-30').ee, 0.04, 1e-9);
+    near(psPrsiRates('2024-10-17').erHigh, 0.1115, 1e-9);
+  });
+  test('payslip: credits to date are one period credit times the periods gone by (46.16 x 42)', () => {
+    const p = sageSample(); same(byId(psChecks(p, psCalc(p)), 'credit').status, 'ok');
+    p.cum.credit = 1500; same(byId(psChecks(p, psCalc(p)), 'credit').status, 'info');
+  });
+  test('payslip: a PAYE figure that does not match the year-to-date numbers is flagged, with what we get', () => {
+    const p = sageSample(); p.cum.taxPaid = 24000;
+    const ck = byId(psChecks(p, psCalc(p)), 'paye');
+    same(ck.status, 'warn'); if(ck.text.indexOf('481.55') < 0) throw new Error('should say what we get: ' + ck.text);
+  });
+  test('payslip: employer PRSI rates step up each 1 October', () => {
+    same([psPrsiRates('2024-09-30').erHigh, psPrsiRates('2024-10-01').erHigh, psPrsiRates('2025-10-01').erHigh, psPrsiRates('2026-09-30').erHigh, psPrsiRates('2026-10-01').erHigh],
+      [0.1105, 0.1115, 0.1125, 0.1125, 0.114]);
+    same([psPrsiRates('2026-09-30').erLow, psPrsiRates('2026-10-01').erLow, psPrsiRates('2026-09-30').ee, psPrsiRates('2026-10-01').ee], [0.09, 0.0915, 0.042, 0.0435]);
+  });
+  test('payslip: PRSI is nothing at 352 a week, tapers off the credit to 424, then is the full rate', () => {
+    const R = psPrsiRates('2026-03-31');
+    near(psPrsiExpected(352, 52, R), 0, 1e-9);
+    near(psPrsiExpected(400, 52, R), 400 * 0.042 - (12 - (400 - 352.01) / 6), 1e-9);
+    near(psPrsiExpected(424.01, 52, R), 424.01 * 0.042, 1e-9);
+    near(psPrsiExpected(3900, 12, R), 163.8, 1e-9);
+    near(psPrsiExpected(1525, 12, R), 0, 1e-9);                  // 1,525 a month is the monthly equivalent of 352 a week
+  });
+  test('payslip: USC on 3,900 a month in 2026, on a year to date, at reduced rates, exempt and in an emergency', () => {
+    const b = presetFor(2026);
+    near(psUscToDate(3900, 1, 12, 'ordinary', b), 1001 * 0.005 + (2391.67 - 1001) * 0.02 + (3900 - 2391.67) * 0.03, 0.01);
+    near(psUscToDate(3900 * 7, 7, 12, 'ordinary', b), 7 * psUscToDate(3900, 1, 12, 'ordinary', b), 0.01);
+    near(psUscToDate(3900, 1, 12, 'reduced', b), 1001 * 0.005 + (3900 - 1001) * 0.02, 0.01);
+    near(psUscToDate(3900, 1, 12, 'exempt', b), 0, 1e-9);
+    near(psUscToDate(1000, 1, 12, 'ordinary', b), 0, 1e-9);        // 12,000 a year is under the 13,000 exemption
+    near(psUscToDate(1000, 1, 12, 'emergency', b), 80, 1e-9);
+  });
+  test('payslip: benefit in kind counts as pay but not as cash, and expenses are added tax-free', () => {
+    const p = psBlank(); p.payments = [psNewPay('basic', 3000), psNewPay('bik', 100), psNewPay('expense', 50)];
+    p.deductions = [psNewDed('paye', 500), psNewDed('pension', 150)];
+    const c = psCalc(p);
+    same([c.gross, c.notional, c.nonTaxPaid, c.nonTaxAdj], [3100, 100, 50, -50]);
+    same([c.totalDeds, c.pre, c.taxablePay, c.net], [650, 150, 2950, 2400]);          // 3100 - 650 - 50
+  });
+  test('payslip: a typed total replaces the worked-out one, and a mismatch is flagged', () => {
+    const p = sageSample(); p.printed.net = 1100;
+    const c = psCalc(p); same(c.shown.net, 1100); same(c.net, 1077.5);
+    same(byId(psChecks(p, c), 'net').status, 'warn');
+    p.printed.net = 1077.5; same(byId(psChecks(p, psCalc(p)), 'net').status, 'ok');
+    p.printed.net = 0; same(psCalc(p).shown.net, 0);                                  // a typed zero is not "left empty"
+  });
+  test('payslip: the example payslip agrees with every check', () => {
+    const p = psExample('sage'), c = psCalc(p), ck = psChecks(p, c);
+    const bad = ck.filter(x => x.status === 'warn');
+    if(bad.length) throw new Error('example warns: ' + bad.map(x => x.id + ': ' + x.text).join(' | '));
+    ['paye', 'prsi', 'erprsi', 'usc', 'credit', 'creditYear', 'cutoff', 'taxable', 'ppsn'].forEach(id => same(!!byId(ck, id), true, 'missing check ' + id));
+    same(byId(ck, 'usc').status, 'ok'); same(byId(ck, 'paye').status, 'ok');
+    same([c.gross, c.nonTaxAdj], [3900, 120]);
+  });
+  test('payslip: the next payslip carries the year to date forward and moves the date', () => {
+    const a = psExample(), b = psNextFrom(a), ca = psCalc(a);
+    same([b.period.number, b.period.date], [8, '2026-08-31']);
+    near(b.cum.gross, a.cum.gross + 3900, 0.01); near(b.cum.taxable, a.cum.taxable + ca.taxablePay, 0.01);
+    near(b.cum.taxPaid, a.cum.taxPaid + ca.paye, 0.01); near(b.cum.credit, a.cum.credit + a.tax.creditPeriod, 0.01);
+    near(b.deductions[0].ytd, a.deductions[0].ytd + a.deductions[0].amount, 0.01);
+    same(b.tax.insWeeks, 35); same(b.printed.net, ''); if(b.id === a.id) throw new Error('same id');
+    const w = psBlank(); w.period = {freq:'W', number:52, date:'2026-12-31', method:'Cheque'};
+    same([psNextFrom(w).period.number, psNextFrom(w).period.date], [1, '2027-01-07']);   // a new calendar year starts again at 1
+    const dec = psExample(); dec.period.number = 12; dec.period.date = '2026-12-31'; dec.cum.gross = 46800;
+    const jan = psNextFrom(dec); same([jan.period.number, jan.period.date, jan.cum.gross, jan.deductions[0].ytd], [1, '2027-01-31', 0, 0]);
+  });
+  test('payslip: restoring junk gives a usable payslip, and the store drops a missing draft link', () => {
+    const q = psNormalise({layout:'nope', period:{freq:'Q', number:'abc', date:'not a date'}, payments:[{kind:'bik', taxable:false, amount:'1,000'}, 5, null],
+      deductions:[{kind:'zzz', amount:'12.5'}], printed:{net:'', gross:0}, tax:{basis:'x'}, employee:{ppsn:'1234567t'}});
+    same([q.layout, q.period.freq, q.period.number, q.tax.basis, q.employee.ppsn], ['sage', 'M', 1, 'cumulative', '1234567T']);
+    same([q.payments.length, q.payments[0].taxable, q.payments[0].amount, q.deductions[0].kind, q.deductions[0].amount], [1, true, 1000, 'other', 12.5]);
+    same([q.printed.net, q.printed.gross], ['', 0]);
+    const ids = psStore({items:[q, q], draft:{}, draftOf:'gone'});
+    same([ids.items.length, ids.draftOf, ids.items[0].id !== ids.items[1].id], [2, '', true]);
+    same(psStore(null).items, []);
+  });
+  test('payslip: every box on the example has an explanation, and none shows a blank title or "undefined"', () => {
+    const p = psExample(), c = psCalc(p), ck = psChecks(p, c);
+    psOrder(p).forEach(g => g.keys.forEach(k => {
+      const e = psExplain(p, c, ck, k);
+      if(!e) throw new Error('no explanation for ' + k);
+      const all = [e.title, e.value, e.sub, e.tip].concat(e.say, e.how.map(r => r.join(' '))).join(' | ');
+      if(!e.title || /undefined|NaN|\[object/.test(all)) throw new Error(k + ': ' + all);
+    }));
+    same(psExplain(p, c, ck, 'nope'), null);
+  });
+  test('payslip: a payslip with nothing filled in can still be explained', () => {
+    const p = psBlank(), c = psCalc(p), ck = psChecks(p, c);
+    psOrder(p).forEach(g => g.keys.forEach(k => {
+      const e = psExplain(p, c, ck, k), all = JSON.stringify(e);
+      if(!e || /undefined|NaN/.test(all)) throw new Error(k + ': ' + all);
+    }));
+  });
+  test('payslip: where the money went adds back up, and a comparison shows the change', () => {
+    const p = psExample(), c = psCalc(p), parts = psSplit(p, c);
+    near(parts.reduce((s, x) => s + x.amount, 0), c.net + c.totalDeds, 0.01);
+    same(parts[parts.length - 1].id, 'net');
+    const q = psExample(); q.payments[0].amount = 4000;
+    const row = psCompare(c, psCalc(q)).find(r => r.label === 'Gross pay');
+    same([row.before, row.after, row.diff], [3900, 4000, 100]);
+  });
+  test('payslip: the spreadsheet export has one line per payslip, oldest first', () => {
+    const a = psExample(), b = psNextFrom(a), rows = psCsvRows([b, a]);
+    same(rows.length, 3); same([rows[1][0], rows[2][0]], ['2026-07-31', '2026-08-31']);
+    same(rows[0].length, rows[1].length);
+  });
+
   return results;
 }

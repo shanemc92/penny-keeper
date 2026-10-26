@@ -324,6 +324,78 @@ details.plain>summary{font-size:17px;font-weight:650;color:var(--text);padding:6
   .trk-fund{grid-template-columns:minmax(0,1fr) 110px 38px}
 }
 
+/* ---------- payslips ---------- */
+.ps-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ps-seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ps-seg button{background:var(--surface);color:var(--text);border:0;padding:8px 14px;font-weight:650;cursor:pointer;font-size:14px}
+.ps-seg button+button{border-left:1px solid var(--line)}
+.ps-seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.ps-build{display:grid;grid-template-columns:minmax(0,1fr);gap:0 16px;align-items:start}
+.ps-live{order:-1}
+.ps-form .g2,.ps-form .g3{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.psv{overflow-x:auto}
+.psv .psv-svg{display:block;width:100%;height:auto;min-width:640px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.ps-lays{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.ps-lay{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px;cursor:pointer}
+.ps-lay:hover{border-color:var(--accent)}
+.ps-lay[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-dim);background:var(--accent-soft)}
+.ps-lay .psv{max-height:112px;overflow:hidden;margin-bottom:4px}
+.ps-lay .psv .psv-svg{min-width:0}
+.ps-lay small{color:var(--muted);font-size:12px;line-height:1.35}
+/* one payment or deduction: two fields a line, then the tick box and the remove button. The form column is narrow, so this is the layout at every width */
+.ps-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.ps-row .a{display:block;margin:0}
+.ps-row .a::before{content:attr(data-label);display:block;font-size:11.5px;font-weight:650;color:var(--muted);margin-bottom:2px}
+.ps-row .btn{justify-self:end}
+.ps-chk{display:flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap;margin:0}
+.ps-chk input{margin:0}
+.ps-read{display:flex;flex-direction:column}
+.ps-main{display:contents}
+.ps-main>.card:first-child{order:1}
+.ps-side{order:2}
+.ps-main>.card:not(:first-child){order:3}
+.ps-panel{margin-bottom:16px}
+.ps-pnav{display:flex;align-items:center;gap:6px}
+.ps-big{font-size:28px;font-weight:700;letter-spacing:-.01em;margin-top:2px}
+.ps-calc{margin-top:2px}
+.ps-calc td{white-space:normal;padding:5px 4px}
+.ps-calc td+td{text-align:right;font-weight:600;padding-left:12px}
+.ps-calc tr.sum td{font-weight:700;border-top:2px solid var(--line)}
+.ps-walk{display:grid;gap:6px}
+.ps-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 12px;text-align:left;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
+.ps-item:hover{border-color:var(--accent)}
+.ps-item.on{border-color:var(--accent);background:var(--accent-soft)}
+.ps-item .t{font-weight:650;display:flex;align-items:center}
+.ps-item .s{grid-column:1;color:var(--muted);font-size:13px;line-height:1.35}
+.ps-item .v{grid-column:2;grid-row:1 / span 2;align-self:center;font-weight:650}
+i.mk{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;font-style:normal;font-size:11px;font-weight:800;margin-left:6px;flex:none;color:var(--surface);line-height:1}
+i.mk.ok{background:var(--good)} i.mk.warn{background:var(--warn)} i.mk.info{background:var(--info)}
+.ps-check{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:9px 0;cursor:pointer}
+.ps-check i.mk{margin:2px 0 0}
+.ps-check span span{display:block;color:var(--muted);font-size:13px;line-height:1.4;margin-top:1px}
+.ps-split{display:block;width:100%;height:22px;border-radius:6px;overflow:hidden}
+/* wide enough for the form (or the explanation) to sit beside the payslip */
+@media (min-width:1200px){
+  .ps-build{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+  .ps-live{order:0;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;border-radius:var(--radius)}
+  .ps-live .card{margin-bottom:0}
+  .ps-live .psv .psv-svg{min-width:0}
+  .ps-read{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(340px,1fr);gap:16px;align-items:start}
+  .ps-main .psv .psv-svg{min-width:0}
+  .ps-main{display:block}
+  .ps-side{position:sticky;top:12px}
+  .ps-panel{max-height:calc(100vh - 24px);overflow:auto;margin-bottom:0}
+}
+@media print{
+  .ps-noprint{display:none!important}
+  .ps-read,.ps-build{display:block}
+  .ps-side{position:static}
+  .ps-panel{max-height:none;overflow:visible}
+  .ps-main>.card,.ps-side .card{break-inside:avoid;border:0;padding:0}
+  .psv{overflow:visible}
+  .psv .psv-svg{min-width:0}
+}
+
 /* ---------- drawer / modal / tour ---------- */
 .scrim{position:fixed;inset:0;background:rgba(10,15,22,.5);z-index:90;display:none}
 .scrim.on{display:block}

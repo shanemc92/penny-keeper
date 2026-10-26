@@ -94,6 +94,7 @@ function renderDashboard(el){
       <div class="actions-grid">
         <button class="action" data-go="budget"><span class="ai">🧾</span><span>Add a bill<small>Track what you spend</small></span></button>
         <button class="action" data-go="bank"><span class="ai">🏦</span><span>Import a statement<small>See real spending</small></span></button>
+        <button class="action" data-go="payslip"><span class="ai">📄</span><span>Understand a payslip<small>Every line explained</small></span></button>
         <button class="action" data-go="reliefs"><span class="ai">🧮</span><span>Check tax credits<small>Claim what you are owed</small></span></button>
         <button class="action" data-go="savings"><span class="ai">🐖</span><span>Set a savings goal<small>Holiday, car, rainy day</small></span></button>
         <button class="action" id="printHome"><span class="ai">🖨️</span><span>Print or save as PDF<small>A one-page summary</small></span></button>

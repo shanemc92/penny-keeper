@@ -342,6 +342,78 @@ details.plain>summary{font-size:17px;font-weight:650;color:var(--text);padding:6
   .trk-fund{grid-template-columns:minmax(0,1fr) 110px 38px}
 }
 
+/* ---------- payslips ---------- */
+.ps-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ps-seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ps-seg button{background:var(--surface);color:var(--text);border:0;padding:8px 14px;font-weight:650;cursor:pointer;font-size:14px}
+.ps-seg button+button{border-left:1px solid var(--line)}
+.ps-seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.ps-build{display:grid;grid-template-columns:minmax(0,1fr);gap:0 16px;align-items:start}
+.ps-live{order:-1}
+.ps-form .g2,.ps-form .g3{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.psv{overflow-x:auto}
+.psv .psv-svg{display:block;width:100%;height:auto;min-width:640px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.ps-lays{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.ps-lay{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px;cursor:pointer}
+.ps-lay:hover{border-color:var(--accent)}
+.ps-lay[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-dim);background:var(--accent-soft)}
+.ps-lay .psv{max-height:112px;overflow:hidden;margin-bottom:4px}
+.ps-lay .psv .psv-svg{min-width:0}
+.ps-lay small{color:var(--muted);font-size:12px;line-height:1.35}
+/* one payment or deduction: two fields a line, then the tick box and the remove button. The form column is narrow, so this is the layout at every width */
+.ps-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.ps-row .a{display:block;margin:0}
+.ps-row .a::before{content:attr(data-label);display:block;font-size:11.5px;font-weight:650;color:var(--muted);margin-bottom:2px}
+.ps-row .btn{justify-self:end}
+.ps-chk{display:flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap;margin:0}
+.ps-chk input{margin:0}
+.ps-read{display:flex;flex-direction:column}
+.ps-main{display:contents}
+.ps-main>.card:first-child{order:1}
+.ps-side{order:2}
+.ps-main>.card:not(:first-child){order:3}
+.ps-panel{margin-bottom:16px}
+.ps-pnav{display:flex;align-items:center;gap:6px}
+.ps-big{font-size:28px;font-weight:700;letter-spacing:-.01em;margin-top:2px}
+.ps-calc{margin-top:2px}
+.ps-calc td{white-space:normal;padding:5px 4px}
+.ps-calc td+td{text-align:right;font-weight:600;padding-left:12px}
+.ps-calc tr.sum td{font-weight:700;border-top:2px solid var(--line)}
+.ps-walk{display:grid;gap:6px}
+.ps-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 12px;text-align:left;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
+.ps-item:hover{border-color:var(--accent)}
+.ps-item.on{border-color:var(--accent);background:var(--accent-soft)}
+.ps-item .t{font-weight:650;display:flex;align-items:center}
+.ps-item .s{grid-column:1;color:var(--muted);font-size:13px;line-height:1.35}
+.ps-item .v{grid-column:2;grid-row:1 / span 2;align-self:center;font-weight:650}
+i.mk{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;font-style:normal;font-size:11px;font-weight:800;margin-left:6px;flex:none;color:var(--surface);line-height:1}
+i.mk.ok{background:var(--good)} i.mk.warn{background:var(--warn)} i.mk.info{background:var(--info)}
+.ps-check{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:9px 0;cursor:pointer}
+.ps-check i.mk{margin:2px 0 0}
+.ps-check span span{display:block;color:var(--muted);font-size:13px;line-height:1.4;margin-top:1px}
+.ps-split{display:block;width:100%;height:22px;border-radius:6px;overflow:hidden}
+/* wide enough for the form (or the explanation) to sit beside the payslip */
+@media (min-width:1200px){
+  .ps-build{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+  .ps-live{order:0;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;border-radius:var(--radius)}
+  .ps-live .card{margin-bottom:0}
+  .ps-live .psv .psv-svg{min-width:0}
+  .ps-read{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(340px,1fr);gap:16px;align-items:start}
+  .ps-main .psv .psv-svg{min-width:0}
+  .ps-main{display:block}
+  .ps-side{position:sticky;top:12px}
+  .ps-panel{max-height:calc(100vh - 24px);overflow:auto;margin-bottom:0}
+}
+@media print{
+  .ps-noprint{display:none!important}
+  .ps-read,.ps-build{display:block}
+  .ps-side{position:static}
+  .ps-panel{max-height:none;overflow:visible}
+  .ps-main>.card,.ps-side .card{break-inside:avoid;border:0;padding:0}
+  .psv{overflow:visible}
+  .psv .psv-svg{min-width:0}
+}
+
 /* ---------- drawer / modal / tour ---------- */
 .scrim{position:fixed;inset:0;background:rgba(10,15,22,.5);z-index:90;display:none}
 .scrim.on{display:block}
@@ -979,6 +1051,7 @@ function ensureDB(){
   delete DB.ui.mode;                                   // the old Simple / Full switch no longer exists
   if(!DB.ui.done || typeof DB.ui.done!=='object') DB.ui.done = {};
   DB.tracker = trackerNormalise(DB.tracker) || trackerBlank();         // Budget tracker projects
+  DB.payslips = psStore(DB.payslips);                                  // saved payslips and the one being worked on
   if(!DB.netWorth || typeof DB.netWorth!=='object') DB.netWorth = {};
   ['assets','liabs','snaps'].forEach(k=>{ if(!Array.isArray(DB.netWorth[k])) DB.netWorth[k] = []; });
   DB.netWorth.assets.forEach(a=>{ if(!a.id) a.id = uid(); });
@@ -2350,6 +2423,726 @@ function disposableSummary(key){
     entries: entries.slice().sort((a,b)=> a.date<b.date ? 1 : a.date>b.date ? -1 : 0)
   };
 }
+/* ---------- payslips: build one, check the sums, keep the ones you want ----------
+   The Payslips page lets someone type in what their payslip says, draws it in the layout their payroll package uses,
+   and explains every box. This file is the data and the maths behind it - plain objects and sums, no page code - so
+   the tests can run it.
+
+   Where it lives: DB.payslips = {v:1, items:[...saved payslips], draft:{...}, draftOf:'id of the saved one being edited'}.
+   It is deliberately not part of a tax year: a payslip belongs to the date it was paid, and a "what-if copy" of a year
+   should not duplicate someone's payroll history. It sits beside DB.tracker and DB.netWorth and travels with every backup.
+
+   Every figure is typed in by the person from their own payslip. The checks (psChecks) recompute what Irish payroll
+   should have produced from the same inputs and say whether it agrees, in plain words. They are a second opinion, not an
+   authority: payroll software knows things this page does not (previous employment, a mid-year change to credits),
+   so a difference is worded as "worth asking about", never as "wrong". */
+
+/* The way the payslip is drawn. It changes nothing about the maths. */
+const PS_LAYOUTS = {
+  sage:   {name:'Sage Payroll', blurb:'The classic Irish layout: blue section bars and summary boxes down the right-hand side.'},
+  classic:{name:'Classic page', blurb:'A plain A4-style page: payments, then deductions, then net pay, with year-to-date figures underneath.'},
+  modern: {name:'Online portal', blurb:'The card style used by online payroll portals and phone apps, with take-home pay up front.'}
+};
+
+const PS_FREQS = {
+  W:  {label:'Weekly',      n:52, unit:'week'},
+  F:  {label:'Fortnightly', n:26, unit:'fortnight'},
+  '4':{label:'Four-weekly', n:13, unit:'four-week period'},
+  M:  {label:'Monthly',     n:12, unit:'month'}
+};
+
+/* What each payment is. `taxable` is the default for the Y/N column; `cash` false means it is never paid to you (notional pay). */
+const PS_PAY_KINDS = {
+  basic:     {label:'Salary or wages',                  desc:'Salary',                taxable:true,  cash:true},
+  overtime:  {label:'Overtime',                         desc:'Overtime',              taxable:true,  cash:true},
+  bonus:     {label:'Bonus',                            desc:'Bonus',                 taxable:true,  cash:true},
+  commission:{label:'Commission',                       desc:'Commission',            taxable:true,  cash:true},
+  allowance: {label:'Allowance (taxable)',              desc:'Allowance',             taxable:true,  cash:true},
+  bik:       {label:'Benefit in kind (notional pay)',   desc:'BIK',                   taxable:true,  cash:false},
+  expense:   {label:'Expenses paid back (not taxed)',   desc:'Travel & subsistence',  taxable:false, cash:true},
+  other:     {label:'Other payment',                    desc:'Other payment',         taxable:true,  cash:true}
+};
+/* What each deduction is. `pre` means it comes off before income tax is worked out (so it reduces taxable pay). */
+const PS_DED_KINDS = {
+  paye:   {label:'PAYE (income tax)',       desc:'PAYE',             pre:false},
+  prsi:   {label:'PRSI',                    desc:'PRSI',             pre:false},
+  usc:    {label:'USC',                     desc:'USC',              pre:false},
+  lpt:    {label:'Local Property Tax',      desc:'LPT',              pre:false},
+  pension:{label:'Pension',                 desc:'Pension',          pre:true},
+  avc:    {label:'AVC (extra pension)',     desc:'AVC',              pre:true},
+  health: {label:'Health insurance',        desc:'Health insurance', pre:false},
+  union:  {label:'Union subscription',      desc:'Union subs',       pre:false},
+  other:  {label:'Other deduction',         desc:'Other deduction',  pre:false}
+};
+const PS_BASES = {cumulative:'Cumulative', week1:'Week 1 / Month 1', emergency:'Emergency'};
+const PS_USC_MODES = {ordinary:'Ordinary rates', reduced:'Reduced rates (medical card or aged 70+)', exempt:'Exempt (income under 13,000)'};
+const PS_METHODS = ['Bank transfer', 'Cheque', 'Cash'];
+const PS_PRSI_CREDIT_TO = 424;      // weekly pay at which the low-earner PRSI credit has tapered to nothing (credit is up to 12 from 352.01)
+
+/* Employer PRSI, Class A: [from, standard rate, lower rate used on low weekly pay]. The 2024-10 and 2025-10 steps and the 2026-10
+   step are from the Budget PRSI roadmap; 2027-10 is the rate already in law. Earlier years held at 11.05% / 8.8%. */
+const PS_EMPLOYER_PRSI = [
+  ['2022-01-01', .1105, .088], ['2024-10-01', .1115, .089], ['2025-10-01', .1125, .09],
+  ['2026-10-01', .114, .0915], ['2027-10-01', .1155, .093]
+];
+
+const psPayDefault = kind => (PS_PAY_KINDS[kind] || PS_PAY_KINDS.other).desc;
+const psDedDefault = kind => (PS_DED_KINDS[kind] || PS_DED_KINDS.other).desc;
+function psNewPay(kind, amount){
+  const k = PS_PAY_KINDS[kind] ? kind : 'other';
+  return {id:uid(), desc:PS_PAY_KINDS[k].desc, kind:k, taxable:PS_PAY_KINDS[k].taxable, hours:0, amount:num(amount)};
+}
+function psNewDed(kind, amount){
+  const k = PS_DED_KINDS[kind] ? kind : 'other';
+  return {id:uid(), desc:PS_DED_KINDS[k].desc, kind:k, pre:PS_DED_KINDS[k].pre, amount:num(amount), ytd:0};
+}
+
+function psBlank(layout){
+  const d = new Date();
+  return {
+    id:uid(), saved:'', layout:PS_LAYOUTS[layout] ? layout : 'sage', title:'',
+    employer:{name:'', regNo:''},
+    employee:{name:'', number:'', dept:'', cost:'', ppsn:''},
+    period:{freq:'M', number:d.getMonth()+1, date:iso(d), method:'Bank transfer'},
+    payments:[psNewPay('basic')],
+    deductions:[psNewDed('paye'), psNewDed('prsi'), psNewDed('usc')],
+    /* the summary boxes as printed; left empty they are worked out from the lines above */
+    printed:{gross:'', deds:'', nonTax:'', rounding:'', net:''},
+    cum:{gross:0, nonTaxDeds:0, taxable:0, credit:0, cutoff:0, taxPaid:0},
+    tax:{basis:'cumulative', status:'', emer:'', creditPeriod:0, cutoffPeriod:0, prsiClass:'A1', insWeeks:0, usc:'ordinary'},
+    er:{prsiPeriod:0, prsiYtd:0, bikYtd:0}
+  };
+}
+
+/* Tidy anything that claims to be a payslip - a saved one, or one from a restored backup. Missing fields are filled in. */
+function psNormalise(p){
+  const b = psBlank(p && p.layout);
+  if(!p || typeof p !== 'object') return b;
+  const obj = v => (v && typeof v === 'object') ? v : {};
+  const str = (v, d, max) => (v == null ? d : String(v)).slice(0, max || 80);
+  const q = {id:str(p.id, uid(), 24) || uid(), saved:str(p.saved, '', 30), layout:b.layout, title:str(p.title, '', 60)};
+  const em = obj(p.employer), ee = obj(p.employee), pe = obj(p.period);
+  q.employer = {name:str(em.name, ''), regNo:str(em.regNo, '', 30)};
+  q.employee = {name:str(ee.name, ''), number:str(ee.number, '', 20), dept:str(ee.dept, '', 20), cost:str(ee.cost, '', 20), ppsn:str(ee.ppsn, '', 12).toUpperCase()};
+  q.period = {freq:PS_FREQS[pe.freq] ? pe.freq : 'M', number:clamp(Math.round(num(pe.number)) || 1, 1, 60),
+    date:parseDate(pe.date) ? iso(parseDate(pe.date)) : b.period.date, method:str(pe.method, b.period.method, 30)};
+  q.payments = (Array.isArray(p.payments) ? p.payments : []).filter(x=>x && typeof x === 'object').map(x=>{
+    const k = PS_PAY_KINDS[x.kind] ? x.kind : 'other';
+    return {id:str(x.id, uid(), 24) || uid(), desc:str(x.desc, psPayDefault(k), 40), kind:k,
+      taxable:k === 'bik' ? true : (typeof x.taxable === 'boolean' ? x.taxable : PS_PAY_KINDS[k].taxable), hours:num(x.hours), amount:num(x.amount)};
+  });
+  q.deductions = (Array.isArray(p.deductions) ? p.deductions : []).filter(x=>x && typeof x === 'object').map(x=>{
+    const k = PS_DED_KINDS[x.kind] ? x.kind : 'other';
+    return {id:str(x.id, uid(), 24) || uid(), desc:str(x.desc, psDedDefault(k), 40), kind:k,
+      pre:typeof x.pre === 'boolean' ? x.pre : PS_DED_KINDS[k].pre, amount:num(x.amount), ytd:num(x.ytd)};
+  });
+  const seen = new Set();
+  q.payments.concat(q.deductions).forEach(x=>{ while(seen.has(x.id)) x.id = uid(); seen.add(x.id); });
+  const pr = obj(p.printed);
+  q.printed = {}; Object.keys(b.printed).forEach(k=>{ q.printed[k] = blankish(pr[k]) || String(pr[k]).trim() === '' ? '' : num(pr[k]); });
+  const cu = obj(p.cum), ta = obj(p.tax), er = obj(p.er);
+  q.cum = {}; Object.keys(b.cum).forEach(k=>{ q.cum[k] = num(cu[k]); });
+  q.tax = {basis:PS_BASES[ta.basis] ? ta.basis : 'cumulative', status:str(ta.status, '', 12), emer:str(ta.emer, '', 12),
+    creditPeriod:num(ta.creditPeriod), cutoffPeriod:num(ta.cutoffPeriod), prsiClass:str(ta.prsiClass, 'A1', 6).toUpperCase(),
+    insWeeks:num(ta.insWeeks), usc:PS_USC_MODES[ta.usc] ? ta.usc : 'ordinary'};
+  q.er = {}; Object.keys(b.er).forEach(k=>{ q.er[k] = num(er[k]); });
+  return q;
+}
+
+/* The whole store, as it sits in DB.payslips. */
+function psStore(s){
+  const o = (s && typeof s === 'object') ? s : {};
+  const items = (Array.isArray(o.items) ? o.items : []).filter(x=>x && typeof x === 'object').map(psNormalise);
+  const seen = new Set();
+  items.forEach(x=>{ while(seen.has(x.id)) x.id = uid(); seen.add(x.id); });
+  return {v:1, items, draft:(o.draft && typeof o.draft === 'object') ? psNormalise(o.draft) : null,
+    draftOf:items.some(x=>x.id === o.draftOf) ? o.draftOf : ''};
+}
+/* what makes two payslips "the same" when deciding whether there is anything unsaved: everything but the ids and the save time */
+const psSig = p => JSON.stringify(p, (k, v) => (k === 'id' || k === 'saved') ? undefined : v);
+
+const psPeriodWord = p => { const u = (PS_FREQS[p.period.freq] || PS_FREQS.M).unit; return u.charAt(0).toUpperCase() + u.slice(1); };
+function psTitle(p){
+  if(p.title && p.title.trim()) return p.title.trim();
+  const d = parseDate(p.period.date);
+  return psPeriodWord(p) + ' ' + p.period.number + ' - ' + (d ? d.toLocaleDateString('en-IE', {day:'numeric', month:'short', year:'numeric'}) : 'no date');
+}
+
+/* ---------------- the sums ---------------- */
+
+/* PRSI and USC change dates and rates by year, so look them up for the payment date. */
+function psPrsiRates(dateIso){
+  const d = parseDate(dateIso) || new Date();
+  const b = presetFor(d.getFullYear());
+  let er = PS_EMPLOYER_PRSI[0];
+  PS_EMPLOYER_PRSI.forEach(r=>{ if(iso(d) >= r[0]) er = r; });
+  return {ee:(d.getMonth()+1) >= num(b.prsiChangeMonth) ? b.prsiRate2 : b.prsiRate1, erHigh:er[1], erLow:er[2],
+    exemptWeekly:num(b.prsiExemptWeekly), year:d.getFullYear()};
+}
+/* What PRSI on one pay should be for a Class A employee. Nothing at 352 a week or less; between 352.01 and 424 a week a credit of
+   up to 12 a week is taken off, tapering to nothing. Everything is scaled to the pay period. */
+function psPrsiExpected(pay, n, R){
+  const weekly = pay * n / 52;
+  if(weekly <= R.exemptWeekly) return 0;
+  let owed = pay * R.ee;
+  if(weekly <= PS_PRSI_CREDIT_TO) owed -= Math.max(0, 12 - (weekly - 352.01) / 6) * 52 / n;
+  return Math.max(0, owed);
+}
+const psInCreditZone = (pay, n, R) => { const w = pay * n / 52; return w > R.exemptWeekly && w <= PS_PRSI_CREDIT_TO; };
+
+function psUscBands(mode, b){
+  if(mode === 'exempt') return [{to:1e12, rate:0}];
+  if(mode === 'reduced') return [{to:b.uscBands[0].to, rate:b.uscBands[0].rate}, {to:1e12, rate:b.uscBands[1].rate}];
+  return b.uscBands;
+}
+/* USC on all the pay so far this year. The year's bands are shared out over the periods, which is the same as working out
+   the USC on the pay as if it carried on all year and taking the share that has gone by. */
+function psUscToDate(cumGross, no, n, mode, b){
+  if(mode === 'emergency') return Math.max(cumGross, 0) * 0.08;
+  return uscFor(Math.max(cumGross, 0) * n / no, psUscBands(mode, b), mode === 'exempt' ? 1e12 : b.uscExempt) * no / n;
+}
+/* Income tax on pay to date: 20% up to the cut-off to date, 40% above it, less the credits to date. */
+function psPayeToDate(taxable, cutoff, credit, b){
+  const t = Math.max(taxable, 0), c = Math.max(cutoff, 0);
+  return Math.max(0, Math.min(t, c) * b.lowRate + Math.max(t - c, 0) * b.highRate - credit);
+}
+
+/* Every total the page shows, worked out from the lines. `shown` swaps in a printed figure where the person typed one. */
+function psCalc(p){
+  const f = PS_FREQS[p.period.freq] || PS_FREQS.M, n = f.n;
+  const sum = (list, fn) => round2(list.reduce((s, x) => s + fn(x), 0));
+  const amt = x => num(x.amount);
+  const pays = p.payments, deds = p.deductions;
+  const gross = sum(pays.filter(x=>x.taxable), amt);
+  const notional = sum(pays.filter(x=>x.kind === 'bik'), amt);
+  const nonTaxPaid = sum(pays.filter(x=>!x.taxable && x.kind !== 'bik'), amt);
+  const nonTaxAdj = round2(nonTaxPaid - notional);
+  const of = k => sum(deds.filter(x=>x.kind === k), amt);
+  const ytdOf = k => sum(deds.filter(x=>x.kind === k), x=>num(x.ytd));
+  const totalDeds = sum(deds, amt);
+  const pre = sum(deds.filter(x=>x.pre), amt);
+  const rounding = blankish(p.printed.rounding) ? 0 : num(p.printed.rounding);
+  const net = round2(gross - totalDeds + nonTaxAdj + rounding);
+  const d = parseDate(p.period.date) || new Date();
+  const show = (k, v) => blankish(p.printed[k]) ? v : num(p.printed[k]);
+  return {
+    f, n, no:Math.max(1, Math.round(num(p.period.number)) || 1), year:d.getFullYear(), date:iso(d),
+    gross, notional, nonTaxPaid, nonTaxAdj, totalDeds, pre, taxablePay:round2(gross - pre), rounding, net,
+    paye:of('paye'), prsi:of('prsi'), usc:of('usc'), lpt:of('lpt'), pension:round2(of('pension') + of('avc')),
+    ytd:{paye:ytdOf('paye'), prsi:ytdOf('prsi'), usc:ytdOf('usc')},
+    shown:{gross:show('gross', gross), deds:show('deds', totalDeds), nonTax:show('nonTax', nonTaxAdj), rounding, net:show('net', net)}
+  };
+}
+
+/* ---------------- the self-checks ----------------
+   Each check is {id, key, status, title, text}. `key` names the box on the payslip it is about. status is 'ok' (it agrees),
+   'warn' (it does not, and that is worth a question to payroll or a second look at what was typed) or 'info' (a note, or
+   a check that could not be done and why). */
+function psChecks(p, c){
+  const out = [];
+  const add = (id, key, status, title, text) => out.push({id, key, status, title, text});
+  const b = presetFor(c.year), R = psPrsiRates(c.date), n = c.n, no = c.no;
+  const cls = String(p.tax.prsiClass || '').trim().toUpperCase(), classA = !cls || cls.charAt(0) === 'A';
+  const basis = p.tax.basis;
+  const rate = r => String(+(r * 100).toFixed(2)) + '%';
+  const first = k => p.deductions.find(x=>x.kind === k);
+  const rowKey = k => { const r = first(k); return r ? 'ded:' + r.id : ''; };
+  const near = (a, z, tol) => Math.abs(a - z) <= tol;
+
+  /* the three printed totals, if they were typed in */
+  [['gross', 'sum.gross', 'Gross pay', c.gross, 'Add up the payments marked taxable. A line may be missing, or marked taxable when it is not.'],
+   ['deds', 'sum.deds', 'Total deductions', c.totalDeds, 'A deduction may be missing from the list above, or one amount may have been mistyped.']].forEach(([k, key, label, got, hint])=>{
+    if(blankish(p.printed[k])) return;
+    if(near(num(p.printed[k]), got, 0.02)) add(k, key, 'ok', label + ' adds up', 'The lines you typed add up to ' + fmt(got) + ', the same as the total on your payslip.');
+    else add(k, key, 'warn', label + ' does not add up', 'Your payslip says ' + fmt(num(p.printed[k])) + ' but the lines add up to ' + fmt(got) + '. ' + hint);
+  });
+  if(!blankish(p.printed.net)){
+    if(near(num(p.printed.net), c.net, 0.02)) add('net', 'sum.net', 'ok', 'Net pay adds up', 'Gross pay, less deductions, plus any non-tax adjustment comes to ' + fmt(c.net) + ', the same as your payslip.');
+    else add('net', 'sum.net', 'warn', 'Net pay does not add up', 'Gross ' + fmt(c.gross) + ' - deductions ' + fmt(c.totalDeds) + (c.nonTaxAdj ? ' + non-tax adjustments ' + fmt(c.nonTaxAdj) : '') +
+      ' comes to ' + fmt(c.net) + ', but your payslip says ' + fmt(num(p.printed.net)) + '. Check the amounts you typed, or whether payroll made an adjustment that is not in the list.');
+  }
+
+  /* employee PRSI */
+  if(first('prsi') && c.gross > 0){
+    const key = rowKey('prsi');
+    if(!classA) add('prsi', key, 'info', 'PRSI not checked', 'Your PRSI class is ' + cls + ', and only class A (most employees) can be checked here. Other classes pay different rates.');
+    else {
+      const want = round2(psPrsiExpected(c.gross, n, R)), tol = psInCreditZone(c.gross, n, R) ? 0.15 : 0.03;
+      if(near(c.prsi, want, tol)){
+        add('prsi', key, 'ok', 'PRSI matches',
+          want === 0 ? 'Pay this low (at or under ' + fmt(R.exemptWeekly) + ' a week) pays no PRSI, and none was taken.'
+          : 'PRSI of ' + rate(R.ee) + ' on ' + fmt(c.gross) + ' is ' + fmt(want) + (psInCreditZone(c.gross, n, R) ? ', after the low-earner PRSI credit' : '') + ' - the same as your payslip.');
+      } else {
+        add('prsi', key, 'warn', 'PRSI is different',
+          'We get ' + fmt(want) + ' (' + rate(R.ee) + ' of ' + fmt(c.gross) + ') but your payslip shows ' + fmt(c.prsi) +
+          '. The rate changed on 1 October, so a pay date either side of it matters; a different PRSI class or pay that PRSI is not charged on would also explain it.');
+      }
+    }
+  }
+  /* employer PRSI */
+  if(num(p.er.prsiPeriod) > 0 && c.gross > 0 && classA){
+    const hi = round2(c.gross * R.erHigh), lo = round2(c.gross * R.erLow), got = num(p.er.prsiPeriod);
+    if(near(got, hi, 0.03)) add('erprsi', 'er.prsi', 'ok', 'Employer PRSI matches', 'The standard employer rate on ' + fmt(c.gross) + ' is ' + rate(R.erHigh) + ', which is ' + fmt(hi) + ' - the same as your payslip.');
+    else if(near(got, lo, 0.03)) add('erprsi', 'er.prsi', 'ok', 'Employer PRSI matches', 'On pay this low your employer pays the lower rate of ' + rate(R.erLow) + ', which is ' + fmt(lo) + ' - the same as your payslip.');
+    else add('erprsi', 'er.prsi', 'warn', 'Employer PRSI is different', 'Employer PRSI of ' + fmt(got) + ' is ' + rate(got / c.gross) + ' of ' + fmt(c.gross) + '. For a payment on ' + c.date +
+      ' the usual rates are ' + rate(R.erHigh) + ' and ' + rate(R.erLow) + '. A different PRSI class, or pay the PRSI base does not include, would explain it.');
+  }
+  /* USC */
+  if(first('usc') && c.gross > 0){
+    const key = rowKey('usc'), mode = basis === 'emergency' ? 'emergency' : p.tax.usc;
+    const ytd = c.ytd.usc, cumGross = num(p.cum.gross);
+    const useYtd = basis === 'cumulative' && ytd > 0 && cumGross > 0;
+    const want = round2(useYtd ? psUscToDate(cumGross, no, n, mode, b) : psUscToDate(c.gross, 1, n, mode, b));
+    const got = useYtd ? ytd : c.usc, tol = Math.max(useYtd ? 1 : 0.5, want * 0.015);
+    const what = useYtd ? 'so far this year' : 'this period';
+    if(near(got, want, tol)) add('usc', key, 'ok', 'USC matches', 'Working USC out on ' + fmt(useYtd ? cumGross : c.gross) + ' of pay ' + what + ' gives ' + fmt(want) + ' - close enough to the ' + fmt(got) + ' on your payslip.');
+    else add('usc', key, 'warn', 'USC is different', 'We get ' + fmt(want) + ' ' + what + ' on ' + (mode === 'ordinary' ? 'the ordinary USC rates' : mode === 'reduced' ? 'the reduced USC rates' : mode === 'exempt' ? 'an exemption' : 'the 8% emergency rate') +
+      ', your payslip shows ' + fmt(got) + '. Reduced rates (medical card, or aged 70+) and an exemption are set in the Tax and PRSI details; pay that varied a lot, or income from an earlier job, can also move it.');
+  }
+  /* PAYE */
+  if(first('paye') && c.gross > 0){
+    const key = rowKey('paye'), taxableTD = num(p.cum.taxable) || (num(p.cum.gross) - num(p.cum.nonTaxDeds));
+    const cutoffTD = num(p.cum.cutoff), creditTD = num(p.cum.credit);
+    const paidTD = num(p.cum.taxPaid) || c.ytd.paye;
+    if(basis === 'emergency'){
+      add('paye', key, 'info', 'PAYE not checked', 'You are on the emergency basis, which ignores your credits and (after the first few weeks) puts all your pay at 40%, so there is nothing to compare it with here.');
+    } else if(basis === 'cumulative' && taxableTD > 0 && (cutoffTD > 0 || creditTD > 0) && paidTD > 0){
+      const want = round2(psPayeToDate(taxableTD, cutoffTD, creditTD, b));
+      if(near(paidTD, want, 0.15)) add('paye', key, 'ok', 'PAYE adds up', 'The tax to date works out at ' + fmt(want) + ' from your taxable pay, cut-off and credits to date, ' + (near(paidTD, want, 0.005) ? 'the same as' : 'within rounding of') + ' the ' + fmt(paidTD) + ' on your payslip.');
+      else add('paye', key, 'warn', 'PAYE is different', 'From your year-to-date taxable pay, cut-off and credits we get tax to date of ' + fmt(want) + ', but your payslip says ' + fmt(paidTD) +
+        ' (' + fmt(Math.abs(paidTD - want)) + ' ' + (paidTD > want ? 'more' : 'less') + '). Check the year-to-date figures you typed; if they match your payslip, ask payroll - a credit may have changed part-way through the year.');
+    } else if(basis === 'week1' && (num(p.tax.cutoffPeriod) > 0 || num(p.tax.creditPeriod) > 0)){
+      const want = round2(psPayeToDate(c.taxablePay, num(p.tax.cutoffPeriod), num(p.tax.creditPeriod), b));
+      if(near(c.paye, want, 0.1)) add('paye', key, 'ok', 'PAYE adds up', 'On the week 1 / month 1 basis this pay stands alone: ' + fmt(c.taxablePay) + ' taxed at 20% up to ' + fmt(num(p.tax.cutoffPeriod)) + ' and 40% above, less ' + fmt(num(p.tax.creditPeriod)) + ' of credit, is ' + fmt(want) + ' - the same as your payslip.');
+      else add('paye', key, 'warn', 'PAYE is different', 'On the week 1 / month 1 basis we get ' + fmt(want) + ' for this pay but your payslip shows ' + fmt(c.paye) + '. Check the credit and cut-off for this period in the Tax and PRSI details.');
+    } else {
+      add('paye', key, 'info', 'PAYE not checked yet', basis === 'cumulative'
+        ? 'Fill in the year-to-date boxes (taxable pay, tax credit, cut-off and tax paid) and we can check your PAYE against them.'
+        : 'Fill in this period\'s tax credit and cut-off in the Tax and PRSI details and we can check your PAYE.');
+    }
+  }
+  /* credits and cut-off */
+  if(num(p.cum.credit) > 0 && num(p.tax.creditPeriod) > 0){
+    const want = round2(num(p.tax.creditPeriod) * no);
+    if(near(num(p.cum.credit), want, 0.06 + 0.005 * no)) add('credit', 'cum.credit', 'ok', 'Credits add up', 'Your credit for one period (' + fmt(num(p.tax.creditPeriod)) + ') times ' + no + ' periods is ' + fmt(want) + ', which is the credit to date on your payslip.');
+    else add('credit', 'cum.credit', 'info', 'Credits changed during the year', 'One period\'s credit times ' + no + ' would be ' + fmt(want) + ', but the credit to date is ' + fmt(num(p.cum.credit)) + '. That happens when Revenue changes your credits part-way through the year, or you started mid-year.');
+  }
+  if(num(p.tax.creditPeriod) > 0){
+    const yr = round2(num(p.tax.creditPeriod) * n);
+    const single = creditAmount('single', c.year), emp = creditAmount('employee', c.year);
+    const combos = [['a single person with the Employee credit', single + emp], ['a married couple or civil partners on one income, with the Employee credit', creditAmount('married', c.year) + emp],
+      ['a single parent with the Employee credit', single + creditAmount('spccc', c.year) + emp]];
+    const hit = combos.find(x=>near(yr, x[1], 3));
+    if(hit) add('creditYear', 'tax.creditPeriod', 'ok', 'Credits look standard', 'Over a year your credits come to ' + fmt(yr) + ', which is what ' + hit[0] + ' gets in ' + c.year + '.');
+    else add('creditYear', 'tax.creditPeriod', 'info', 'Credits are not the usual amount', 'Over a year your credits come to ' + fmt(yr) + '. The usual figure for a single person in ' + c.year + ' is ' + fmt(single + emp) + '. That is fine if you have extra credits or a different situation - your Tax Credit Certificate on Revenue myAccount shows the exact figures.');
+  }
+  if(num(p.cum.cutoff) > 0){
+    const yr = round2(num(p.cum.cutoff) / no * n);
+    const bands = [['a single person', b.srcopSingle], ['a single parent', b.srcopParent], ['a married couple or civil partners on one income', b.srcopMax]];
+    const hit = bands.find(x=>near(yr, x[1], 3));
+    if(hit) add('cutoff', 'cum.cutoff', 'ok', 'Cut-off looks standard', 'The cut-off to date works out at ' + fmt(yr) + ' for a full year, which is the ' + c.year + ' band for ' + hit[0] + '.');
+    else add('cutoff', 'cum.cutoff', 'info', 'Cut-off is not a standard band', 'The cut-off to date works out at ' + fmt(yr) + ' for a full year. The ' + c.year + ' bands are ' + fmt(b.srcopSingle) + ' (single), ' + fmt(b.srcopParent) + ' (single parent) and ' + fmt(b.srcopMax) +
+      ' (married, one income). Couples who both work share their bands, so another figure is normal; if you are single, check your certificate.');
+  }
+  if(num(p.cum.gross) > 0 && num(p.cum.taxable) > 0){
+    const want = round2(num(p.cum.gross) - num(p.cum.nonTaxDeds));
+    if(near(num(p.cum.taxable), want, 0.06)) add('taxable', 'cum.taxable', 'ok', 'Taxable pay adds up', 'Gross pay to date less non-tax deductions to date is ' + fmt(want) + ', the same as taxable pay to date.');
+    else add('taxable', 'cum.taxable', 'info', 'Taxable pay is not gross less deductions', 'Gross pay to date less the non-tax deductions to date is ' + fmt(want) + ', but taxable pay to date is ' + fmt(num(p.cum.taxable)) + '. Payroll can treat some items (pension, benefit in kind, pay from a previous job) differently, so this is a note, not an error.');
+  }
+  if(num(p.cum.gross) > 0 && c.gross > 0 && no > 1){
+    const avg = num(p.cum.gross) / no;
+    if(Math.abs(avg - c.gross) / Math.max(avg, 1) > 0.05)
+      add('average', 'cum.gross', 'info', c.gross > avg ? 'This pay is above your average' : 'This pay is below your average',
+        'Your pay to date averages ' + fmt(avg) + ' over ' + no + ' periods, and this payslip is ' + fmt(c.gross) + '. Overtime, a bonus, unpaid leave or a pay rise would all show up like this.');
+  }
+  if(num(p.tax.insWeeks) > 0){
+    const w = num(p.tax.insWeeks), want = Math.round(52 * no / n);
+    if(w > 53) add('weeks', 'tax.insWeeks', 'warn', 'Too many insurable weeks', 'There are only 52 or 53 weeks in a year, but this says ' + w + '.');
+    else if(w < want - 2) add('weeks', 'tax.insWeeks', 'info', 'Fewer insurable weeks than weeks gone by', 'About ' + want + ' weeks of the year have gone by, but ' + w + ' are counted. That is normal if you started this job part-way through the year or had unpaid leave.');
+    else add('weeks', 'tax.insWeeks', 'ok', 'Insurable weeks look right', w + ' insurable weeks fits with about ' + want + ' weeks of the year having gone by.');
+  }
+  if(p.employee.ppsn){
+    if(/^\d{7}[A-Z]{1,2}$/.test(p.employee.ppsn)) add('ppsn', 'employee.ppsn', 'ok', 'PPS number is in the right form', 'Seven digits followed by one or two letters is how every PPS number looks.');
+    else add('ppsn', 'employee.ppsn', 'warn', 'PPS number looks wrong', 'A PPS number is seven digits followed by one or two letters, like 1234567T. Check what you typed against your payslip.');
+  }
+  if(basis === 'emergency') add('emergency', 'tax.status', 'warn', 'You are on emergency tax', 'Emergency tax means payroll does not have your credits and cut-off from Revenue. Sort it out with Revenue (myAccount) or your employer, and the extra tax is refunded once your details arrive.');
+  if(no > n + 1) add('periodNo', 'period.number', 'warn', 'Pay period number looks high', 'A ' + c.f.label.toLowerCase() + ' payslip has ' + n + ' periods a year, but this says period ' + no + '.');
+  return out;
+}
+
+/* Where each euro went: take-home pay and each kind of deduction, for the bar on the page. */
+function psSplit(p, c){
+  return [
+    {id:'paye', label:'Income tax (PAYE)', amount:c.paye}, {id:'usc', label:'USC', amount:c.usc}, {id:'prsi', label:'PRSI', amount:c.prsi},
+    {id:'pension', label:'Pension and AVC', amount:c.pension},
+    {id:'other', label:'Other deductions', amount:round2(c.totalDeds - c.paye - c.usc - c.prsi - c.pension)},
+    {id:'net', label:'Your take-home pay', amount:c.net}
+  ].filter(x=>x.amount > 0.004);
+}
+
+/* What changed between two payslips: [label, before, after]. */
+function psCompare(a, b){
+  const rows = [['Gross pay', a.gross, b.gross], ['Income tax (PAYE)', a.paye, b.paye], ['USC', a.usc, b.usc], ['PRSI', a.prsi, b.prsi],
+    ['Pension and AVC', a.pension, b.pension], ['Other deductions', round2(a.totalDeds - a.paye - a.usc - a.prsi - a.pension), round2(b.totalDeds - b.paye - b.usc - b.prsi - b.pension)],
+    ['Take-home pay', a.net, b.net]];
+  return rows.map(r=>({label:r[0], before:r[1], after:r[2], diff:round2(r[2] - r[1])}));
+}
+
+/* The next payslip in the run: same lines, the next period, and every year-to-date figure carried forward by this one. */
+function psNextFrom(src){
+  const p = psNormalise(JSON.parse(JSON.stringify(src))), c = psCalc(p), n = c.n, no = c.no;
+  p.id = uid(); p.saved = ''; p.title = '';
+  const d = parseDate(p.period.date) || new Date();
+  const atMonthEnd = d.getDate() === new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  let nd;
+  if(p.period.freq === 'M'){ nd = addMonths(d, 1); if(atMonthEnd) nd = new Date(nd.getFullYear(), nd.getMonth() + 1, 0); }
+  else nd = addDays(d, p.period.freq === 'W' ? 7 : p.period.freq === 'F' ? 14 : 28);
+  const newYear = nd.getFullYear() !== d.getFullYear();
+  const credit = num(p.tax.creditPeriod) || (no ? num(p.cum.credit) / no : 0);
+  const cutoff = num(p.tax.cutoffPeriod) || (no ? num(p.cum.cutoff) / no : 0);
+  const bik = round2(p.payments.filter(x=>x.kind === 'bik').reduce((s, x)=>s + num(x.amount), 0));
+  p.period.date = iso(nd);
+  Object.keys(p.printed).forEach(k=>{ p.printed[k] = ''; });
+  if(newYear){
+    p.period.number = 1;
+    Object.keys(p.cum).forEach(k=>{ p.cum[k] = 0; });
+    p.deductions.forEach(x=>{ x.ytd = 0; });
+    p.er.prsiYtd = 0; p.er.bikYtd = 0; p.tax.insWeeks = 0;
+    return p;
+  }
+  p.period.number = no + 1;
+  p.cum.gross = round2(num(p.cum.gross) + c.gross);
+  p.cum.nonTaxDeds = round2(num(p.cum.nonTaxDeds) + c.pre);
+  p.cum.taxable = round2(num(p.cum.taxable) + c.taxablePay);
+  p.cum.credit = round2(num(p.cum.credit) + credit);
+  p.cum.cutoff = round2(num(p.cum.cutoff) + cutoff);
+  p.cum.taxPaid = round2(num(p.cum.taxPaid) + c.paye);
+  p.deductions.forEach(x=>{ x.ytd = round2(num(x.ytd) + num(x.amount)); });
+  p.er.prsiYtd = round2(num(p.er.prsiYtd) + num(p.er.prsiPeriod));
+  p.er.bikYtd = round2(num(p.er.bikYtd) + bik);
+  if(num(p.tax.insWeeks) > 0) p.tax.insWeeks += Math.round(52 * (no + 1) / n) - Math.round(52 * no / n);
+  return p;
+}
+
+/* A made-up monthly payslip for July 2026, worked out with the same formulas the checks use, so everything on it agrees. */
+function psExample(layout){
+  const year = 2026, b = presetFor(year), n = 12, no = 7, salary = 3900, pensionPct = 5, expenses = 120;
+  const pension = round2(salary * pensionPct / 100), taxableM = salary - pension;
+  const cutoffM = b.srcopSingle / n, creditM = (creditAmount('single', year) + creditAmount('employee', year)) / n;
+  const payeTo = k => psPayeToDate(taxableM * k, cutoffM * k, creditM * k, b);
+  const uscTo = k => psUscToDate(salary * k, k, n, 'ordinary', b);
+  const R = psPrsiRates('2026-07-31');
+  const p = psBlank(layout);
+  p.employer = {name:'Example Ltd', regNo:'123456'};
+  p.employee = {name:'Sample Employee', number:'0012', dept:'OPS', cost:'100', ppsn:'1234567T'};
+  p.period = {freq:'M', number:no, date:'2026-07-31', method:'Bank transfer'};
+  const prsi = round2(salary * R.ee);
+  p.payments = [psNewPay('basic', salary), psNewPay('expense', expenses)];
+  const ded = (kind, amount, ytd) => { const x = psNewDed(kind, amount); x.ytd = round2(ytd); return x; };
+  p.deductions = [ded('paye', round2(payeTo(no) - payeTo(no - 1)), payeTo(no)), ded('prsi', prsi, prsi * no), ded('usc', round2(uscTo(no) - uscTo(no - 1)), uscTo(no)), ded('pension', pension, pension * no)];
+  p.cum = {gross:salary * no, nonTaxDeds:pension * no, taxable:taxableM * no, credit:round2(creditM * no), cutoff:round2(cutoffM * no), taxPaid:round2(payeTo(no))};
+  p.tax = {basis:'cumulative', status:'N', emer:'', creditPeriod:round2(creditM), cutoffPeriod:round2(cutoffM), prsiClass:'A1', insWeeks:30, usc:'ordinary'};
+  p.er = {prsiPeriod:round2(salary * R.erHigh), prsiYtd:round2(salary * R.erHigh * no), bikYtd:0};
+  return p;
+}
+
+/* A summary line per saved payslip, for the spreadsheet export. */
+function psCsvRows(items){
+  const rows = [['Payment date', 'Period', 'Employer', 'Employee', 'Gross pay', 'PAYE', 'USC', 'PRSI', 'Pension and AVC', 'Other deductions', 'Total deductions',
+    'Non-tax adjustments', 'Net pay', 'Employer PRSI', 'Gross pay to date', 'Tax paid to date']];
+  items.slice().sort((a, b)=> a.period.date < b.period.date ? -1 : a.period.date > b.period.date ? 1 : 0).forEach(p=>{
+    const c = psCalc(p);
+    rows.push([p.period.date, psPeriodWord(p) + ' ' + p.period.number, p.employer.name, p.employee.name, c.shown.gross, c.paye, c.usc, c.prsi, c.pension,
+      round2(c.totalDeds - c.paye - c.usc - c.prsi - c.pension), c.shown.deds, c.shown.nonTax, c.shown.net, num(p.er.prsiPeriod), num(p.cum.gross), num(p.cum.taxPaid) || c.ytd.paye]);
+  });
+  return rows;
+}
+/* ---------- payslips: what each box means ----------
+   psExplain(p, c, checks, key) answers "what is this box?" for one box on the payslip, in plain English and with the
+   person's own numbers filled in. `key` names the box: 'employee.ppsn', 'sum.net', 'pay:<id>' for a payment line,
+   'ded:<id>' for a deduction line, and so on - the drawings (ui/95-payslip-svg.js) and the walk-through use the same keys.
+
+   Text is plain, with **double stars** around words to put in bold; the page escapes it before turning those into <b>. The
+   returned object is {key, title, value, sub, say:[paragraphs], how:[[label, value, 'sum'?]], tip, checks:[...]}, or null
+   for a key that does not exist. Wording is deliberately about what the box usually means: payroll packages label things
+   a little differently, and the page says so rather than pretending to know your payroll's exact wording. */
+
+const PS_CLASS_NOTES = {
+  A:'Class A covers most employees: people in the private sector, and public servants recruited since 6 April 1995. The number after the letter (A1 is the usual one) is a sub-class that mostly matters for how much your employer pays.',
+  B:'Class B is for permanent, pensionable civil and public servants recruited before 6 April 1995. They pay less PRSI than class A and are covered for fewer benefits.',
+  C:'Class C is for pensionable public servants recruited before 6 April 1995 (the Defence Forces and some others), who pay a lower rate of PRSI.',
+  D:'Class D is for pensionable public servants recruited before 6 April 1995, who pay a lower rate of PRSI.',
+  H:'Class H is for non-commissioned officers and other ranks of the Defence Forces.',
+  J:'Class J is for people on very low pay (under 38 a week), employees aged 66 or over, and a few other groups. It gives cover for only some benefits.',
+  K:'Class K is for public office holders.',
+  M:'Class M is for people under 16, and a few others who pay no PRSI.',
+  S:'Class S is for the self-employed and some company directors.'
+};
+
+function psExplain(p, c, checks, key){
+  const R = psPrsiRates(c.date), b = presetFor(c.year), n = c.n, no = c.no, f = c.f;
+  const M = fmt, pr = r => String(+(r * 100).toFixed(2)) + '%';
+  const when = d => { const x = parseDate(d); return x ? x.toLocaleDateString('en-IE', {day:'numeric', month:'long', year:'numeric'}) : 'no date yet'; };
+  const mine = (checks || []).filter(x=>x.key === key);
+  const T = (title, o) => Object.assign({key, title, value:'', sub:'', say:[], how:[], tip:'', checks:mine}, o || {});
+  const some = v => (v === '' || v == null) ? '-' : String(v);
+  const lowNote = c.year === 2026 ? ' (up to 552 a week in 2026)' : '';
+  const pctOf = (a, z) => z > 0 ? pr(a / z) : '-';
+
+  /* ---------- the top of the payslip ---------- */
+  const TOP = {
+    'employer.name': () => T('Employer', {value:some(p.employer.name),
+      say:['This is the company that pays you. By law your employer has to give you a payslip every time you are paid, showing your gross pay and each deduction taken from it.'],
+      tip:'Keep your payslips. A mortgage, a loan or a rental application will ask for recent ones, and they are how you check your tax at the end of the year.'}),
+    'employer.regNo': () => T('Company registration number', {value:some(p.employer.regNo),
+      say:['The number the Companies Registration Office gave the company. It identifies the legal employer and has nothing to do with your own pay or tax.']}),
+    'employee.name': () => T('Your name', {value:some(p.employee.name),
+      say:['Your name as payroll has it. Revenue knows you by your PPS number rather than your name, but a wrong name can cause trouble with records like your P60, so tell payroll if it is not right.']}),
+    'employee.number': () => T('Employee number', {value:some(p.employee.number),
+      say:['Your ID inside this employer\'s payroll system. It is not a government number - it is just how payroll finds you. Quote it when you ring or email them about a payslip.']}),
+    'employee.dept': () => T('Department', {value:some(p.employee.dept),
+      say:['A code for the part of the business you work in. It is used for the company\'s own bookkeeping and has no effect on your pay or tax.']}),
+    'employee.cost': () => T('Cost centre', {value:some(p.employee.cost),
+      say:['A code for the budget your pay is charged to inside the company. Pure bookkeeping - it has no effect on what you are paid.']}),
+    'employee.ppsn': () => T('PPS number', {value:some(p.employee.ppsn),
+      say:['Your Personal Public Service number. Revenue and the Department of Social Protection identify you by it, and every time you are paid your employer reports the pay, tax, USC and PRSI to Revenue against this number.'],
+      tip:'Treat your PPS number a bit like a password for your tax affairs and do not post it anywhere public. Penny Keeper keeps it only in this browser.'}),
+    'period.freq': () => T('How often you are paid', {value:f.label, sub:n + ' pays a year',
+      say:['On the payslip this is usually a letter: **W** is weekly, **F** fortnightly, **M** monthly and **4** four-weekly.',
+        'It matters because every yearly figure - your tax credits, your tax cut-off point, the USC bands - is split across your pays so that you get a fair share of each one every time.'],
+      how:[['Pays a year', String(n)], ['A yearly 4,000 of tax credit becomes', M(4000 / n) + ' a pay']]}),
+    'period.number': () => T('Pay period number', {value:String(no), sub:'of ' + n + ' this year',
+      say:['Which pay of the tax year this is. The Irish tax year is the calendar year, 1 January to 31 December, so period 1 is your first pay of January.',
+        'Most people are taxed on a cumulative basis, and this number is what makes that work: by now ' + no + ' of your ' + n + ' pays have gone by, so ' + pr(no / n) + ' of your yearly credits and cut-off are available to set against your pay so far.'],
+      how:[['Pays so far this year', no + ' of ' + n], ['Share of the year gone by', pr(no / n)]]}),
+    'period.date': () => T('Payment date', {value:when(p.period.date), sub:'tax year ' + c.year,
+      say:['The day you are paid. It matters for more than when the money arrives: it decides which tax year the pay belongs to, and which PRSI rate applies, because PRSI rates go up on 1 October.'],
+      how:[['Tax year', String(c.year)], ['Employee PRSI rate on this date', pr(R.ee)], ['Employer PRSI rate on this date', pr(R.erHigh)]]}),
+    'period.method': () => T('Pay method', {value:some(p.period.method),
+      say:['How the money reaches you. A bank transfer is the usual way, and means your net pay is lodged to your account on the payment date. Some payslips leave this box blank.']})
+  };
+
+  /* ---------- the summary boxes ---------- */
+  const lines = (list, sign) => list.filter(x=>num(x.amount) !== 0).map(x=>[(x.desc || 'Line') + (x.kind === 'bik' ? ' (notional)' : ''), (sign || '') + M(num(x.amount))]);
+  const SUM = {
+    'sum.gross': () => T('Gross pay', {value:M(c.shown.gross), sub:'before anything comes off',
+      say:['Everything you earned in this pay, before a cent is taken off. It is the total of the payments that are marked as taxable.'],
+      how:lines(p.payments.filter(x=>x.taxable)).concat([['Gross pay', M(c.gross), 'sum']]).concat(lines(p.payments.filter(x=>!x.taxable)).map(r=>['Not included: ' + r[0] + ' (not taxable)', r[1]])),
+      tip:c.pre > 0 ? 'Gross pay is not the same as the pay you are taxed on. Your ' + M(c.pre) + ' of pension and similar deductions come off before income tax is worked out, so your taxable pay for this period is ' + M(c.taxablePay) + '.'
+        : 'Gross pay and taxable pay are the same when nothing is taken off before tax (a pension contribution, for example, would be).'}),
+    'sum.deds': () => T('Total deductions', {value:M(c.shown.deds), sub:pctOf(c.totalDeds, c.gross) + ' of gross pay',
+      say:['Everything that came off your gross pay: tax, USC and PRSI, plus anything you have chosen or agreed to, such as a pension contribution or health insurance.'],
+      how:lines(p.deductions).concat([['Total deductions', M(c.totalDeds), 'sum']])}),
+    'sum.nontax': () => T('Non-tax adjustments', {value:M(c.shown.nonTax), sub:'moves your pay without being taxed',
+      say:['Some things change your take-home pay without being taxed. Money paid back to you for expenses is added here; notional pay (benefit in kind) is taken back out, because it counts as pay for tax purposes but you never receive it as cash.'],
+      how:lines(p.payments.filter(x=>!x.taxable && x.kind !== 'bik'), '+').concat(lines(p.payments.filter(x=>x.kind === 'bik'), '-')).concat([['Total', M(c.nonTaxAdj), 'sum']])}),
+    'sum.rounding': () => T('Rounding', {value:M(c.rounding),
+      say:['Some employers round your take-home pay to a tidy amount, such as the nearest 5 cent. The tiny difference shows here, and may be settled on a later payslip. Most payslips show nothing, or zero, in this box.']}),
+    'sum.net': () => T('Net pay (take-home pay)', {value:M(c.shown.net), sub:c.gross > 0 ? 'you keep ' + (c.net / c.gross * 100).toFixed(1) + ' cent in every euro of gross' : '',
+      say:['Net pay is what you actually receive: your gross pay, less the deductions, plus or minus any non-tax adjustments. It is the amount that lands in your bank account.'],
+      how:[['Gross pay', M(c.gross)], ['Less total deductions', '-' + M(c.totalDeds)], ['Plus non-tax adjustments', M(c.nonTaxAdj)], ['Rounding', M(c.rounding)], ['Net pay', M(c.net), 'sum']],
+      tip:'If the amount in your bank is different from this, look at the pay method and date, or whether part of your pay goes to another account.'})
+  };
+
+  /* ---------- year to date ---------- */
+  const cum = p.cum, taxableTD = num(cum.taxable) || (num(cum.gross) - num(cum.nonTaxDeds)), paidTD = num(cum.taxPaid) || c.ytd.paye;
+  const CUM = {
+    'cum.gross': () => T('Gross pay to date', {value:M(num(cum.gross)), sub:'since 1 January',
+      say:['All your gross pay so far this tax year. It is a running total: each payslip adds that pay to it. If you started this job part-way through the year it only counts pay from here, plus anything carried over from your last job\'s P45.'],
+      how:no > 1 && num(cum.gross) > 0 ? [['Average per pay so far', M(num(cum.gross) / no)], ['This pay', M(c.gross)], ['If every pay was the same, a year would be', M(num(cum.gross) / no * n)]] : []}),
+    'cum.nonTaxDeds': () => T('Non-tax deductions to date', {value:M(num(cum.nonTaxDeds)), sub:'since 1 January',
+      say:['The total this year of deductions that are not tax - such as pension contributions. Where they come off before tax, they are the reason your taxable pay is lower than your gross pay.']}),
+    'cum.taxable': () => {
+      const cut = num(cum.cutoff), diff = cut > 0 ? taxableTD - cut : 0;
+      return T('Taxable pay to date', {value:M(taxableTD), sub:'the pay you have been taxed on this year',
+        say:['The part of your pay that income tax is charged on, added up for the year so far. It is your gross pay to date, less deductions such as pension that come off before tax.',
+          cut > 0 ? (diff > 0 ? 'Your taxable pay is **' + M(diff) + ' above** your cut-off to date, so that much of your pay has been taxed at 40% and pay above the cut-off continues to be.' : 'Your taxable pay is **' + M(-diff) + ' below** your cut-off to date, so all of it has been taxed at 20%.') : ''].filter(Boolean),
+        how:[['Gross pay to date', M(num(cum.gross))], ['Less non-tax deductions to date', '-' + M(num(cum.nonTaxDeds))], ['Taxable pay to date', M(num(cum.gross) - num(cum.nonTaxDeds)), 'sum']].concat(cut > 0 ? [['Standard rate cut-off to date', M(cut)]] : []),
+        tip:'USC and PRSI are not worked out on taxable pay - they use your full gross pay, because pension contributions do not reduce them.'});
+    },
+    'cum.credit': () => T('Tax credit to date', {value:M(num(cum.credit)), sub:'your credits used so far this year',
+      say:['Your yearly tax credits are shared evenly across your pays, and this is the part that has built up so far. It is taken off your tax, not off your pay.'],
+      how:num(p.tax.creditPeriod) > 0 ? [['Credit for one pay', M(num(p.tax.creditPeriod))], ['× pays so far', String(no)], ['= credit to date', M(num(p.tax.creditPeriod) * no), 'sum']] : []}),
+    'cum.cutoff': () => T('Standard rate cut-off to date', {value:M(num(cum.cutoff)), sub:'pay taxed at 20% so far this year',
+      say:['Your cut-off point is the slice of pay taxed at 20%. Pay above it is taxed at 40%. Like your credits it is shared across the year\'s pays, and this is the amount that has built up so far.'],
+      how:no > 0 && num(cum.cutoff) > 0 ? [['Full-year cut-off (worked back)', M(num(cum.cutoff) / no * n)], ['Share of the year gone by', pr(no / n)], ['Cut-off to date', M(num(cum.cutoff)), 'sum']] : [],
+      tip:'Your cut-off comes from Revenue (your Tax Credit Certificate). A single person in ' + c.year + ' has ' + M(b.srcopSingle) + '; a married couple with one income has ' + M(b.srcopMax) + '.'}),
+    'cum.taxPaid': () => T('Tax paid to date', {value:M(paidTD), sub:'PAYE collected so far this year',
+      say:['All the income tax taken from you so far this year. It should equal the "balance" on your PAYE line. USC and PRSI are not included - they are separate.'],
+      how:c.gross > 0 && num(cum.gross) > 0 ? [['Tax paid to date', M(paidTD)], ['Gross pay to date', M(num(cum.gross))], ['As a share of gross pay', pctOf(paidTD, num(cum.gross))]] : []})
+  };
+
+  /* ---------- tax and PRSI settings ---------- */
+  const TAXKEYS = {
+    'tax.status': () => {
+      const base = {cumulative:['Your tax is being worked out on the cumulative basis - the normal one.', 'Each pay is added to a running total for the year and the tax on the whole total is worked out, less what you have already paid. That way a quiet month, a bonus or a missed pay all even out across the year.'],
+        week1:['Your tax is being worked out on the Week 1 / Month 1 basis.', 'Each pay is treated on its own, as if it were the first of the year: you get one pay\'s worth of credits and cut-off and nothing evens out later. Revenue tells payroll which basis to use, and you can ask Revenue (myAccount or by phone) about it.'],
+        emergency:['You are on the emergency basis.', 'Payroll has no valid credits or cut-off from Revenue for you, so no credits are given and, after the first few pays, all your pay is taxed at 40% with USC at 8%. Get in touch with Revenue, or check myAccount, so your details reach your employer - the extra tax is refunded once they do.']}[p.tax.basis];
+      return T('Tax and USC status', {value:p.tax.status || PS_BASES[p.tax.basis], sub:PS_BASES[p.tax.basis] + ' basis, USC: ' + PS_USC_MODES[p.tax.usc].toLowerCase(),
+        say:[p.tax.status ? 'The code **' + p.tax.status + '** on the payslip is payroll\'s shorthand for how your tax and USC are being worked out - ask payroll what it stands for on yours. What matters is the basis behind it, which you chose on the Build tab:' : 'This tells you how your tax and USC are being worked out.', base[0], base[1]],
+        how:[['Tax basis', PS_BASES[p.tax.basis]], ['USC rates', PS_USC_MODES[p.tax.usc]]],
+        tip:'The basis and your credits come to payroll from Revenue in a notice called an RPN (Revenue Payroll Notification). If anything looks off, the fix starts with Revenue, not payroll.'});
+    },
+    'tax.emer': () => T('Emergency status period', {value:some(p.tax.emer),
+      say:['On some payslips this box records when emergency tax started, or for how many pays you have been taxed that way. If it is empty you have not been on the emergency basis. If it has something in it, check on Revenue myAccount that your credits and cut-off have been loaded.',
+        'Packages word this box differently, so if you are not sure what yours means, ask payroll.']}),
+    'tax.creditPeriod': () => {
+      const yr = num(p.tax.creditPeriod) * n, single = creditAmount('single', c.year), emp = creditAmount('employee', c.year);
+      return T('Tax credit for this pay', {value:M(num(p.tax.creditPeriod)), sub:yr > 0 ? M(yr) + ' over a year' : '',
+        say:['Your yearly tax credits shared out across your pays. A tax credit is a fixed amount taken straight off your tax bill (not off your pay), so a credit of 100 saves you exactly 100 of tax. Most employees have two: the Personal credit and the Employee (PAYE) credit.'],
+        how:num(p.tax.creditPeriod) > 0 ? [['Credit for this pay', M(num(p.tax.creditPeriod))], ['× pays a year', String(n)], ['= credits over a full year', M(yr), 'sum'], ['A single employee in ' + c.year, M(single + emp) + ' (' + M(single) + ' + ' + M(emp) + ')']] : [],
+        tip:'Your exact credits are on your Tax Credit Certificate (Revenue myAccount). Extra credits such as Home Carer, Single Person Child Carer or an age credit are added to the total.'});
+    },
+    'tax.cutoffPeriod': () => T('Cut-off for this pay', {value:M(num(p.tax.cutoffPeriod)),
+      say:['Your yearly standard rate cut-off point shared out across your pays: the amount of this pay that is taxed at 20% on the Week 1 / Month 1 basis. Pay above it is taxed at 40%.']}),
+    'tax.prsiClass': () => {
+      const cls = String(p.tax.prsiClass || '').toUpperCase(), note = PS_CLASS_NOTES[cls.charAt(0)];
+      return T('PRSI class', {value:some(cls),
+        say:[note || 'Your PRSI class says which kind of worker you are, and so what rate you and your employer pay and which benefits you are covered for. Ask payroll if you do not recognise yours.',
+          cls.charAt(0) === 'A' || !cls ? 'As a class A employee you pay ' + pr(R.ee) + ' of your pay in PRSI on this date and your employer pays ' + pr(R.erHigh) + '.' : ''].filter(Boolean),
+        tip:'If your class is not the one you expect (a second job, a change of job, turning 66), ask payroll to check it - the wrong class can affect your benefits.'});
+    },
+    'tax.insWeeks': () => T('Insurable weeks', {value:p.tax.insWeeks ? String(num(p.tax.insWeeks)) : '-', sub:'about ' + Math.round(52 * no / n) + ' weeks have gone by',
+      say:['The number of weeks this year that count towards your social insurance record. Every week you are paid in this job counts, so a full year is 52. A long enough record is what qualifies you for the State pension and other benefits, so gaps matter.'],
+      how:num(p.tax.insWeeks) > 0 ? [['Weeks counted so far', String(num(p.tax.insWeeks))], ['Weeks of the year gone by (about)', String(Math.round(52 * no / n))]] : []})
+  };
+
+  /* ---------- on top: the employer's side ---------- */
+  const ER = {
+    'er.prsi': () => T('Employer PRSI this pay', {value:M(num(p.er.prsiPeriod)), sub:c.gross > 0 && num(p.er.prsiPeriod) > 0 ? pr(num(p.er.prsiPeriod) / c.gross) + ' of your pay' : '',
+      say:['Your employer pays PRSI on top of your pay, as a cost of employing you. It is not taken from you and does not reduce your take-home pay - it is shown so you can see what you cost.'],
+      how:[['Pay it is charged on', M(c.gross)], ['Standard rate on ' + when(c.date), pr(R.erHigh)], ['Lower rate for low weekly pay' + lowNote, pr(R.erLow)]],
+      tip:'Employer PRSI goes up in small steps each 1 October. The standard rate was ' + pr(R.erHigh) + ' on this payment date.'}),
+    'er.prsiYtd': () => T('Employer PRSI to date', {value:M(num(p.er.prsiYtd)), sub:'since 1 January',
+      say:['The running total of employer PRSI this year. Like the amount for this pay, it is paid by your employer on top of your wages.']}),
+    'er.bikYtd': () => T('Benefit in kind to date', {value:M(num(p.er.bikYtd)), sub:'since 1 January',
+      say:['The taxable value of perks given to you in kind this year, such as a company car or health insurance paid by your employer. You are not paid it in cash, but it counts as pay for tax, USC and PRSI, so payroll keeps a running total to report to Revenue.'],
+      tip:'Zero is normal. It only applies if your employer provides a perk like this.'})
+  };
+
+  if(TOP[key]) return TOP[key]();
+  if(SUM[key]) return SUM[key]();
+  if(CUM[key]) return CUM[key]();
+  if(TAXKEYS[key]) return TAXKEYS[key]();
+  if(ER[key]) return ER[key]();
+  if(key.indexOf('pay:') === 0) return psExplainPayment(p, c, mine, key, T);
+  if(key.indexOf('ded:') === 0) return psExplainDeduction(p, c, mine, key, T);
+  return null;
+}
+
+function psExplainPayment(p, c, mine, key, T){
+  const x = p.payments.find(r=>'pay:' + r.id === key);
+  if(!x) return null;
+  const M = fmt, pr = r => String(+(r * 100).toFixed(2)) + '%', a = num(x.amount), k = PS_PAY_KINDS[x.kind];
+  const say = {
+    basic:['Your normal pay for this period.' + (a > 0 ? ' If it is the same every time, it is a yearly salary of ' + M(a * c.n) + ' before tax.' : '')],
+    overtime:['Extra hours paid on top of your normal pay. It is taxed like the rest of your pay, but because it sits on top, it can be the part that falls above your cut-off and is taxed at 40%.'],
+    bonus:['A one-off extra payment. It is taxed like normal pay, with PRSI and USC as well, and because it sits on top of your normal pay it may be taxed at 40%. That is why a bonus usually feels smaller than it looked.'],
+    commission:['Pay based on what you sold or earned for the company. It is taxed like normal pay, with PRSI and USC as well.'],
+    allowance:['A regular extra amount paid with your wages, such as a shift, on-call or travel allowance. Because it is marked taxable it is treated as pay, with tax, USC and PRSI on it. Genuine expenses paid back to you are different - they are marked as not taxable.'],
+    bik:['Notional pay: the taxable value of a perk you get in kind, such as a company car or health insurance paid by your employer. You do not receive it as cash. Payroll adds its value to your pay so that tax, USC and PRSI are charged on it, then takes it back out when working out your net pay (you will see it under non-tax adjustments).'],
+    expense:['Money paid back to you for costs of doing your job, such as mileage or subsistence. Revenue lets employers pay genuine, vouched expenses (or those at the approved rates) tax-free, so there is no tax, USC or PRSI on it and it is not part of your gross pay.'],
+    other:['Another payment in your pay. Whether it is taxed depends on the Y/N column: Y means it counts as pay, N means it does not.']
+  }[x.kind];
+  const how = [];
+  if(a > 0 && x.hours > 0) how.push(['Hours', String(x.hours)], ['Pay per hour', M(a / x.hours)]);
+  if(x.kind === 'basic' && a > 0) how.push(['This pay', M(a)], ['× pays a year', String(c.n)], ['= a year, if the same every pay', M(a * c.n), 'sum']);
+  how.push(['Taxable (the Y/N column)', x.kind === 'bik' ? 'Yes - notional' : x.taxable ? 'Yes - tax, USC and PRSI apply' : 'No - none of them apply']);
+  if(x.taxable && c.gross > 0 && p.payments.filter(r=>r.taxable).length > 1) how.push(['Share of your gross pay', pr(a / c.gross)]);
+  const tip = {bonus:'Close to half of a bonus can go in tax, USC and PRSI if it falls above your cut-off (40% tax, 3% or 8% USC and about 4% PRSI).',
+    expense:'Only genuine, vouched expenses or those at Revenue\'s approved rates can be paid tax-free. Anything else would have been taxed like pay.',
+    bik:'This is why a company car or employer-paid health insurance can raise your tax without a cent more reaching your bank account.'}[x.kind] || '';
+  return T(x.desc || k.label, {value:M(a), sub:k.label + (x.kind === 'bik' ? ' - counted as pay, not paid to you' : x.taxable ? ' - taxable' : ' - not taxable'), say, how, tip});
+}
+
+function psExplainDeduction(p, c, mine, key, T){
+  const x = p.deductions.find(r=>'ded:' + r.id === key);
+  if(!x) return null;
+  const M = fmt, pr = r => String(+(r * 100).toFixed(2)) + '%', a = num(x.amount), y = num(x.ytd), n = c.n, no = c.no;
+  const b = presetFor(c.year), R = psPrsiRates(c.date);
+  const out = {value:M(a), sub:y > 0 ? M(y) + ' so far this year' : '', say:[], how:[], tip:''};
+  const timing = x.pre ? 'It comes off **before** income tax is worked out (the Y in the T/N column), so it lowers your taxable pay.' : 'It comes off **after** tax has been worked out, so it does not change your tax.';
+
+  if(x.kind === 'paye'){
+    const taxableTD = num(p.cum.taxable) || (num(p.cum.gross) - num(p.cum.nonTaxDeds)), cut = num(p.cum.cutoff), cred = num(p.cum.credit);
+    out.say = ['PAYE stands for Pay As You Earn. It is your income tax, taken from each pay by your employer and sent to Revenue for you.',
+      'Tax is **20%** on pay up to your cut-off point and **40%** on pay above it. Your tax credits are then taken off the tax - they come off the bill, not off your pay.',
+      p.tax.basis === 'cumulative' ? 'Payroll does not work each pay out on its own. It totals the whole year so far, works out the tax on that, and takes off what you have already paid, so a bonus or a quiet month evens out over the year.' : ''].filter(Boolean);
+    if(p.tax.basis === 'cumulative' && taxableTD > 0 && (cut > 0 || cred > 0)){
+      const low = Math.min(taxableTD, cut), high = Math.max(taxableTD - cut, 0), before = low * b.lowRate + high * b.highRate, due = Math.max(before - cred, 0);
+      const paid = num(p.cum.taxPaid) || y;
+      out.how = [['Taxable pay so far this year', M(taxableTD)], ['The first ' + M(low) + ' at 20%', M(low * b.lowRate)], ['The other ' + M(high) + ' at 40%', M(high * b.highRate)],
+        ['Tax before credits', M(before), 'sum'], ['Less tax credits so far', '-' + M(cred)], ['Tax due so far this year', M(due), 'sum'],
+        ['Paid in earlier pays', M(paid - a)], ['So the tax for this pay', M(due - (paid - a)), 'sum']];
+    } else if(p.tax.basis === 'week1' && (num(p.tax.cutoffPeriod) > 0 || num(p.tax.creditPeriod) > 0)){
+      const cut = num(p.tax.cutoffPeriod), low = Math.min(c.taxablePay, cut), high = Math.max(c.taxablePay - cut, 0), before = low * b.lowRate + high * b.highRate;
+      out.how = [['Taxable pay for this pay', M(c.taxablePay)], ['The first ' + M(low) + ' at 20%', M(low * b.lowRate)], ['The other ' + M(high) + ' at 40%', M(high * b.highRate)],
+        ['Tax before credits', M(before), 'sum'], ['Less credit for this pay', '-' + M(num(p.tax.creditPeriod))], ['PAYE for this pay', M(Math.max(before - num(p.tax.creditPeriod), 0)), 'sum']];
+    } else out.how = [['Taxable pay for this pay', M(c.taxablePay)], ['Rates', '20% up to your cut-off, then 40%']];
+    out.tip = 'If your PAYE looks too high, the usual cause is credits that are missing from your Revenue record. Check your Tax Credit Certificate in Revenue myAccount.';
+  } else if(x.kind === 'prsi'){
+    const want = psPrsiExpected(c.gross, n, R);
+    out.say = ['PRSI is Pay Related Social Insurance. Your contributions build your right to social welfare benefits such as the State pension, maternity benefit and Jobseeker\'s Benefit.',
+      'It is charged on all your pay, including bonuses and benefit in kind. Your pension contributions do not reduce it, and tax credits do not either - only people on very low pay get a small PRSI credit.'];
+    out.how = [['Pay PRSI is charged on', M(c.gross)], ['Rate on ' + c.date, pr(R.ee)], ['PRSI for this pay', M(want), 'sum']];
+    if(psInCreditZone(c.gross, n, R)) out.how.splice(2, 0, ['Low-earner credit taken off', '-' + M(c.gross * R.ee - want)]);
+    out.tip = 'The rate rises a little each 1 October (it is ' + pr(R.ee) + ' on this payment date). Your employer pays PRSI as well, on top of your wages - see the employer boxes.';
+  } else if(x.kind === 'usc'){
+    const mode = p.tax.basis === 'emergency' ? 'emergency' : p.tax.usc;
+    out.say = ['USC is the Universal Social Charge. It is charged on your gross pay in bands: a very small percentage on the first slice, then more on each slice above it.',
+      'Unlike income tax, your tax credits and cut-off have no effect on it, and your pension contributions do not reduce it. It is not charged at all if your income for the year is 13,000 or less.'];
+    if(mode === 'emergency') out.how = [['Pay', M(c.gross)], ['Emergency USC rate', '8%'], ['USC', M(c.gross * 0.08), 'sum']];
+    else {
+      const bands = psUscBands(mode, b); let prev = 0, tot = 0; const rows = [];
+      if(c.gross * n <= b.uscExempt && mode !== 'exempt') rows.push(['Yearly pay of ' + M(c.gross * n) + ' is under the ' + M(b.uscExempt) + ' exemption', M(0)]);
+      else bands.forEach(band=>{
+        const lim = band.to >= 1e11 ? Infinity : band.to / n, slice = Math.max(Math.min(c.gross, lim) - prev, 0);
+        if(slice > 0 && band.rate > 0){ rows.push([M(slice) + ' at ' + pr(band.rate), M(slice * band.rate)]); tot += slice * band.rate; }
+        prev = lim;
+      });
+      out.how = rows.concat([['USC for this pay', M(tot), 'sum']]);
+    }
+    out.tip = 'If you hold a full medical card, or you are 70 or over and your income is 60,000 or less, only the reduced USC rates (0.5% and 2%) apply. Tell payroll so they are used.';
+  } else if(x.kind === 'lpt'){
+    out.say = ['Local Property Tax is a yearly tax on the value of your home. If you chose to pay it through your pay, Revenue tells payroll how much to take, spread across the year\'s pays.'];
+    out.how = [['This pay', M(a)], ['× pays a year', String(n)], ['= LPT over a full year', M(a * n), 'sum']];
+    out.tip = 'You can change how you pay LPT, or stop the payroll deduction, with Revenue - not with your employer.';
+  } else if(x.kind === 'pension'){
+    out.say = ['Your own contribution to a workplace pension. ' + timing, 'Because it comes off before tax, you get income tax relief at your highest rate. It does **not** reduce USC or PRSI, which are still worked out on your full gross pay.'];
+    out.how = c.gross > 0 ? [['Your contribution', M(a)], ['As a share of gross pay', pr(a / c.gross)], ['Taxable pay falls from', M(c.gross) + ' to ' + M(c.taxablePay)]] : [];
+    out.tip = 'Because of the tax relief, putting 100 into a pension costs you only about 80 if you pay tax at 20%, or 60 if some of it would be taxed at 40%.';
+  } else if(x.kind === 'avc'){
+    out.say = ['An Additional Voluntary Contribution is extra money you choose to put into a pension through your pay. ' + timing, 'You get the same tax relief as for a normal pension contribution, but not on USC or PRSI.'];
+    out.how = c.gross > 0 ? [['Your AVC', M(a)], ['As a share of gross pay', pr(a / c.gross)]] : [];
+    out.tip = 'Tax relief is limited by your age, from 15% of your earnings under 30 up to 40% from 60, and applies to earnings up to 115,000.';
+  } else if(x.kind === 'health'){
+    out.say = ['Your health insurance premium, taken from your pay. ' + timing, 'Tax relief (20%, on up to 1,000 for an adult and 500 for a child) is normally given by the insurer, which charges you a lower premium, so you do not claim it again.'];
+    out.tip = 'If your employer pays part of your premium, that part is a benefit in kind and shows on the payments side instead.';
+  } else if(x.kind === 'union'){
+    out.say = ['A subscription to your trade union, taken from your pay. ' + timing];
+  } else {
+    out.say = ['A deduction your employer makes because you agreed to it or the law says so - a savings or credit union scheme, a uniform, parking, a loan repayment. ' + timing];
+  }
+  out.say.push('The **balance** is the total so far this year (' + M(y) + '). It goes up by this amount with each pay.');
+  if(!(y > 0)) out.say.pop();
+  return T(x.desc || PS_DED_KINDS[x.kind].label, out);
+}
+
+/* The order to read the boxes in, grouped: [{title, keys:[...]}]. Optional text boxes that were left empty are skipped. */
+function psOrder(p){
+  const c = psCalc(p), has = v => String(v || '').trim() !== '';
+  const groups = [
+    {title:'Who and when', keys:['employer.name'].concat(has(p.employer.regNo) ? ['employer.regNo'] : [], ['employee.name'], has(p.employee.number) ? ['employee.number'] : [],
+      has(p.employee.dept) ? ['employee.dept'] : [], has(p.employee.cost) ? ['employee.cost'] : [], ['employee.ppsn', 'period.freq', 'period.number', 'period.date'])},
+    {title:'What you were paid', keys:p.payments.map(x=>'pay:' + x.id)},
+    {title:'What came off', keys:p.deductions.map(x=>'ded:' + x.id)},
+    {title:'Your pay at a glance', keys:['sum.gross', 'sum.deds'].concat(c.nonTaxAdj !== 0 || c.shown.nonTax !== 0 ? ['sum.nontax'] : [], c.rounding !== 0 ? ['sum.rounding'] : [], ['sum.net', 'period.method'])},
+    {title:'Your year so far', keys:['cum.gross', 'cum.nonTaxDeds', 'cum.taxable', 'cum.credit', 'cum.cutoff', 'cum.taxPaid']},
+    {title:'The tax settings behind it', keys:['tax.status'].concat(has(p.tax.emer) ? ['tax.emer'] : [], ['tax.creditPeriod'], num(p.tax.cutoffPeriod) > 0 && p.layout !== 'sage' ? ['tax.cutoffPeriod'] : [], ['tax.prsiClass', 'tax.insWeeks'])},
+    {title:'What your employer pays on top', keys:['er.prsi', 'er.prsiYtd', 'er.bikYtd']}
+  ];
+  return groups.filter(g=>g.keys.length);
+}
 /* ---------------- charts (canvas, no libraries) ----------------
    Sizing rule: the .chartbox owns the dimensions. We set the canvas
    CSS size in px and the backing store to css * dpr, so the element
@@ -2655,6 +3448,15 @@ const PAGES = {
       'Two earners? Use <b>+ Add another earner</b>. The Bills page can then share joint bills between you.',
       'Credits are listed for every year. They follow the figures on revenue.ie - <b>confirm yours there</b>.',
       'Credits claimed on your tax return after the year ends (rent, mortgage interest) are <b>not</b> in your monthly take-home pay. They are shown as a refund instead.']},
+  payslip:{ico:'📄', title:'Payslips',
+    lead:'Build your payslip box by box and get a plain-English explanation of every number on it - what it is, how it was worked out, and whether the sums agree.',
+    steps:['Pick a layout','Type in your payslip','Tap any box to understand it'],
+    tips:['Pick the layout that looks most like your payslip. The first one follows the Sage Payroll layout; the sums and explanations are the same in all of them.',
+      'Use <b>Build it</b> to type the figures in and <b>Understand it</b> to read the payslip. Tapping a box in Understand it explains it; in Build it, it jumps to the field.',
+      'The year-to-date boxes are what let us check your <b>PAYE</b>, <b>PRSI</b> and <b>USC</b>. Leave them empty and you still get the explanations.',
+      'A tick on a box means the figures agree with what we would expect. An amber <b>!</b> means it is worth a second look - ask payroll, because they may know something we do not.',
+      '<b>Save to history</b> keeps a copy so you can compare this payslip with the last one. <b>Next payslip</b> starts the following one with the year-to-date figures carried forward.',
+      'Saved payslips include your PPS number and are part of your backup file, so keep that file private.']},
   budget:{ico:'🧾', title:'Bills & budget',
     lead:'List what you spend and put aside. Everything is converted into weekly, monthly and yearly figures for you.',
     steps:['Add your bills','Add your savings','Check what is left over'],
@@ -2866,6 +3668,14 @@ const TERMS = [
   ['PRSI','Pay Related Social Insurance. A contribution that builds your entitlement to social welfare benefits and the State pension.'],
   ['USC','Universal Social Charge. A separate charge on your gross income, on top of income tax. Lower earners pay it at lower rates.'],
   ['Standard rate band','The slice of income taxed at 20%. Income above it is taxed at 40%. Also called the standard rate cut-off point.'],
+  ['Cut-off point','Another name for the standard rate band: the amount of pay taxed at 20% before the 40% rate starts. It is on your Tax Credit Certificate, and your payslip may show it for the pay and for the year so far.'],
+  ['Cumulative basis','The normal way PAYE is worked out: each payslip adds up your whole year so far and takes off the tax already paid, so a missed or extra week evens itself out. The other ways are Week 1 / Month 1 and emergency.'],
+  ['Week 1 / Month 1','A way of working out PAYE where each payslip stands alone, with no memory of earlier pay. It is used when Revenue has told your employer to, or when your details are not yet on file.'],
+  ['Emergency tax','What is used when your employer has no tax details for you. Little or no credit is given and tax is higher until Revenue sends your employer your credits.'],
+  ['Notional pay','Pay that shows up on the payslip because it is taxable but never reaches your bank account, such as benefit in kind. It is added to your pay for tax and then taken back off so your net pay is right.'],
+  ['PRSI class','The letter and number (A1, for example) that sets which social insurance you pay and which benefits you build up. Most employees are class A. Ask payroll what yours stands for.'],
+  ['Insurable weeks','The weeks in which PRSI was paid for you. They count towards your entitlement to benefits and the State pension.'],
+  ['RPN','Revenue Payroll Notification. What Revenue sends your employer each year with your credits, cut-off point and USC rate, so payroll can work out your tax.'],
   ['Tax credit','An amount taken straight off your tax bill. Everyone gets a Personal credit and employees get an Employee (PAYE) credit.'],
   ['Tax relief','A way of reducing the income that is taxed or the tax you pay, e.g. relief on pension contributions or health expenses.'],
   ['Tax Credit Certificate','The document from Revenue showing your credits and rate band for the year. Find it in myAccount at revenue.ie.'],
@@ -3098,6 +3908,7 @@ const NAV = [
   {items:[['dashboard','🏠','Home','Your money at a glance'], ['setup','🧭','Set-up guide','Start here']]},
   {title:'Money in & out', items:[
     ['tax','💶','Take-home pay','Salary, tax and what you keep'],
+    ['payslip','📄','Payslips','Build one, understand every line'],
     ['budget','🧾','Bills & budget','What you spend and save'],
     ['disposable','🛍️','Disposable income','Where spare money goes'],
     ['bank','🏦','Spending','Import a bank statement'],
@@ -3378,6 +4189,7 @@ function renderDashboard(el){
       <div class="actions-grid">
         <button class="action" data-go="budget"><span class="ai">🧾</span><span>Add a bill<small>Track what you spend</small></span></button>
         <button class="action" data-go="bank"><span class="ai">🏦</span><span>Import a statement<small>See real spending</small></span></button>
+        <button class="action" data-go="payslip"><span class="ai">📄</span><span>Understand a payslip<small>Every line explained</small></span></button>
         <button class="action" data-go="reliefs"><span class="ai">🧮</span><span>Check tax credits<small>Claim what you are owed</small></span></button>
         <button class="action" data-go="savings"><span class="ai">🐖</span><span>Set a savings goal<small>Holiday, car, rainy day</small></span></button>
         <button class="action" id="printHome"><span class="ai">🖨️</span><span>Print or save as PDF<small>A one-page summary</small></span></button>
@@ -3550,6 +4362,7 @@ function renderSetup(el){
     ['renewals','🔔','Track contract renewals','Broadband, insurance, energy', Y.renewals.items.length>0],
     ['energy','⚡','Compare electricity tariffs','Upload your smart-meter file', !!(Y.energy.summary)],
     ['networth','📊','Work out your net worth','Own minus owe', (DB.netWorth.snaps||[]).length>0 || (DB.netWorth.assets||[]).length>0],
+    ['payslip','📄','Understand a payslip','Every line explained', DB.payslips.items.length>0],
     ['tracker','🏗️','Track a big project','Renovation, wedding or build', trackerHasData()]
   ];
 
@@ -5990,6 +6803,7 @@ function allSheets(){
   Y.loans.forEach(l=> s.push({name:('Loan '+l.name).slice(0,28), rows:loanCSV(l)}));
   if((Y.mortgages||[]).length) s.push({name:'Mortgages', rows:mortgagesSummaryCSV()});
   (Y.mortgages||[]).forEach(m=> s.push({name:('Mortgage '+m.name).slice(0,28), rows:mortgageCSV(m)}));
+  if(DB.payslips && DB.payslips.items.length) s.push({name:'Payslips', rows:psCsvRows(DB.payslips.items)});
   return s;
 }
 
@@ -6426,6 +7240,7 @@ function adoptDB(j, keepPrefs){
     j.ui = Object.assign({}, DB.ui, j.ui||{});
     j.netWorth = j.netWorth || DB.netWorth;
     j.tracker = j.tracker || DB.tracker;
+    j.payslips = j.payslips || DB.payslips;
     j.theme = j.theme || DB.theme;
     j.lastBackup = j.lastBackup || DB.lastBackup;
   }
@@ -6506,7 +7321,7 @@ function renderData(el){
     ${cardHead('🔒 Privacy')}
     <p style="margin:0">Everything you enter stays in this browser's local storage. There are no accounts, no analytics and no trackers, and nothing is sent anywhere.
     The page makes one request, to its own address, to check whether it is being served by a self-hosted sync server (<a href="homelab/README.md">see homelab</a>); that request carries none of your data.</p>
-    <div class="note">Clearing your browser's site data erases it - which is why backups matter. Your backup also includes any projects in the Budget tracker.</div>
+    <div class="note">Clearing your browser's site data erases it - which is why backups matter. Your backup also includes any projects in the Budget tracker and any payslips you saved. <b>Saved payslips include your PPS number</b>, so keep the backup file somewhere private.</div>
   </div>
 
   <div class="card">
@@ -6594,7 +7409,7 @@ function renderData(el){
   $('#replayTour').onclick = startTour;
   $('#replayWelcome').onclick = showWelcome;
   $('#wipe').onclick = ()=>{
-    if(!confirm('Erase all years, and your Budget tracker projects, from this browser? Download a backup first; this cannot be undone.')) return;
+    if(!confirm('Erase all years, your Budget tracker projects and your saved payslips from this browser? Download a backup first; this cannot be undone.')) return;
     [KEY].concat(EARLIER_KEYS).forEach(k=> localStorage.removeItem(k));
     load(); active = 'dashboard'; render(); toast('Cleared');
   };
@@ -7074,6 +7889,746 @@ function renderDisposable(el){
   if($('#dExport')) $('#dExport').onclick = ()=> downloadCSV('disposable-spending-'+yearLabel()+'.csv',
     [['Date','What','Spent on','Paid by','Amount']].concat(D.entries.slice().sort((a,b)=>a.date<b.date?-1:1).map(e=>[e.date, e.what, e.category, e.who, round2(num(e.amount))])));
 }
+/* ---------------- payslips: the drawings ----------------
+   A payslip is drawn as SVG - rectangles, arrows and text, no images - in the layout the person picks. Each layout is a
+   function that takes a pen (g), the payslip (p) and its totals (c), draws, and returns its [width, height].
+
+   Every box a layout draws that means something is also given a hotspot: g.hot(key, x, y, w, h, label). The keys are the ones
+   psExplain() answers to. Hotspots are drawn last so they sit on top; a small tick or "!" is added to a hotspot whose box has a
+   self-check (marks). With o.plain nothing interactive is drawn at all, which is what the downloaded SVG and the layout thumbnails use.
+
+   The paper is always white with dark ink, in both themes: it is a document, not part of the page chrome. */
+
+const PS_INK = '#1f2fb8';             // the blue of the Sage-style bars
+const psN = v => num(v).toLocaleString('en-IE', {minimumFractionDigits:2, maximumFractionDigits:2});
+const psDate = d => { const x = parseDate(d); return x ? String(x.getDate()).padStart(2, '0') + '/' + String(x.getMonth() + 1).padStart(2, '0') + '/' + x.getFullYear() : ''; };
+const psClip = (s, n) => { s = String(s == null ? '' : s); return s.length > n ? s.slice(0, n - 1) + '…' : s; };
+const psFreqCode = f => f === '4' ? '4' : f;
+
+/* The text styles live inside the SVG so a downloaded file looks the same as the page. Class names start with q to stay clear of the page's own. */
+const PS_SVG_STYLE = '<style>.qv,.qvb,.qvl,.ql,.qs,.qc,.qb,.qm,.qh,.qbig{font-family:Arial,Helvetica,"Segoe UI",sans-serif;fill:#14171f}' +
+  '.qv{font-size:15px}.qvb{font-size:15px;font-weight:700}.qvl{font-size:18px}.ql{font-size:11.5px;font-weight:700;fill:#fff;letter-spacing:.2px}' +
+  '.qs{font-size:11px;font-weight:700;fill:#fff}.qc{font-size:9.5px;font-weight:700;fill:' + PS_INK + '}.qb{font-size:10.5px;font-weight:700;fill:' + PS_INK + '}' +
+  '.qm{font-size:11px;fill:#5b6573}.qh{font-size:12.5px;font-weight:700;fill:#fff}.qbig{font-size:34px;font-weight:700}' +
+  '.hz{fill:transparent;stroke:transparent;stroke-width:2}.hs{cursor:pointer;outline:none}.hs:hover .hz,.hs:focus-visible .hz{fill:rgba(255,190,40,.2);stroke:#e8960c}' +
+  '.hs.sel .hz{fill:rgba(255,190,40,.34);stroke:#e8960c;stroke-width:2.5}.mk-ok{fill:#2b7a30}.mk-warn{fill:#d77a00}.mkt{font:700 10px Arial,sans-serif;fill:#fff;text-anchor:middle}</style>';
+
+/* The pen: collects shapes and hotspots, then wraps them in the <svg>. */
+let psSeq = 0;
+function psPen(o, marks){
+  const parts = [], hots = [];
+  const g = {
+    id:'q' + (++psSeq),           // gradient and clip ids must differ between the drawings on one page
+    raw:s=>{ parts.push(s); },
+    rect:(x, y, w, h, a)=>{ parts.push('<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" ' + (a || '') + '/>'); },
+    line:(x1, y1, x2, y2, a)=>{ parts.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" ' + (a || 'stroke="#c9d1dc" stroke-width="1"') + '/>'); },
+    text:(x, y, s, cls, anchor, extra)=>{
+      if(s === '' || s == null) return;
+      parts.push('<text x="' + x + '" y="' + y + '" class="' + (cls || 'qv') + '"' + (anchor ? ' text-anchor="' + anchor + '"' : '') + (extra ? ' ' + extra : '') + '>' + esc(s) + '</text>');
+    },
+    hot:(key, x, y, w, h, label)=>{ if(!o.plain) hots.push({key, x, y, w, h, label}); },
+    finish:(W, H, name)=>{
+      const mark = h=>{
+        const m = marks[h.key]; if(!m) return '';
+        const cx = Math.min(h.x + h.w - 2, W - 7), cy = Math.max(h.y + 2, 7);          // astride the top-right corner, where it covers the least text
+        return '<circle class="mk-' + m + '" cx="' + cx + '" cy="' + cy + '" r="6"/>' + (m === 'ok'
+          ? '<polyline points="' + (cx - 3) + ',' + cy + ' ' + (cx - 0.8) + ',' + (cy + 2.4) + ' ' + (cx + 3.1) + ',' + (cy - 2.4) + '" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'
+          : '<text class="mkt" x="' + cx + '" y="' + (cy + 3.6) + '">!</text>');
+      };
+      const hs = hots.map(h=> '<g class="hs' + (o.sel === h.key ? ' sel' : '') + '" data-k="' + esc(h.key) + '" tabindex="0" role="button" aria-label="' + esc(h.label) + '">' +
+        '<rect class="hz" x="' + h.x + '" y="' + h.y + '" width="' + h.w + '" height="' + h.h + '" rx="4"/>' + mark(h) + '</g>').join('');
+      return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '"' + (o.size ? ' width="' + W + '" height="' + H + '"' : ' class="psv-svg"') +
+        ' role="group" aria-label="' + esc('Payslip in the ' + name + ' layout') + '">' + PS_SVG_STYLE + '<rect width="' + W + '" height="' + H + '" fill="#fff"/>' + parts.join('') + hs + '</svg>';
+    }
+  };
+  return g;
+}
+
+/* The one entry point. o: {plain, sel, size, checks}. */
+function psSvg(p, o){
+  o = o || {};
+  const c = psCalc(p), marks = {};
+  if(!o.plain) (o.checks || psChecks(p, c)).forEach(ck=>{ if(ck.status === 'warn') marks[ck.key] = 'warn'; else if(ck.status === 'ok' && marks[ck.key] !== 'warn') marks[ck.key] = 'ok'; });
+  const g = psPen(o, marks), layout = PS_LAYOUTS[p.layout] ? p.layout : 'sage';
+  const dim = {sage:psDrawSage, classic:psDrawClassic, modern:psDrawModern}[layout](g, p, c);
+  return g.finish(dim[0], dim[1], PS_LAYOUTS[layout].name);
+}
+
+/* ================= Sage-style ================= */
+function psDrawSage(g, p, c){
+  const B = PS_INK, W = 1000, H = 578;
+  const tag = (x, y, w, h, t)=>{
+    g.raw('<polygon points="' + x + ',' + y + ' ' + (x + w - 9) + ',' + y + ' ' + (x + w) + ',' + (y + h / 2) + ' ' + (x + w - 9) + ',' + (y + h) + ' ' + x + ',' + (y + h) + '" fill="' + B + '"/>');
+    g.text(x + 9, y + h / 2 + 4, t, 'ql');
+  };
+  const bar = (x, y, w, h, t)=>{ g.rect(x, y, w, h, 'rx="3" fill="' + B + '"'); g.text(x + w / 2, y + h / 2 + 4.5, t, 'qh', 'middle'); };
+  const field = (key, label, tx, ty, tw, vx, val, hw, aria, cls)=>{
+    tag(tx, ty, tw, 22, label); g.text(vx, ty + 16.5, val, cls || 'qvl');
+    g.hot(key, tx, ty, hw, 22, aria + (val !== '' ? ': ' + val : ''));
+  };
+  /* top line */
+  g.text(8, 17, p.employer.name, 'qvb');
+  g.text(992, 17, p.employer.regNo ? 'Company Reg. Number: ' + p.employer.regNo : '', 'qvb', 'end');
+  g.hot('employer.name', 6, 2, 440, 20, 'Employer: ' + p.employer.name);
+  g.hot('employer.regNo', 560, 2, 434, 20, 'Company registration number: ' + p.employer.regNo);
+  /* header rows */
+  field('employee.name', 'EMP. NAME', 8, 28, 132, 150, psClip(p.employee.name, 26), 400, 'Employee name');
+  field('employee.number', 'EMP.NUMBER', 8, 58, 132, 150, psClip(p.employee.number, 8), 200, 'Employee number');
+  field('employee.dept', 'DEPT', 222, 58, 76, 308, psClip(p.employee.dept, 6), 130, 'Department');
+  field('employee.cost', 'COST', 372, 58, 76, 458, psClip(p.employee.cost, 7), 150, 'Cost centre');
+  field('period.freq', 'FREQUENCY', 540, 28, 116, 668, psFreqCode(p.period.freq), 150, 'Pay frequency');
+  field('period.number', 'PAY PERIOD', 540, 58, 116, 668, String(c.no), 150, 'Pay period');
+  field('employee.ppsn', 'PPS NUMBER', 706, 28, 132, 850, p.employee.ppsn, 288, 'PPS number');
+  field('period.date', 'PAYMENT DATE', 706, 58, 132, 850, psDate(p.period.date), 288, 'Payment date');
+  /* the two big tables */
+  bar(8, 92, 396, 18, 'PAYMENT DETAILS'); bar(406, 92, 426, 18, 'DEDUCTION DETAILS');
+  g.rect(8, 110, 396, 290, 'fill="none" stroke="' + B + '" stroke-width="1.2"'); g.rect(406, 110, 426, 290, 'fill="none" stroke="' + B + '" stroke-width="1.2"');
+  g.line(8, 126, 404, 126, 'stroke="' + B + '"'); g.line(406, 126, 832, 126, 'stroke="' + B + '"');
+  [140, 184, 290].forEach(x=> g.line(x, 110, x, 400, 'stroke="' + B + '" stroke-opacity=".55"'));
+  [540, 584, 708].forEach(x=> g.line(x, 110, x, 400, 'stroke="' + B + '" stroke-opacity=".55"'));
+  [['DESCRIPTION', 74], ['T/N', 162], ['HOURS', 237], ['VALUE', 347], ['DESCRIPTION', 473], ['T/N', 562], ['THIS PERIOD', 646], ['BALANCE', 770]].forEach(h=> g.text(h[1], 122, h[0], 'qc', 'middle'));
+  const rows = Math.max(p.payments.length, p.deductions.length, 1), lh = Math.max(15, Math.min(21, 268 / rows)), fit = Math.floor(268 / lh);
+  const rowY = i => 128 + i * lh, base = i => rowY(i) + lh * 0.74;
+  p.payments.slice(0, fit).forEach((x, i)=>{
+    g.text(14, base(i), psClip(x.desc, 17));
+    g.text(162, base(i), x.taxable ? 'Y' : 'N', 'qv', 'middle');
+    g.text(284, base(i), num(x.hours) ? psN(x.hours) : '', 'qv', 'end');
+    g.text(398, base(i), psN(x.amount), 'qv', 'end');
+    g.hot('pay:' + x.id, 9, rowY(i), 394, lh, (x.desc || 'Payment') + ': ' + psN(x.amount));
+  });
+  p.deductions.slice(0, fit).forEach((x, i)=>{
+    g.text(412, base(i), psClip(x.desc, 17));
+    g.text(562, base(i), x.pre ? 'Y' : '', 'qv', 'middle');
+    g.text(702, base(i), psN(x.amount), 'qv', 'end');
+    g.text(826, base(i), num(x.ytd) ? psN(x.ytd) : '', 'qv', 'end');
+    g.hot('ded:' + x.id, 407, rowY(i), 424, lh, (x.desc || 'Deduction') + ': ' + psN(x.amount));
+  });
+  /* summary of pay, down the right */
+  g.rect(842, 92, 150, 36, 'rx="6" fill="' + B + '"');
+  g.text(917, 107, 'SUMMARY', 'qh', 'middle'); g.text(917, 122, 'OF PAY', 'qh', 'middle');
+  [['GROSS PAY', 'sum.gross', psN(c.shown.gross)], ['TOTAL DEDS', 'sum.deds', psN(c.shown.deds)], ['NON-TAX ADJS.', 'sum.nontax', psN(c.shown.nonTax)],
+   ['ROUNDING', 'sum.rounding', psN(c.rounding)], ['NETT PAY', 'sum.net', psN(c.shown.net)], ['PAY METHOD', 'period.method', psClip(p.period.method, 16)]].forEach((b, i)=>{
+    const y = 134 + i * 72;
+    g.rect(850, y, 134, 18, 'rx="9" fill="' + B + '"'); g.text(917, y + 13, b[0], 'qs', 'middle');
+    g.rect(842, y + 18, 150, 50, 'rx="5" fill="#fff" stroke="' + B + '" stroke-width="1.2"');
+    if(b[1] === 'period.method') g.text(917, y + 48, b[2], 'qv', 'middle'); else g.text(984, y + 50, b[2], 'qvl', 'end');
+    g.hot(b[1], 842, y, 150, 68, b[0] + ': ' + b[2]);
+  });
+  /* the three boxes along the bottom */
+  const panel = (x, w, title, list)=>{
+    bar(x, 410, w, 18, title);
+    g.rect(x, 428, w, 150 - 10, 'fill="#fff" stroke="' + B + '" stroke-width="1.2"');
+    list.forEach((r, i)=>{
+      const y = 434 + i * 22;
+      g.text(x + 8, y + 15, r[0], 'qb'); g.text(x + w - 8, y + 15, r[2], 'qv', 'end');
+      g.hot(r[1], x + 2, y, w - 4, 22, r[0] + ': ' + r[2]);
+    });
+  };
+  const cum = p.cum;
+  panel(8, 270, 'CUMULATIVE DETAILS', [['GROSS PAY', 'cum.gross', psN(cum.gross)], ['NON-TAX DEDS', 'cum.nonTaxDeds', psN(cum.nonTaxDeds)], ['TAXABLE PAY', 'cum.taxable', psN(cum.taxable)],
+    ['TAX CREDIT', 'cum.credit', psN(cum.credit)], ['STD CUT OFF', 'cum.cutoff', psN(cum.cutoff)], ['TAX PAID', 'cum.taxPaid', psN(cum.taxPaid)]]);
+  panel(282, 276, 'TAX/PRSI DETAILS', [['TAX/USC STATUS', 'tax.status', psClip(p.tax.status, 6)], ['EMER ST. PER', 'tax.emer', psClip(p.tax.emer, 6)],
+    ['TAX CREDIT TTP', 'tax.creditPeriod', num(p.tax.creditPeriod) ? psN(p.tax.creditPeriod) : ''], ['PRSI CODE', 'tax.prsiClass', psClip(p.tax.prsiClass, 6)], ['TOTAL INS WK', 'tax.insWeeks', num(p.tax.insWeeks) ? String(num(p.tax.insWeeks)) : '']]);
+  panel(562, 270, 'COMMENTS', [['EMPER PRSI PER', 'er.prsi', psN(p.er.prsiPeriod)], ['EMPER PRSI TD', 'er.prsiYtd', psN(p.er.prsiYtd)], ['BIK YTD', 'er.bikYtd', psN(p.er.bikYtd)]]);
+  return [W, H];
+}
+
+/* ================= classic page ================= */
+function psDrawClassic(g, p, c){
+  const W = 760, NAVY = '#17324d', LINE = '#cfd8e3', STRIPE = '#f1f4f8';
+  const cell = (key, label, x, y, w, val)=>{ g.text(x, y, label, 'qm'); g.text(x, y + 17, val, 'qvb'); g.hot(key, x - 6, y - 12, w, 36, label + ': ' + val); };
+  /* header band */
+  g.rect(0, 0, W, 74, 'fill="' + NAVY + '"');
+  g.text(24, 36, psClip(p.employer.name || 'Employer', 34), 'qbig', null, 'style="font-size:22px;fill:#fff"');
+  g.text(24, 57, p.employer.regNo ? 'Company reg. no. ' + p.employer.regNo : '', 'qm', null, 'style="fill:#c9d6e6"');
+  g.text(736, 32, 'PAYSLIP', 'qbig', 'end', 'style="font-size:22px;fill:#fff;letter-spacing:2px"');
+  g.text(736, 52, 'Paid ' + psDate(p.period.date), 'qm', 'end', 'style="fill:#fff;font-size:12.5px"');
+  g.text(736, 67, psPeriodWord(p) + ' ' + c.no + ' of ' + c.n, 'qm', 'end', 'style="fill:#c9d6e6"');
+  g.hot('employer.name', 14, 8, 400, 30, 'Employer: ' + p.employer.name); g.hot('employer.regNo', 14, 42, 300, 24, 'Company registration number: ' + p.employer.regNo);
+  g.hot('period.date', 520, 38, 224, 16, 'Payment date: ' + psDate(p.period.date)); g.hot('period.number', 520, 54, 224, 16, 'Pay period: ' + c.no);
+  /* who */
+  const cx = [30, 396];
+  cell('employee.name', 'Employee', cx[0], 100, 330, psClip(p.employee.name, 30)); cell('employee.number', 'Employee number', cx[1], 100, 330, psClip(p.employee.number, 20));
+  cell('employee.ppsn', 'PPS number', cx[0], 140, 330, p.employee.ppsn); cell('employee.dept', 'Department', cx[1], 140, 330, psClip(p.employee.dept, 20));
+  cell('period.freq', 'Paid', cx[0], 180, 330, c.f.label); cell('employee.cost', 'Cost centre', cx[1], 180, 330, psClip(p.employee.cost, 20));
+  cell('period.method', 'Pay method', cx[0], 220, 330, psClip(p.period.method, 24));
+  g.line(24, 250, 736, 250);
+  /* a table: heading band, rows, total */
+  let y = 262;
+  const head = (title, cols)=>{
+    g.rect(24, y, 712, 24, 'fill="' + STRIPE + '"'); g.text(34, y + 16.5, title, 'qvb', null, 'style="fill:' + NAVY + ';letter-spacing:1px;font-size:12.5px"');
+    cols.forEach(cc=> g.text(cc[0], y + 16.5, cc[1], 'qm', 'end')); y += 24;
+  };
+  const total = (key, label, val, cols)=>{
+    g.line(24, y + 2, 736, y + 2, 'stroke="' + NAVY + '" stroke-width="1.5"'); g.text(34, y + 21, label, 'qvb'); g.text(736, y + 21, val, 'qvb', 'end'); (cols || []).forEach(cc=> g.text(cc[0], y + 21, cc[1], 'qvb', 'end'));
+    g.hot(key, 24, y + 4, 712, 24, label + ': ' + val); y += 32;
+  };
+  head('PAYMENTS', [[500, 'Hours'], [620, 'Taxable'], [726, 'Amount']]);
+  p.payments.forEach((x, i)=>{
+    if(i % 2) g.rect(24, y, 712, 24, 'fill="#fafbfc"');
+    g.text(34, y + 17, psClip(x.desc, 40)); g.text(500, y + 17, num(x.hours) ? psN(x.hours) : '', 'qv', 'end'); g.text(620, y + 17, x.taxable ? 'Yes' : 'No', 'qv', 'end'); g.text(726, y + 17, psN(x.amount), 'qv', 'end');
+    g.hot('pay:' + x.id, 24, y, 712, 24, (x.desc || 'Payment') + ': ' + psN(x.amount)); y += 24;
+  });
+  total('sum.gross', 'Gross pay', psN(c.shown.gross)); y += 4;
+  head('DEDUCTIONS', [[580, 'This pay'], [726, 'Year to date']]);
+  p.deductions.forEach((x, i)=>{
+    if(i % 2) g.rect(24, y, 712, 24, 'fill="#fafbfc"');
+    g.text(34, y + 17, psClip(x.desc, 40) + (x.pre ? '  (before tax)' : '')); g.text(580, y + 17, psN(x.amount), 'qv', 'end'); g.text(726, y + 17, num(x.ytd) ? psN(x.ytd) : '', 'qv', 'end');
+    g.hot('ded:' + x.id, 24, y, 712, 24, (x.desc || 'Deduction') + ': ' + psN(x.amount)); y += 24;
+  });
+  total('sum.deds', 'Total deductions', psN(c.shown.deds)); y += 2;
+  [['Non-tax adjustments', 'sum.nontax', psN(c.shown.nonTax)], ['Rounding', 'sum.rounding', psN(c.rounding)]].forEach(r=>{
+    g.text(34, y + 14, r[0], 'qm'); g.text(726, y + 14, r[2], 'qv', 'end', 'style="font-size:13px"'); g.hot(r[1], 24, y, 712, 20, r[0] + ': ' + r[2]); y += 20;
+  });
+  y += 10;
+  /* net pay */
+  g.rect(24, y, 712, 64, 'rx="10" fill="#e8f4ec" stroke="#2b7a30" stroke-width="1.5"');
+  g.text(44, y + 28, 'NET PAY', 'qvb', null, 'style="letter-spacing:2px;font-size:13px;fill:#1b5c2f"');
+  g.text(44, y + 49, 'Paid by ' + (p.period.method || 'bank transfer').toLowerCase() + ' on ' + psDate(p.period.date), 'qm');
+  g.text(716, y + 45, psN(c.shown.net), 'qbig', 'end', 'style="fill:#1b5c2f"');
+  g.hot('sum.net', 24, y, 712, 64, 'Net pay: ' + psN(c.shown.net)); y += 82;
+  /* year to date and tax details, side by side */
+  const box = (x, w, title, list)=>{
+    g.rect(x, y, w, 26 + list.length * 22 + 8, 'rx="8" fill="#fff" stroke="' + LINE + '"'); g.text(x + 14, y + 18, title, 'qvb', null, 'style="font-size:12.5px;letter-spacing:1px;fill:' + NAVY + '"');
+    list.forEach((r, i)=>{ const yy = y + 30 + i * 22; g.text(x + 14, yy + 14, r[0], 'qm', null, 'style="font-size:12px"'); g.text(x + w - 14, yy + 14, r[2], 'qv', 'end', 'style="font-size:13.5px"'); g.hot(r[1], x + 4, yy, w - 8, 22, r[0] + ': ' + r[2]); });
+    return 26 + list.length * 22 + 8;
+  };
+  const cum = p.cum;
+  const h1 = box(24, 346, 'YEAR TO DATE', [['Gross pay', 'cum.gross', psN(cum.gross)], ['Non-tax deductions', 'cum.nonTaxDeds', psN(cum.nonTaxDeds)], ['Taxable pay', 'cum.taxable', psN(cum.taxable)],
+    ['Tax credit', 'cum.credit', psN(cum.credit)], ['Standard rate cut-off', 'cum.cutoff', psN(cum.cutoff)], ['Tax paid', 'cum.taxPaid', psN(cum.taxPaid)]]);
+  box(390, 346, 'TAX AND PRSI', [['Tax basis', 'tax.status', psClip(p.tax.status || PS_BASES[p.tax.basis], 18)], ['Emergency status', 'tax.emer', psClip(p.tax.emer, 12)],
+    ['Credit this pay', 'tax.creditPeriod', num(p.tax.creditPeriod) ? psN(p.tax.creditPeriod) : ''], ['Cut-off this pay', 'tax.cutoffPeriod', num(p.tax.cutoffPeriod) ? psN(p.tax.cutoffPeriod) : ''],
+    ['PRSI class', 'tax.prsiClass', p.tax.prsiClass], ['Insurable weeks', 'tax.insWeeks', num(p.tax.insWeeks) ? String(num(p.tax.insWeeks)) : '']]);
+  y += h1 + 14;
+  /* employer's side */
+  g.text(34, y + 4, 'EMPLOYER COSTS - NOT TAKEN FROM YOUR PAY', 'qm', null, 'style="font-size:10.5px;letter-spacing:1px"'); y += 10;
+  [['Employer PRSI this pay', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)], ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)]].forEach((r, i)=>{
+    const x = 24 + i * 240; g.rect(x, y, 232, 46, 'rx="8" fill="' + STRIPE + '"'); g.text(x + 12, y + 18, r[0], 'qm', null, 'style="font-size:11.5px"'); g.text(x + 12, y + 38, r[2], 'qvb');
+    g.hot(r[1], x, y, 232, 46, r[0] + ': ' + r[2]);
+  });
+  y += 66;
+  return [W, y];
+}
+
+/* ================= online portal ================= */
+function psDrawModern(g, p, c){
+  const W = 760, TEAL = '#0d7a69', LINE = '#e1e6ec', SOFT = '#f3f6f9';
+  const split = psSplit(p, c), SPLIT_COL = {paye:'#d0625d', usc:'#d6a544', prsi:'#6f8fd0', pension:'#a97fc9', other:'#8a94a5', net:TEAL};
+  /* who */
+  const initials = (p.employee.name || '?').split(/[\s,]+/).filter(Boolean).slice(0, 2).map(s=>s.charAt(0).toUpperCase()).join('') || '?';
+  g.raw('<circle cx="56" cy="52" r="26" fill="#e5f4f1"/>'); g.text(56, 59, initials, 'qvb', 'middle', 'style="font-size:18px;fill:' + TEAL + '"');
+  g.text(96, 46, psClip(p.employee.name || 'Your name', 28), 'qvb', null, 'style="font-size:20px"'); g.text(96, 66, psClip(p.employer.name || 'Employer', 34), 'qm', null, 'style="font-size:12.5px"');
+  g.text(548, 66, p.employer.regNo ? 'Reg. no. ' + p.employer.regNo : '', 'qm', 'end', 'style="font-size:12.5px"');
+  g.hot('employee.name', 90, 24, 330, 28, 'Employee: ' + p.employee.name); g.hot('employer.name', 90, 52, 290, 20, 'Employer: ' + p.employer.name);
+  g.hot('employer.regNo', 384, 52, 168, 20, 'Company registration number: ' + p.employer.regNo);
+  g.rect(560, 28, 176, 36, 'rx="18" fill="' + SOFT + '"'); g.text(648, 51, 'Payslip  ' + psDate(p.period.date), 'qvb', 'middle', 'style="font-size:13.5px"');
+  g.hot('period.date', 560, 28, 176, 36, 'Payment date: ' + psDate(p.period.date));
+  /* hero */
+  g.raw('<defs><linearGradient id="' + g.id + 'g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d7a69"/><stop offset="1" stop-color="#0a5d6f"/></linearGradient></defs>');
+  g.rect(24, 96, 712, 132, 'rx="18" fill="url(#' + g.id + 'g)"');
+  g.text(48, 128, 'Take-home pay', 'qm', null, 'style="fill:#cfeee8;font-size:14px"');
+  g.text(48, 180, psN(c.shown.net), 'qbig', null, 'style="font-size:50px;fill:#fff"');
+  g.text(48, 206, 'Paid by ' + (p.period.method || 'bank transfer').toLowerCase() + ' on ' + psDate(p.period.date), 'qm', null, 'style="fill:#cfeee8;font-size:13px"');
+  g.hot('sum.net', 30, 102, 420, 120, 'Net pay: ' + psN(c.shown.net));
+  const prog = Math.min(c.no / c.n, 1);
+  g.text(712, 128, c.f.label + ' pay', 'qm', 'end', 'style="fill:#cfeee8;font-size:13px"'); g.text(712, 156, psPeriodWord(p) + ' ' + c.no + ' of ' + c.n, 'qvb', 'end', 'style="fill:#fff;font-size:17px"');
+  g.rect(540, 176, 172, 8, 'rx="4" fill="#ffffff" fill-opacity=".25"'); g.rect(540, 176, Math.max(172 * prog, 8), 8, 'rx="4" fill="#fff"');
+  g.text(712, 206, 'Method: ' + psClip(p.period.method, 16), 'qm', 'end', 'style="fill:#cfeee8;font-size:12.5px"');
+  g.hot('period.freq', 520, 112, 200, 28, 'Pay frequency: ' + c.f.label); g.hot('period.number', 520, 140, 200, 50, 'Pay period: ' + c.no); g.hot('period.method', 520, 190, 200, 24, 'Pay method: ' + p.period.method);
+  /* where it went */
+  let y = 256;
+  g.text(24, y, 'Where your pay went', 'qvb', null, 'style="font-size:14px"'); y += 12;
+  const total = split.reduce((s, x)=> s + x.amount, 0) || 1; let bx = 24;
+  g.raw('<clipPath id="' + g.id + 'c"><rect x="24" y="' + y + '" width="712" height="18" rx="9"/></clipPath><g clip-path="url(#' + g.id + 'c)">');
+  split.forEach(s=>{ const w = 712 * s.amount / total; g.rect(bx, y, w, 18, 'fill="' + SPLIT_COL[s.id] + '"'); bx += w; });
+  g.raw('</g>');
+  y += 36; let lx = 24;
+  split.forEach(s=>{
+    g.raw('<circle cx="' + (lx + 5) + '" cy="' + (y - 4) + '" r="5" fill="' + SPLIT_COL[s.id] + '"/>');
+    g.text(lx + 15, y, s.label + '  ' + psN(s.amount), 'qm', null, 'style="font-size:11.5px;fill:#14171f"'); lx += 15 + (s.label.length + 9) * 6.2 + 8;
+    if(lx > 640){ lx = 24; y += 18; }
+  });
+  y += 30;
+  /* earnings and deductions */
+  const list = (x, title, rows, totalLabel, totalKey, totalVal)=>{
+    let yy = y;
+    g.text(x, yy, title, 'qvb', null, 'style="font-size:14px"'); yy += 10;
+    rows.forEach(r=>{
+      yy += 26; g.text(x, yy - 8, psClip(r.label, 26), 'qv', null, 'style="font-size:14px"'); g.text(x + 340, yy - 8, r.val, 'qv', 'end', 'style="font-size:14px"');
+      if(r.sub) g.text(x, yy + 5, r.sub, 'qm', null, 'style="font-size:10.5px"'), yy += 10;
+      g.line(x, yy, x + 346, yy, 'stroke="' + LINE + '"'); g.hot(r.key, x - 4, yy - 24 - (r.sub ? 10 : 0), 354, 26 + (r.sub ? 10 : 0), r.label + ': ' + r.val);
+    });
+    yy += 26; g.text(x, yy - 6, totalLabel, 'qvb', null, 'style="font-size:14px"'); g.text(x + 340, yy - 6, totalVal, 'qvb', 'end', 'style="font-size:14px"');
+    g.hot(totalKey, x - 4, yy - 24, 354, 28, totalLabel + ': ' + totalVal);
+    return yy;
+  };
+  const e = list(24, 'Earnings', p.payments.map(x=>({key:'pay:' + x.id, label:x.desc || 'Payment', val:psN(x.amount), sub:x.kind === 'bik' ? 'notional - not paid to you' : x.taxable ? '' : 'not taxed'})), 'Gross pay', 'sum.gross', psN(c.shown.gross));
+  const d = list(390, 'Deductions', p.deductions.map(x=>({key:'ded:' + x.id, label:x.desc || 'Deduction', val:psN(x.amount), sub:num(x.ytd) ? 'so far this year ' + psN(x.ytd) : ''})), 'Total deductions', 'sum.deds', psN(c.shown.deds));
+  y = Math.max(e, d) + 10;
+  [['Non-tax adjustments', 'sum.nontax', psN(c.shown.nonTax)], ['Rounding', 'sum.rounding', psN(c.rounding)]].forEach((r, i)=>{
+    const x = 24 + i * 366; g.text(x, y + 14, r[0], 'qm'); g.text(x + 340, y + 14, r[2], 'qv', 'end', 'style="font-size:13.5px"'); g.hot(r[1], x - 4, y, 354, 22, r[0] + ': ' + r[2]);
+  });
+  y += 42;
+  /* year so far, as tiles */
+  g.text(24, y, 'Your year so far', 'qvb', null, 'style="font-size:14px"'); y += 12;
+  const cum = p.cum;
+  [['Gross pay', 'cum.gross', psN(cum.gross)], ['Taxable pay', 'cum.taxable', psN(cum.taxable)], ['Tax paid', 'cum.taxPaid', psN(cum.taxPaid)],
+   ['Non-tax deductions', 'cum.nonTaxDeds', psN(cum.nonTaxDeds)], ['Tax credit', 'cum.credit', psN(cum.credit)], ['Standard rate cut-off', 'cum.cutoff', psN(cum.cutoff)]].forEach((t, i)=>{
+    const x = 24 + (i % 3) * 240, yy = y + Math.floor(i / 3) * 62;
+    g.rect(x, yy, 232, 54, 'rx="10" fill="' + SOFT + '"'); g.text(x + 14, yy + 20, t[0], 'qm', null, 'style="font-size:11.5px"'); g.text(x + 14, yy + 42, t[2], 'qvb', null, 'style="font-size:16px"');
+    g.hot(t[1], x, yy, 232, 54, t[0] + ': ' + t[2]);
+  });
+  y += 140;
+  /* settings and employer costs as chips */
+  g.text(24, y, 'Tax settings and employer costs', 'qvb', null, 'style="font-size:14px"'); y += 12;
+  const chips = [['Tax basis', 'tax.status', psClip(p.tax.status || PS_BASES[p.tax.basis], 14)], ['Emergency status', 'tax.emer', psClip(p.tax.emer, 10)],
+    ['Credit this pay', 'tax.creditPeriod', num(p.tax.creditPeriod) ? psN(p.tax.creditPeriod) : ''], ['Cut-off this pay', 'tax.cutoffPeriod', num(p.tax.cutoffPeriod) ? psN(p.tax.cutoffPeriod) : ''],
+    ['PRSI class', 'tax.prsiClass', p.tax.prsiClass], ['Insurable weeks', 'tax.insWeeks', num(p.tax.insWeeks) ? String(num(p.tax.insWeeks)) : ''],
+    ['Employer PRSI', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)], ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)],
+    ['Employee number', 'employee.number', psClip(p.employee.number, 10)], ['Department', 'employee.dept', psClip(p.employee.dept, 10)], ['Cost centre', 'employee.cost', psClip(p.employee.cost, 10)],
+    ['PPS number', 'employee.ppsn', p.employee.ppsn]];
+  chips.forEach((t, i)=>{
+    const x = 24 + (i % 4) * 180, yy = y + Math.floor(i / 4) * 52;
+    g.rect(x, yy, 172, 44, 'rx="9" fill="#fff" stroke="' + LINE + '"'); g.text(x + 12, yy + 17, t[0], 'qm', null, 'style="font-size:10.5px"'); g.text(x + 12, yy + 35, t[2] === '' ? '-' : t[2], 'qvb', null, 'style="font-size:13.5px"');
+    g.hot(t[1], x, yy, 172, 44, t[0] + ': ' + t[2]);
+  });
+  y += Math.ceil(chips.length / 4) * 52 + 14;
+  return [W, y];
+}
+/* ---------------- payslips ----------------
+   Two ways to look at one payslip, switched at the top of the page:
+
+     Build it       a form on the left, the payslip taking shape on the right as you type. Tapping a box on the
+                    drawing jumps to its field.
+     Understand it  the drawing, large, with an explanation beside it. Tap any box for what it means, how it was worked
+                    out with your numbers, and whether the sums agree. A walk-through underneath covers every box in order.
+
+   What is on screen is the draft, DB.payslips.draft. "Save to history" copies it into DB.payslips.items; opening a saved
+   payslip copies it back into the draft, so nothing saved changes until you press save again. The engine side is in
+   engine/52-payslip.js and engine/53-payslip-explain.js, the drawings in ui/95-payslip-svg.js. */
+const PSUI = {sel:'', focus:''};
+
+const psData = () => DB.payslips || (DB.payslips = psStore(null));
+function psDraft(){
+  const S = psData();
+  if(!S.draft){ S.draft = psBlank(); S.draftOf = ''; }
+  return S.draft;
+}
+const psSavedCopy = () => { const S = psData(); return S.draftOf ? S.items.find(x=>x.id === S.draftOf) || null : null; };
+/* is there something on screen that would be lost by replacing it? */
+function psDirty(){
+  const d = psDraft(), s = psSavedCopy();
+  if(s) return psSig(d) !== psSig(s);
+  const b = psBlank(d.layout); b.period = d.period;
+  return psSig(d) !== psSig(b);
+}
+const psGet = (o, path) => path.split('.').reduce((r, k)=> r == null ? r : r[k], o);
+function psSetPath(o, path, v){
+  const parts = path.split('.'); let r = o;
+  for(let i = 0; i < parts.length - 1; i++) r = r[parts[i]];
+  r[parts[parts.length - 1]] = v;
+}
+const psRich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const psFirstLine = s => { const t = String(s || '').replace(/\*\*/g, ''), m = t.match(/^.*?[.!?](?=\s|$)/); return m ? m[0] : t; };
+const psMode = () => DB.ui.psMode === 'read' ? 'read' : 'build';
+
+let PS_THUMBS = null;
+function psThumbs(){
+  if(!PS_THUMBS){ PS_THUMBS = {}; Object.keys(PS_LAYOUTS).forEach(k=>{ PS_THUMBS[k] = psSvg(psExample(k), {plain:true}); }); }
+  return PS_THUMBS;
+}
+
+/* the little "saved or not" marker in the toolbar, redrawn on its own while typing so nothing else on the page is rebuilt */
+const psPillHtml = (dirty, saved) => dirty ? `<span class="pill warn" id="psPill" title="You have changes that are not saved to your history">Not saved yet</span>`
+  : saved ? `<span class="pill good" id="psPill">Saved</span>` : `<span id="psPill"></span>`;
+
+/* ---------------- the page ---------------- */
+function renderPayslip(el){
+  const S = psData(), d = psDraft(), c = psCalc(d), checks = psChecks(d, c), dirty = psDirty();
+  const read = psMode() === 'read', saved = psSavedCopy();
+  const order = psOrder(d).reduce((a, g)=> a.concat(g.keys), []);
+  if(PSUI.sel && !order.includes(PSUI.sel)) PSUI.sel = '';
+  const hasData = c.gross > 0 || c.totalDeds > 0 || d.employee.name || d.employer.name;
+
+  el.innerHTML = `
+  <div class="card ps-noprint">
+    <div class="ps-top">
+      <div class="ps-seg" role="group" aria-label="What to do">
+        <button data-psact="mode" data-arg="build" aria-pressed="${!read}">✏️ Build it</button>
+        <button data-psact="mode" data-arg="read" aria-pressed="${read}">🔎 Understand it</button>
+      </div>
+      <span class="spacer"></span>
+      ${psPillHtml(dirty, saved)}
+      <button class="btn" data-psact="new">+ New</button>
+      <button class="btn" data-psact="example">Try an example</button>
+      <button class="btn primary" data-psact="save" ${saved && !dirty ? 'disabled' : ''}>${saved ? '💾 Update saved payslip' : '💾 Save to history'}</button>
+      ${saved ? `<button class="btn" data-psact="saveas">Save as a new one</button>` : ''}
+      <button class="btn" data-psact="next" title="Start the next payslip: same lines, the next pay date, year-to-date figures carried forward">Next payslip &rarr;</button>
+    </div>
+    ${read ? '' : `<div class="note" style="margin-top:8px">Type in what your payslip says. Nothing is read from a file or sent anywhere, and saved payslips stay in this browser with the rest of your data. <b>They include your PPS number, so keep your backup file private.</b></div>`}
+  </div>
+  ${S.items.length ? psSavedHtml(S, d) : ''}
+  ${!hasData && !S.items.length ? callout('tipc', '📄', 'New here?', 'Type in a payslip box by box and Penny Keeper explains every number on it - what it is, how it was worked out, and whether the sums agree. To see how it works first, load a made-up example.',
+      '<button class="btn primary sm" data-psact="example">Try an example payslip</button>') : ''}
+  ${read ? psReadHtml(d, c, checks, order) : psBuildHtml(d, c, checks)}`;
+
+  psWire(el);
+  if(PSUI.focus){
+    const t = $('[data-fk="' + PSUI.focus + '"]', el); PSUI.focus = '';
+    if(t){ const dt = t.closest('details'); if(dt) dt.open = true; t.focus(); }
+  }
+}
+
+/* ---------------- saved payslips ---------------- */
+function psSavedHtml(S, d){
+  const items = S.items.slice().sort((a, b)=> a.period.date < b.period.date ? 1 : a.period.date > b.period.date ? -1 : 0);
+  const rows = items.map(p=>{ const c = psCalc(p); return {p, c}; });
+  const tot = rows.reduce((s, r)=>({g:s.g + r.c.shown.gross, n:s.n + r.c.shown.net}), {g:0, n:0});
+  const open = DB.ui.psListOpen !== false;
+  /* a plain card with a button rather than a <details>: the page restores which <details> were open by position, and this one comes and goes */
+  return `<div class="card ps-noprint">
+    <div class="card-h"><h2>📚 Your saved payslips <span class="pill">${items.length}</span></h2>
+      <div class="actions">${open ? '<button class="btn sm ghost" data-psact="csv">Export as CSV</button>' : ''}
+        <button class="btn sm" data-psact="togglelist" aria-expanded="${open}">${open ? 'Hide the list' : 'Show the list'}</button></div></div>
+    ${open ? `<div class="tw"><table class="stack-m">
+      <thead><tr><th data-nott>Paid</th><th data-nott>Period</th><th data-nott>Employer</th><th class="n" data-nott>Gross</th><th class="n" data-nott>Take-home</th><th></th></tr></thead>
+      <tbody>${rows.map(({p, c})=>`<tr ${p.id === S.draftOf ? 'style="background:var(--accent-soft)"' : ''}>
+        <td class="first" data-label="Paid"><b>${esc(psDate(p.period.date))}</b></td>
+        <td data-label="Period">${esc(psPeriodWord(p))} ${p.period.number}${p.title ? ' - ' + esc(psClip(p.title, 24)) : ''}</td>
+        <td data-label="Employer">${esc(p.employer.name || '-')}</td>
+        <td class="n" data-label="Gross">${fmt(c.shown.gross)}</td>
+        <td class="n" data-label="Take-home"><b>${fmt(c.shown.net)}</b></td>
+        <td class="act"><button class="btn sm" data-psact="open" data-arg="${esc(p.id)}">${p.id === S.draftOf ? 'On screen' : 'Open'}</button>
+          <button class="btn sm danger" data-psact="delete" data-arg="${esc(p.id)}" aria-label="Delete this saved payslip">x</button></td></tr>`).join('')}</tbody>
+      <tfoot><tr><td>Total</td><td></td><td></td><td class="n">${fmt(tot.g)}</td><td class="n">${fmt(tot.n)}</td><td></td></tr></tfoot>
+    </table></div>` : ''}
+  </div>`;
+}
+
+/* ---------------- Build it ---------------- */
+function psIn(d, label, path, o){
+  o = o || {};
+  const v = psGet(d, path), t = o.t || 's';
+  const val = t === 'n' ? (num(v) || '') : t === 'np' ? (v === '' ? '' : num(v)) : v;
+  const attrs = [t === 'd' ? 'type="date"' : '', (t === 'n' || t === 'np') ? 'inputmode="decimal" class="num" style="text-align:right"' : '', t === 'u' ? 'style="text-transform:uppercase"' : '',
+    o.max ? 'maxlength="' + o.max + '"' : '', o.ph !== undefined ? 'placeholder="' + esc(o.ph) + '"' : ''].filter(Boolean).join(' ');
+  return `<label class="f"><span data-nott>${esc(label)}${o.opt ? ' <span class="opt">(optional)</span>' : ''}</span>
+    <input data-psp="${path}" data-t="${t}" data-fk="${o.fk || path}" value="${esc(val)}" ${attrs}>${o.hint ? `<div class="hint">${o.hint}</div>` : ''}</label>`;
+}
+function psSel(d, label, path, opts, o){
+  o = o || {}; const v = psGet(d, path);
+  return `<label class="f"><span data-nott>${esc(label)}</span><select data-psp="${path}" data-t="s" data-fk="${o.fk || path}">${opts.map(([val, text])=>`<option value="${esc(val)}" ${String(val) === String(v) ? 'selected' : ''}>${esc(text)}</option>`).join('')}</select>${o.hint ? `<div class="hint">${o.hint}</div>` : ''}</label>`;
+}
+
+function psBuildHtml(d, c, checks){
+  const payRows = d.payments.map((x, i)=>`<div class="ps-row">
+      <div class="a" data-label="What was it"><input data-psp="payments.${i}.desc" data-t="s" data-fk="pay:${x.id}:desc" value="${esc(x.desc)}" aria-label="What was it" maxlength="40"></div>
+      <div class="a" data-label="Type"><select data-psp="payments.${i}.kind" data-t="kind" data-list="payments" aria-label="Type">${Object.keys(PS_PAY_KINDS).map(k=>`<option value="${k}" ${k === x.kind ? 'selected' : ''}>${esc(PS_PAY_KINDS[k].label)}</option>`).join('')}</select></div>
+      <div class="a" data-label="Hours"><input class="num" style="text-align:right" inputmode="decimal" data-psp="payments.${i}.hours" data-t="n" value="${num(x.hours) || ''}" placeholder="-" aria-label="Hours"></div>
+      <div class="a" data-label="Amount"><input class="num" style="text-align:right" inputmode="decimal" data-psp="payments.${i}.amount" data-t="n" data-fk="pay:${x.id}" value="${num(x.amount) || ''}" placeholder="0.00" aria-label="Amount"></div>
+      <label class="ps-chk" title="Is this taxable? This is the Y/N column"><input type="checkbox" data-psp="payments.${i}.taxable" data-t="b" ${x.taxable ? 'checked' : ''} ${x.kind === 'bik' ? 'disabled' : ''}> Taxable</label>
+      <button class="btn sm danger" data-psact="delpay" data-arg="${esc(x.id)}" aria-label="Remove this payment">x</button></div>`).join('');
+  const dedRows = d.deductions.map((x, i)=>`<div class="ps-row">
+      <div class="a" data-label="What was it"><input data-psp="deductions.${i}.desc" data-t="s" data-fk="ded:${x.id}:desc" value="${esc(x.desc)}" aria-label="What was it" maxlength="40"></div>
+      <div class="a" data-label="Type"><select data-psp="deductions.${i}.kind" data-t="kind" data-list="deductions" aria-label="Type">${Object.keys(PS_DED_KINDS).map(k=>`<option value="${k}" ${k === x.kind ? 'selected' : ''}>${esc(PS_DED_KINDS[k].label)}</option>`).join('')}</select></div>
+      <div class="a" data-label="This pay"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.amount" data-t="n" data-fk="ded:${x.id}" value="${num(x.amount) || ''}" placeholder="0.00" aria-label="This pay"></div>
+      <div class="a" data-label="Year to date"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.ytd" data-t="n" value="${num(x.ytd) || ''}" placeholder="0.00" aria-label="Year to date"></div>
+      <label class="ps-chk" title="Does it come off before tax is worked out? This is the Y/N column"><input type="checkbox" data-psp="deductions.${i}.pre" data-t="b" ${x.pre ? 'checked' : ''}> Before tax</label>
+      <button class="btn sm danger" data-psact="delded" data-arg="${esc(x.id)}" aria-label="Remove this deduction">x</button></div>`).join('');
+
+  return `<div class="ps-build">
+  <div class="ps-form ps-noprint">
+    <div class="card">
+      ${cardHead('1. Pick the layout', 'Choose the one that looks like your payslip, so you can match them box for box. The sums and the explanations are the same in every layout.')}
+      <div class="ps-lays">${Object.keys(PS_LAYOUTS).map(k=>`<button class="ps-lay" data-psact="layout" data-arg="${k}" aria-pressed="${d.layout === k}">
+        <div class="psv">${psThumbs()[k]}</div><b>${esc(PS_LAYOUTS[k].name)}</b><small>${esc(PS_LAYOUTS[k].blurb)}</small></button>`).join('')}</div>
+      <div class="note">The layouts are drawn from scratch to follow the usual arrangement of an Irish payslip. They are not copies of any provider's own, and are not affiliated with or endorsed by any of them.</div>
+    </div>
+    <div class="card">
+      ${cardHead('2. Who, and when')}
+      <div class="grid g2">
+        ${psIn(d, 'Employer', 'employer.name', {fk:'employer.name', max:60})}${psIn(d, 'Company reg. number', 'employer.regNo', {opt:1, max:30})}
+        ${psIn(d, 'Your name', 'employee.name', {max:60})}${psIn(d, 'Employee number', 'employee.number', {opt:1, max:20})}
+        ${psIn(d, 'PPS number', 'employee.ppsn', {t:'u', max:10, ph:'1234567T', hint:'Seven digits and one or two letters.'})}
+        ${psIn(d, 'Department', 'employee.dept', {opt:1, max:20})}${psIn(d, 'Cost centre', 'employee.cost', {opt:1, max:20})}
+        ${psSel(d, 'How often you are paid', 'period.freq', Object.keys(PS_FREQS).map(k=>[k, PS_FREQS[k].label]))}
+        ${psIn(d, 'Pay period number', 'period.number', {t:'n', ph:'7', hint:'Which pay of the year: week 42, or month 7.'})}
+        ${psIn(d, 'Payment date', 'period.date', {t:'d'})}
+        ${psSel(d, 'Pay method', 'period.method', PS_METHODS.concat(PS_METHODS.includes(d.period.method) ? [] : [d.period.method]).map(m=>[m, m]))}
+      </div>
+    </div>
+    <div class="card">
+      ${cardHead('3. What you were paid', 'One line for each payment on the payslip.')}
+      ${payRows}
+      <div class="chips" style="margin-top:10px">${[['basic', 'Salary'], ['overtime', 'Overtime'], ['bonus', 'Bonus'], ['allowance', 'Allowance'], ['expense', 'Expenses'], ['bik', 'Benefit in kind']].map(([k, t])=>`<button class="chip" data-psact="addpay" data-arg="${k}">+ ${t}</button>`).join('')}</div>
+    </div>
+    <div class="card">
+      ${cardHead('4. What came off', 'One line for each deduction. The year-to-date figure is the "balance" column.')}
+      ${dedRows}
+      <div class="chips" style="margin-top:10px">${[['paye', 'PAYE'], ['prsi', 'PRSI'], ['usc', 'USC'], ['pension', 'Pension'], ['avc', 'AVC'], ['health', 'Health insurance'], ['lpt', 'LPT'], ['union', 'Union'], ['other', 'Other']].map(([k, t])=>`<button class="chip" data-psact="addded" data-arg="${k}">+ ${t}</button>`).join('')}</div>
+    </div>
+    <details class="more"><summary>🧮 Summary boxes <span class="mut">(optional - leave empty and we add them up)</span></summary>
+      <div class="grid g3" style="margin-top:8px">
+        ${psIn(d, 'Gross pay', 'printed.gross', {t:'np', fk:'sum.gross', ph:psN(c.gross)})}${psIn(d, 'Total deductions', 'printed.deds', {t:'np', fk:'sum.deds', ph:psN(c.totalDeds)})}
+        ${psIn(d, 'Non-tax adjustments', 'printed.nonTax', {t:'np', fk:'sum.nontax', ph:psN(c.nonTaxAdj)})}${psIn(d, 'Rounding', 'printed.rounding', {t:'np', fk:'sum.rounding', ph:'0.00'})}
+        ${psIn(d, 'Net pay', 'printed.net', {t:'np', fk:'sum.net', ph:psN(c.net), hint:'Type what your payslip says and we will check it adds up.'})}
+      </div>
+    </details>
+    <details class="more"><summary>📈 Year to date <span class="mut">(needed to check your PAYE)</span></summary>
+      <div class="grid g3" style="margin-top:8px">
+        ${psIn(d, 'Gross pay to date', 'cum.gross', {t:'n', fk:'cum.gross'})}${psIn(d, 'Non-tax deductions to date', 'cum.nonTaxDeds', {t:'n', fk:'cum.nonTaxDeds'})}
+        ${psIn(d, 'Taxable pay to date', 'cum.taxable', {t:'n', fk:'cum.taxable'})}${psIn(d, 'Tax credit to date', 'cum.credit', {t:'n', fk:'cum.credit'})}
+        ${psIn(d, 'Standard rate cut-off to date', 'cum.cutoff', {t:'n', fk:'cum.cutoff'})}${psIn(d, 'Tax paid to date', 'cum.taxPaid', {t:'n', fk:'cum.taxPaid'})}
+      </div>
+    </details>
+    <details class="more"><summary>🏷️ Tax and PRSI details</summary>
+      <div class="grid g3" style="margin-top:8px">
+        ${psSel(d, 'How your tax is worked out', 'tax.basis', Object.keys(PS_BASES).map(k=>[k, PS_BASES[k]]), {fk:'tax.status', hint:'Cumulative is the normal one.'})}
+        ${psSel(d, 'USC rates', 'tax.usc', Object.keys(PS_USC_MODES).map(k=>[k, PS_USC_MODES[k]]), {fk:'tax.usc'})}
+        ${psIn(d, 'Status code on the payslip', 'tax.status', {t:'u', opt:1, max:6, fk:'tax.statuscode', ph:'N'})}
+        ${psIn(d, 'Emergency status period', 'tax.emer', {t:'u', opt:1, max:6, fk:'tax.emer'})}
+        ${psIn(d, 'Tax credit for this pay', 'tax.creditPeriod', {t:'n', fk:'tax.creditPeriod'})}${psIn(d, 'Cut-off for this pay', 'tax.cutoffPeriod', {t:'n', opt:1, fk:'tax.cutoffPeriod', hint:d.layout === 'sage' ? 'The Sage layout does not print this one.' : ''})}
+        ${psIn(d, 'PRSI class', 'tax.prsiClass', {t:'u', max:6, fk:'tax.prsiClass', ph:'A1'})}${psIn(d, 'Insurable weeks so far', 'tax.insWeeks', {t:'n', fk:'tax.insWeeks'})}
+      </div>
+    </details>
+    <details class="more"><summary>🏢 Employer costs <span class="mut">(shown on the payslip, not taken from you)</span></summary>
+      <div class="grid g3" style="margin-top:8px">
+        ${psIn(d, 'Employer PRSI this pay', 'er.prsiPeriod', {t:'n', fk:'er.prsi'})}${psIn(d, 'Employer PRSI to date', 'er.prsiYtd', {t:'n', fk:'er.prsiYtd'})}
+        ${psIn(d, 'Benefit in kind to date', 'er.bikYtd', {t:'n', fk:'er.bikYtd'})}
+      </div>
+    </details>
+    <div class="card" style="margin-top:16px">
+      ${cardHead('Give it a name', 'Optional - it helps you spot this one in your saved list.')}
+      <div style="max-width:380px">${psIn(d, 'Name', 'title', {max:60, ph:psTitle(Object.assign({}, d, {title:''}))})}</div>
+    </div>
+  </div>
+  <div class="ps-live">
+    <div class="card">
+      <div class="card-h"><h2>Your payslip</h2><div class="actions"><button class="btn sm" data-psact="mode" data-arg="read">🔎 Explain it</button></div></div>
+      <div class="psv" id="psSvg">${psSvg(d, {checks})}</div>
+      <div class="note" id="psLiveNote">${psLiveNote(checks)}</div>
+    </div>
+  </div>
+  </div>`;
+}
+function psLiveNote(checks){
+  const nOk = checks.filter(x=>x.status === 'ok').length, nWarn = checks.filter(x=>x.status === 'warn').length;
+  return 'Tap a box on the payslip to jump to its field. ' + (nWarn ? '<b class="amb">' + nWarn + ' check' + (nWarn === 1 ? '' : 's') + ' to look at</b> - open <b>Understand it</b> to see.' : nOk ? '<b class="pos">' + nOk + ' check' + (nOk === 1 ? '' : 's') + ' passed.</b>' : 'Fill in more boxes and the self-checks appear here.');
+}
+
+/* ---------------- Understand it ---------------- */
+function psReadHtml(d, c, checks, order){
+  const walk = psOrder(d).map(g=>`<h3 class="sect">${esc(g.title)}</h3><div class="ps-walk">${g.keys.map(k=>{
+    const e = psExplain(d, c, checks, k); if(!e) return '';
+    const st = e.checks.some(x=>x.status === 'warn') ? 'warn' : e.checks.some(x=>x.status === 'ok') ? 'ok' : '';
+    return `<button class="ps-item ${PSUI.sel === k ? 'on' : ''}" data-psact="pick" data-arg="${esc(k)}">
+      <span class="t">${esc(e.title)}${st ? `<i class="mk ${st}" aria-label="${st === 'ok' ? 'checked' : 'worth a look'}">${st === 'ok' ? '✓' : '!'}</i>` : ''}</span>
+      <span class="s">${esc(psFirstLine(e.say[0]))}</span><span class="v num">${esc(e.value)}</span></button>`;
+  }).join('')}</div>`).join('');
+  return `<div class="ps-read">
+    <div class="ps-main">
+      <div class="card">
+        <div class="card-h"><h2>${esc(psTitle(d))}</h2><div class="actions ps-noprint">
+          <button class="btn sm" data-psact="mode" data-arg="build">✏️ Edit</button>
+          <button class="btn sm" data-psact="svg">Download as SVG</button>
+          <button class="btn sm" data-psact="print">🖨️ Print</button></div>
+          <div class="sub ps-noprint">Tap any box to see what it means. A tick means the sums agree; an amber ! means it is worth a second look.</div></div>
+        <div class="psv" id="psSvg">${psSvg(d, {checks, sel:PSUI.sel})}</div>
+      </div>
+      ${psChangeHtml(d, c)}
+      <div class="card"><div class="card-h"><h2>Walk through it, box by box</h2><div class="sub">The same explanations as above, in the order you would read the payslip.</div></div>${walk}</div>
+    </div>
+    <div class="ps-side"><div class="card ps-panel" id="psPanel" aria-live="polite">${psPanelHtml(d, c, checks, PSUI.sel, order)}</div></div>
+  </div>`;
+}
+
+const PS_SPLIT_COL = {paye:'var(--bad)', usc:'var(--need)', prsi:'var(--info)', pension:'#a97fc9', other:'var(--muted)', net:'var(--accent)'};
+function psOverviewHtml(d, c, checks){
+  if(!(c.gross > 0 || c.totalDeds > 0)) return `<div class="emptystate"><div class="big">📄</div><h3>Nothing to explain yet</h3><p>Type in the payments and deductions on your payslip and everything on it is explained here.</p>
+    <button class="btn primary" data-psact="mode" data-arg="build">Start building it</button> <button class="btn" data-psact="example">Try an example</button></div>`;
+  const split = psSplit(d, c), total = split.reduce((s, x)=> s + x.amount, 0) || 1;
+  let x0 = 0;
+  const bar = `<svg viewBox="0 0 400 22" preserveAspectRatio="none" class="ps-split" role="img" aria-label="How your pay was divided">${split.map(s=>{ const w = 400 * s.amount / total, r = `<rect x="${x0.toFixed(2)}" y="0" width="${Math.max(w, 1).toFixed(2)}" height="22" style="fill:${PS_SPLIT_COL[s.id]}"/>`; x0 += w; return r; }).join('')}</svg>`;
+  const order = {warn:0, info:1, ok:2};
+  const list = checks.slice().sort((a, b)=> order[a.status] - order[b.status]);
+  return `<h2 style="font-size:19px">Your payslip at a glance</h2>
+    <p style="margin:6px 0 10px">${c.gross > 0 ? `Of <b>${fmt(c.gross)}</b> gross pay you took home <b class="pos">${fmt(c.net)}</b> - that is <b>${(c.net / c.gross * 100).toFixed(1)} cent</b> in every euro.` : `You took home <b class="pos">${fmt(c.net)}</b>.`}</p>
+    ${bar}
+    <div class="legend">${split.map(s=>`<span><i style="background:${PS_SPLIT_COL[s.id]}"></i>${esc(s.label)}<b>${fmt(s.amount)}</b></span>`).join('')}</div>
+    <h3 class="sect">Self-checks</h3>
+    ${list.length ? list.map(x=>`<button class="ps-check ${x.status}" data-psact="pick" data-arg="${esc(x.key)}"><i class="mk ${x.status}">${x.status === 'ok' ? '✓' : x.status === 'warn' ? '!' : 'i'}</i><span><b>${esc(x.title)}</b><span>${esc(x.text)}</span></span></button>`).join('')
+      : '<div class="note">Nothing to check yet. Fill in the PRSI, USC and PAYE lines and the year-to-date boxes and we compare them with what payroll should have worked out.</div>'}
+    <div class="note">Tap a box on the payslip, or a line in the walk-through, for what it means. These checks are a second opinion made from the figures you typed - payroll knows things this page does not, so a difference is a reason to ask, not proof of a mistake. Not tax advice: confirm anything important on revenue.ie.</div>`;
+}
+function psPanelHtml(d, c, checks, key, order){
+  const e = key ? psExplain(d, c, checks, key) : null;
+  if(!e) return psOverviewHtml(d, c, checks);
+  const i = order.indexOf(key);
+  const ck = e.checks.map(x=>callout(x.status === 'ok' ? 'good' : x.status === 'warn' ? 'warn' : 'info', x.status === 'ok' ? '✓' : x.status === 'warn' ? '!' : 'ℹ️', esc(x.title), esc(x.text))).join('');
+  return `<div class="ps-pnav ps-noprint">
+      <button class="btn sm ghost" data-psact="pick" data-arg="">&larr; Overview</button><span class="spacer"></span>
+      <button class="btn sm" data-psact="prev" ${i <= 0 ? 'disabled' : ''} aria-label="Previous box">&larr;</button>
+      <span class="mut" style="font-size:12.5px">${i + 1} of ${order.length}</span>
+      <button class="btn sm" data-psact="next-box" ${i >= order.length - 1 ? 'disabled' : ''} aria-label="Next box">&rarr;</button></div>
+    <h2 style="font-size:19px;margin-top:10px">${esc(e.title)}</h2>
+    <div class="ps-big num">${esc(e.value || '-')}</div>${e.sub ? `<div class="mut" style="font-size:13px">${esc(e.sub)}</div>` : ''}
+    ${ck ? `<div style="margin-top:12px">${ck}</div>` : ''}
+    ${e.say.map(t=>`<p style="margin:10px 0 0">${psRich(t)}</p>`).join('')}
+    ${e.how.length ? `<h3 class="sect">How it is worked out</h3><table class="ps-calc"><tbody>${e.how.map(r=>`<tr class="${r[2] || ''}"><td>${esc(r[0])}</td><td class="num">${esc(r[1])}</td></tr>`).join('')}</tbody></table>` : ''}
+    ${e.tip ? `<div class="callout tipc" style="margin-top:12px"><div class="ci">💡</div><div class="cb">${psRich(e.tip)}</div></div>` : ''}
+    <div class="row ps-noprint" style="margin-top:8px"><button class="btn sm" data-psact="edit" data-arg="${esc(key)}">✏️ Edit this box</button></div>`;
+}
+/* compare with the payslip before this one */
+function psChangeHtml(d, c){
+  const S = psData(), date = d.period.date;
+  const prev = S.items.filter(x=>x.id !== S.draftOf && x.period.date < date).sort((a, b)=> a.period.date < b.period.date ? 1 : -1)[0];
+  if(!prev || !(c.gross > 0)) return '';
+  const pc = psCalc(prev), rows = psCompare(pc, c);
+  const big = rows.filter(r=>r.label !== 'Take-home pay' && r.label !== 'Gross pay').sort((a, b)=> Math.abs(b.diff) - Math.abs(a.diff))[0];
+  const net = rows.find(r=>r.label === 'Take-home pay'), gross = rows.find(r=>r.label === 'Gross pay');
+  const said = Math.abs(net.diff) < 0.005 ? 'Your take-home pay is the same as on your payslip of ' + psDate(prev.period.date) + '.'
+    : 'Your take-home pay is <b>' + fmt(Math.abs(net.diff)) + (net.diff < 0 ? ' lower' : ' higher') + '</b> than on your payslip of ' + psDate(prev.period.date) + '.' +
+      (Math.abs(gross.diff) >= 0.005 ? ' Gross pay moved by ' + fmt(gross.diff) + '.' : ' Gross pay is unchanged.') +
+      (big && Math.abs(big.diff) >= 0.005 ? ' The biggest change after that is <b>' + esc(big.label) + '</b>, ' + (big.diff > 0 ? 'up ' : 'down ') + fmt(Math.abs(big.diff)) + '.' : '');
+  return `<div class="card ps-noprint"><div class="card-h"><h2>Since your last payslip</h2><div class="sub">Compared with ${esc(psTitle(prev))}, paid ${esc(psDate(prev.period.date))}</div></div>
+    <p style="margin:0 0 8px">${said}</p>
+    <div class="tw"><table><thead><tr><th data-nott></th><th class="n" data-nott>Before</th><th class="n" data-nott>Now</th><th class="n" data-nott>Change</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.label)}</td><td class="n">${fmt(r.before)}</td><td class="n">${fmt(r.after)}</td>
+      <td class="n ${Math.abs(r.diff) < 0.005 ? 'mut' : (r.label === 'Take-home pay' || r.label === 'Gross pay') ? (r.diff > 0 ? 'pos' : 'neg') : (r.diff > 0 ? 'amb' : 'pos')}">${Math.abs(r.diff) < 0.005 ? '-' : (r.diff > 0 ? '+' : '-') + fmt(Math.abs(r.diff))}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+
+/* ---------------- behaviour ---------------- */
+/* redraw just the drawing and the little numbers that depend on the lines, so typing is never interrupted */
+function psLive(){
+  const d = psDraft(), c = psCalc(d), checks = psChecks(d, c), box = $('#psSvg');
+  if(box) box.innerHTML = psSvg(d, {checks, sel:PSUI.sel});
+  const ph = {gross:c.gross, deds:c.totalDeds, nonTax:c.nonTaxAdj, net:c.net};
+  Object.keys(ph).forEach(k=>{ const i = $('[data-psp="printed.' + k + '"]'); if(i) i.placeholder = psN(ph[k]); });
+  const note = $('#psLiveNote'); if(note) note.innerHTML = psLiveNote(checks);
+  const dirty = psDirty(), saved = psSavedCopy(), pill = $('#psPill'), sb = $('[data-psact="save"]'), ti = $('[data-psp="title"]');
+  if(pill) pill.outerHTML = psPillHtml(dirty, saved);
+  if(sb) sb.disabled = !!saved && !dirty;
+  if(ti) ti.placeholder = psTitle(Object.assign({}, d, {title:''}));
+}
+function psReselect(key){
+  PSUI.sel = key || '';
+  const d = psDraft(), c = psCalc(d), checks = psChecks(d, c), order = psOrder(d).reduce((a, g)=> a.concat(g.keys), []);
+  const panel = $('#psPanel'); if(panel) panel.innerHTML = psPanelHtml(d, c, checks, PSUI.sel, order);
+  $$('#psSvg .hs.sel').forEach(n=> n.classList.remove('sel'));
+  if(PSUI.sel){ const n = $('#psSvg .hs[data-k="' + PSUI.sel + '"]'); if(n) n.classList.add('sel'); }
+  $$('.ps-item').forEach(n=> n.classList.toggle('on', n.dataset.arg === PSUI.sel));
+}
+/* tapping a box: in Build it, go to its field; in Understand it, explain it */
+function psPick(key){
+  if(psMode() === 'build'){ psEdit(key); return; }
+  psReselect(key);
+  const panel = $('#psPanel');
+  if(panel && window.matchMedia('(max-width: 1100px)').matches) panel.scrollIntoView({block:'nearest', behavior:'smooth'});
+  else if(panel) panel.scrollTop = 0;
+}
+function psEdit(key){
+  if(psMode() === 'read'){ DB.ui.psMode = 'build'; PSUI.focus = psFieldFor(key); save(true); render({reset:true}); return; }
+  const t = $('[data-fk="' + psFieldFor(key) + '"]');
+  if(!t) return;
+  const dt = t.closest('details'); if(dt) dt.open = true;
+  t.scrollIntoView({block:'center', behavior:'smooth'}); t.focus();
+  if(t.select && t.type !== 'date') t.select();
+}
+/* the form field that holds a box's value: payment and deduction lines have several, and the amount is the one to land on */
+const psFieldFor = key => key === 'tax.status' ? 'tax.status' : key;
+
+function psSetFromInput(i){
+  const t = i.dataset.t || 's', d = psDraft();
+  let v = i.type === 'checkbox' ? i.checked : i.value;
+  if(t === 'n') v = num(v); else if(t === 'np') v = String(v).trim() === '' ? '' : num(v); else if(t === 'u') v = String(v).toUpperCase().trim();
+  psSetPath(d, i.dataset.psp, v);
+  save(true); psLive();
+}
+
+function psKindChanged(list, i, kind){
+  const d = psDraft(), row = d[list][i], isPay = list === 'payments', K = isPay ? PS_PAY_KINDS : PS_DED_KINDS;
+  const old = row.kind; row.kind = kind;
+  if(!row.desc.trim() || row.desc === K[old].desc) row.desc = K[kind].desc;
+  if(isPay) row.taxable = K[kind].taxable; else row.pre = K[kind].pre;
+  save(true); render();
+}
+
+function psConfirmReplace(what){
+  return !psDirty() || confirm('The payslip on screen has changes that are not saved to your history. ' + what + ' anyway and lose them?');
+}
+function psSave(asNew){
+  const S = psData(), d = psDraft(), snap = JSON.parse(JSON.stringify(d));
+  snap.saved = new Date().toISOString();
+  const at = (!asNew && S.draftOf) ? S.items.findIndex(x=>x.id === S.draftOf) : -1;
+  if(at >= 0){ snap.id = S.draftOf; S.items[at] = snap; d.saved = snap.saved; save(); render(); toast('Saved payslip updated'); return; }
+  snap.id = uid(); S.items.push(snap); S.draftOf = snap.id; d.id = snap.id; d.saved = snap.saved;
+  save(); render(); toast('Saved to your history');
+}
+function psUse(p){
+  const S = psData();
+  S.draft = psNormalise(JSON.parse(JSON.stringify(p))); S.draftOf = ''; PSUI.sel = '';
+}
+
+function psAct(act, arg){
+  const S = psData(), d = psDraft();
+  if(act === 'mode'){ DB.ui.psMode = arg === 'read' ? 'read' : 'build'; save(true); render({reset:true}); return; }
+  if(act === 'layout'){ d.layout = arg; save(true); render(); return; }
+  if(act === 'pick'){ psPick(arg); return; }
+  if(act === 'edit'){ psEdit(arg); return; }
+  if(act === 'prev' || act === 'next-box'){
+    const order = psOrder(d).reduce((a, g)=> a.concat(g.keys), []), i = order.indexOf(PSUI.sel);
+    const j = act === 'prev' ? i - 1 : i + 1;
+    if(order[j]) psReselect(order[j]);
+    return;
+  }
+  if(act === 'new'){ if(!psConfirmReplace('Start a new payslip')) return; const b = psBlank(d.layout); S.draft = b; S.draftOf = ''; PSUI.sel = ''; DB.ui.psMode = 'build'; save(true); render({reset:true}); return; }
+  if(act === 'example'){ if(!psConfirmReplace('Load the example')) return; psUse(psExample(d.layout)); save(true); render({reset:true}); toast('Example loaded - this is a made-up payslip'); return; }
+  if(act === 'save'){ psSave(false); return; }
+  if(act === 'saveas'){ psSave(true); return; }
+  if(act === 'next'){
+    if(psDirty() && hasPsData(d)){ toast('Save this payslip first, then start the next one'); return; }
+    psUse(psNextFrom(d)); DB.ui.psMode = 'build'; save(true); render({reset:true}); toast('Next payslip started - update the figures that changed'); return;
+  }
+  if(act === 'open'){
+    const p = S.items.find(x=>x.id === arg); if(!p) return;
+    if(!psConfirmReplace('Open the saved one')) return;
+    psUse(p); S.draftOf = p.id; save(true); render({reset:true}); return;
+  }
+  if(act === 'delete'){
+    const p = S.items.find(x=>x.id === arg); if(!p) return;
+    if(!confirm('Delete the saved payslip "' + psTitle(p) + '"? This cannot be undone.')) return;
+    S.items = S.items.filter(x=>x.id !== arg); if(S.draftOf === arg) S.draftOf = '';
+    save(); render(); return;
+  }
+  if(act === 'addpay'){ const x = psNewPay(arg); d.payments.push(x); PSUI.focus = 'pay:' + x.id + ':desc'; save(true); render(); return; }
+  if(act === 'addded'){ const x = psNewDed(arg); d.deductions.push(x); PSUI.focus = 'ded:' + x.id + ':desc'; save(true); render(); return; }
+  if(act === 'delpay'){ d.payments = d.payments.filter(x=>x.id !== arg); save(true); render(); return; }
+  if(act === 'delded'){ d.deductions = d.deductions.filter(x=>x.id !== arg); save(true); render(); return; }
+  if(act === 'togglelist'){ DB.ui.psListOpen = DB.ui.psListOpen === false; save(true); render(); return; }
+  if(act === 'csv'){ downloadCSV('payslips.csv', psCsvRows(S.items)); return; }
+  if(act === 'svg'){ downloadText('payslip-' + d.period.date + '.svg', psSvg(d, {plain:true, size:true}), 'image/svg+xml'); toast('Payslip downloaded as an SVG image'); return; }
+  if(act === 'print'){ window.print(); return; }
+}
+const hasPsData = d => d.employer.name || d.employee.name || d.payments.some(x=>num(x.amount)) || d.deductions.some(x=>num(x.amount) || num(x.ytd));
+
+function psWire(el){
+  /* one set of handlers on the page itself, replaced (not added to) on every redraw */
+  el.onclick = e=>{
+    const hs = e.target.closest('.hs');
+    if(hs){ psPick(hs.dataset.k); return; }
+    const b = e.target.closest('[data-psact]');
+    if(b && !b.disabled) psAct(b.dataset.psact, b.dataset.arg);
+  };
+  el.onkeydown = e=>{
+    const hs = e.target.closest && e.target.closest('.hs');
+    if(hs && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); psPick(hs.dataset.k); }
+  };
+  el.oninput = e=>{ const i = e.target.closest && e.target.closest('[data-psp]'); if(i && i.dataset.t !== 'kind') psSetFromInput(i); };
+  el.onchange = e=>{
+    const i = e.target.closest && e.target.closest('[data-psp]');
+    if(i && i.dataset.t === 'kind') psKindChanged(i.dataset.list, +i.dataset.psp.split('.')[1], i.value);
+    else if(i && (i.type === 'checkbox' || i.tagName === 'SELECT' || i.type === 'date')) psSetFromInput(i);
+  };
+}
 /* ---------------- init ---------------- */
 function applyTheme(){
   document.documentElement.dataset.theme = DB.theme || 'light';
@@ -7085,7 +8640,7 @@ function init(){
   applyTheme();
   $('#pages').innerHTML = ALL_TABS.map(([id])=>`<section id="tab-${id}" aria-label="${esc(id)}"></section>`).join('');
   Object.assign(RENDERERS, {
-    dashboard:renderDashboard, setup:renderSetup, tax:renderTax, budget:renderBudget, disposable:renderDisposable, bank:renderBank,
+    dashboard:renderDashboard, setup:renderSetup, tax:renderTax, payslip:renderPayslip, budget:renderBudget, disposable:renderDisposable, bank:renderBank,
     renewals:renderRenewals, savings:renderSavingsPage, loans:renderLoans, mortgage:renderMortgage,
     networth:renderNetWorth, reliefs:renderReliefs, energy:renderEnergy, history:renderHistory,
     accounts:renderAccounts, maternity:renderMaternity, tracker:renderTracker, data:renderData

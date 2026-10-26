@@ -17,6 +17,11 @@ phone or a laptop.
   standard rate band and credits for your situation (single, single parent, married, both working), pension,
   AVCs, benefit-in-kind and a bonus. A pay-rise calculator shows how much of an extra euro you keep, and
   *What Budget 2027 means for you* runs your pay through next year's figures.
+- **Payslips** - type in your payslip box by box and get a plain-English explanation of every number on it:
+  what it is, how it was worked out with your figures, and whether the sums agree. It is a builder, not a
+  scanner: nothing is read from a file. The payslip is drawn from SVG shapes in a layout you pick (the first
+  follows the Sage Payroll layout), tapping a box explains it, and you can save payslips as history, start the
+  next one with the year-to-date figures carried forward, compare with the last one, and download one as an SVG.
 - **Bills & budget** - bills at any frequency from weekly to annual, shown as weekly, monthly and yearly
   figures. Savings are kept apart from bills. Shared bills can be split three ways: by share of net income, by
   percentages you choose, or so everyone is left with the same spending money each week. A *year ahead* view
@@ -81,11 +86,14 @@ start a new tax year with your bills carried over, or make a what-if copy of a y
 | Savings & goals | Net worth |
 | ![Budget tracker](docs/screenshots/tracker-desktop.jpg) | ![Disposable income](docs/screenshots/disposable-desktop.jpg) |
 | Budget tracker | Disposable income |
+| ![Payslips](docs/screenshots/payslip-desktop.jpg) | |
+| Payslips: tap a box, get it explained | |
 
 <p align="center">
   <img src="docs/screenshots/home-mobile.jpg" width="220" alt="Home on a phone">
   <img src="docs/screenshots/tracker-mobile.jpg" width="220" alt="Budget tracker on a phone">
   <img src="docs/screenshots/disposable-mobile.jpg" width="220" alt="Disposable income on a phone">
+  <img src="docs/screenshots/payslip-mobile.jpg" width="220" alt="A payslip box explained on a phone">
 </p>
 
 ## Running it
@@ -109,6 +117,8 @@ bank transactions, electricity usage and bill history. `demo/example-household-2
 Everything is held in your browser's `localStorage`. It is never transmitted, and there is no analytics,
 telemetry, or fonts or scripts loaded from anywhere. The one request the page makes is to its own address,
 once, to check whether a [self-hosted server](homelab/) wants to sync; it carries none of your data.
+
+Saved payslips are part of that data and include your PPS number, so keep your backup file private.
 
 Clearing site data wipes it, so **download a backup now and then**. The Home page and the menu remind you
 if it has been more than 30 days. You can also export a workbook (`.xlsx`) with a sheet per section, or any
@@ -228,6 +238,25 @@ If `main` is protected against direct pushes, let `github-actions[bot]` bypass t
   focus back, so you can fill a form with the keyboard.
 - Light and dark themes (light to start with; switch in the top bar), keyboard focus states, works down to a 320px
   screen, and has a print stylesheet.
+
+## Payslip notes
+
+- **What is drawn.** Three layouts, all built from SVG rectangles, polygons and text (no images). *Sage Payroll* follows
+  the layout of a Sage Payroll Ireland sample payslip. *Classic page* and *Online portal* are our own neutral styles
+  of the usual arrangement, not copies of any provider's payslip. Payroll systems name and order their boxes
+  differently, so match yours by what it says, not by where it sits.
+- **What the explanations say.** Each box has a short plain-English meaning and a worked sum from your own figures.
+  Where payroll systems differ, or the provider does not publish what a field means, the wording says so
+  ("usually means", "ask payroll what the code stands for") rather than guessing.
+- **What is checked.** The totals against what you type into the summary boxes; PRSI for the pay date, including the
+  low-earner credit; employer PRSI; USC on the year to date; PAYE to date from taxable pay, the cut-off point and the
+  credits; credits and cut-off against the number of pay periods gone by; the shape of the PPS number. The PRSI rates
+  step up each October and are looked up by payment date (table in `src/engine/52-payslip.js`).
+- **They are a second opinion.** The checks use the figures you typed and Penny Keeper's own tax tables. Payroll
+  knows things this does not (a mid-year change to your credits, a second job, a Revenue payroll notification), so a
+  difference is a reason to ask payroll, not proof of a mistake.
+- **Where it is kept.** `DB.payslips` holds the saved payslips and the one on screen, so it travels with every backup and
+  is shared by every tax year. The spreadsheet export adds a *Payslips* sheet (without the PPS number).
 
 ## Maternity leave notes
 

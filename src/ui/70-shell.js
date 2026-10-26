@@ -3,6 +3,7 @@ const NAV = [
   {items:[['dashboard','🏠','Home','Your money at a glance'], ['setup','🧭','Set-up guide','Start here']]},
   {title:'Money in & out', items:[
     ['tax','💶','Take-home pay','Salary, tax and what you keep'],
+    ['payslip','📄','Payslips','Build one, understand every line'],
     ['budget','🧾','Bills & budget','What you spend and save'],
     ['disposable','🛍️','Disposable income','Where spare money goes'],
     ['bank','🏦','Spending','Import a bank statement'],
