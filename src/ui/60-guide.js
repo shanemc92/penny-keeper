@@ -24,6 +24,7 @@ const PAGES = {
       'Use <b>Build it</b> to type the figures in and <b>Understand it</b> to read the payslip. Tapping a box in Understand it explains it; in Build it, it jumps to the field.',
       'The year-to-date boxes are what let us check your <b>PAYE</b>, <b>PRSI</b> and <b>USC</b>. Leave them empty and you still get the explanations.',
       'A tick on a box means the figures agree with what we would expect. An amber <b>!</b> means it is worth a second look - ask payroll, because they may know something we do not.',
+      'More than one person in Set-up? A row of names at the top switches between them. Each person has their own saved payslips and their own half-finished one, and the saved ones show a <b>Move to...</b> menu if one was filed under the wrong person.',
       '<b>Save to history</b> keeps a copy so you can compare this payslip with the last one. <b>Next payslip</b> starts the following one with the year-to-date figures carried forward.',
       'Saved payslips include your PPS number and are part of your backup file, so keep that file private.']},
   budget:{ico:'🧾', title:'Bills & budget',

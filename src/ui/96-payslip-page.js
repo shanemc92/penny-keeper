@@ -8,7 +8,11 @@
 
    What is on screen is the draft, DB.payslips.draft. "Save to history" copies it into DB.payslips.items; opening a saved
    payslip copies it back into the draft, so nothing saved changes until you press save again. The engine side is in
-   engine/52-payslip.js and engine/53-payslip-explain.js, the drawings in ui/95-payslip-svg.js. */
+   engine/52-payslip.js and engine/53-payslip-explain.js, the drawings in ui/95-payslip-svg.js.
+
+   Whose payslips: when Setup / Take-Home Pay has more than one person, a row of names at the top switches between them.
+   The draft and the saved list on screen are the chosen person's; switching parks an unfinished draft under its owner
+   (DB.payslips.parked) and brings the other person's back, so nothing typed is lost by looking at someone else. */
 const PSUI = {sel:'', focus:''};
 
 const psData = () => DB.payslips || (DB.payslips = psStore(null));
@@ -35,6 +39,61 @@ const psRich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
 const psFirstLine = s => { const t = String(s || '').replace(/\*\*/g, ''), m = t.match(/^.*?[.!?](?=\s|$)/); return m ? m[0] : t; };
 const psMode = () => DB.ui.psMode === 'read' ? 'read' : 'build';
 
+/* ---------------- whose payslips ---------------- */
+const psPeopleNow = () => psPeople(DB.years, Y, psData().items);
+/* the person on screen: always someone in the list, so a year change or a removal in Setup falls back to the first */
+function psWho(){
+  const people = psPeopleNow(), S = psData();
+  return !people.length ? '' : people.some(q=>q.id === S.who) ? S.who : people[0].id;
+}
+/* the saved payslips that belong to the person on screen */
+function psMine(){
+  const people = psPeopleNow(), who = psWho();
+  return psData().items.filter(x=>psOwner(x, people) === who);
+}
+/* put the current draft away under its owner and bring back the other person's. True when that left something unsaved waiting. */
+function psSwitch(to){
+  const S = psData(), from = S.who, d = psDraft();
+  if(from === to) return false;
+  let kept = false;
+  if(from){
+    if(hasPsData(d) || S.draftOf){ kept = psDirty(); S.parked[from] = {draft:d, draftOf:S.draftOf}; }
+    else delete S.parked[from];
+  }
+  const next = S.parked[to];
+  S.draft = next ? next.draft : psBlank(d.layout);
+  S.draftOf = next && S.items.some(x=>x.id === next.draftOf) ? next.draftOf : '';
+  delete S.parked[to];
+  S.who = to; PSUI.sel = '';
+  return kept;
+}
+function psSync(){
+  const S = psData(), want = psWho();
+  if(S.who === want) return;
+  if(!S.who) S.who = want;          // the first visit since people were told apart: what is on screen was theirs
+  else psSwitch(want);
+  save(true);
+}
+/* hand a saved payslip to someone else */
+function psMove(id, to){
+  const S = psData(), q = psPeopleNow().find(x=>x.id === to), p = S.items.find(x=>x.id === id);
+  if(!p || !q) return;
+  if(S.draftOf === id){
+    if(!psConfirmReplace('Move it')) return;
+    S.draft = psBlank(psDraft().layout); S.draftOf = ''; PSUI.sel = '';
+  }
+  p.personId = to;
+  save(); render({reset:true}); toast('Moved to ' + q.name + ' - switch to ' + q.name + ' to see it');
+}
+function psWhoHtml(people, who){
+  const S = psData(), n = {};
+  S.items.forEach(x=>{ const o = psOwner(x, people); n[o] = (n[o] || 0) + 1; });
+  return `<div class="ps-who" role="group" aria-label="Whose payslips">
+      <span class="ps-who-l" data-nott>Payslips for</span>
+      ${people.map(q=>`<button data-psact="who" data-arg="${esc(q.id)}" aria-pressed="${q.id === who}">${esc(q.name)}${n[q.id] ? ` <span class="pill">${n[q.id]}</span>` : ''}${S.parked[q.id] ? ' <span class="pill warn" title="This person has a payslip half-finished, kept until you come back">draft</span>' : ''}</button>`).join('')}
+    </div>`;
+}
+
 let PS_THUMBS = null;
 function psThumbs(){
   if(!PS_THUMBS){ PS_THUMBS = {}; Object.keys(PS_LAYOUTS).forEach(k=>{ PS_THUMBS[k] = psSvg(psExample(k), {plain:true}); }); }
@@ -47,14 +106,16 @@ const psPillHtml = (dirty, saved) => dirty ? `<span class="pill warn" id="psPill
 
 /* ---------------- the page ---------------- */
 function renderPayslip(el){
+  psSync();
   const S = psData(), d = psDraft(), c = psCalc(d), checks = psChecks(d, c), dirty = psDirty();
-  const read = psMode() === 'read', saved = psSavedCopy();
+  const read = psMode() === 'read', saved = psSavedCopy(), people = psPeopleNow(), who = psWho(), mine = psMine();
   const order = psOrder(d).reduce((a, g)=> a.concat(g.keys), []);
   if(PSUI.sel && !order.includes(PSUI.sel)) PSUI.sel = '';
   const hasData = c.gross > 0 || c.totalDeds > 0 || d.employee.name || d.employer.name;
 
   el.innerHTML = `
   <div class="card ps-noprint">
+    ${people.length > 1 ? psWhoHtml(people, who) : ''}
     <div class="ps-top">
       <div class="ps-seg" role="group" aria-label="What to do">
         <button data-psact="mode" data-arg="build" aria-pressed="${!read}">✏️ Build it</button>
@@ -70,8 +131,8 @@ function renderPayslip(el){
     </div>
     ${read ? '' : `<div class="note" style="margin-top:8px">Type in what your payslip says. Nothing is read from a file or sent anywhere, and saved payslips stay in this browser with the rest of your data. <b>They include your PPS number, so keep your backup file private.</b></div>`}
   </div>
-  ${S.items.length ? psSavedHtml(S, d) : ''}
-  ${!hasData && !S.items.length ? callout('tipc', '📄', 'New here?', 'Type in a payslip box by box and Penny Keeper explains every number on it - what it is, how it was worked out, and whether the sums agree. To see how it works first, load a made-up example.',
+  ${mine.length ? psSavedHtml(S, mine, people, who) : ''}
+  ${!hasData && !mine.length ? callout('tipc', '📄', 'New here?', 'Type in a payslip box by box and Penny Keeper explains every number on it - what it is, how it was worked out, and whether the sums agree. To see how it works first, load a made-up example.',
       '<button class="btn primary sm" data-psact="example">Try an example payslip</button>') : ''}
   ${read ? psReadHtml(d, c, checks, order) : psBuildHtml(d, c, checks)}`;
 
@@ -83,14 +144,14 @@ function renderPayslip(el){
 }
 
 /* ---------------- saved payslips ---------------- */
-function psSavedHtml(S, d){
-  const items = S.items.slice().sort((a, b)=> a.period.date < b.period.date ? 1 : a.period.date > b.period.date ? -1 : 0);
+function psSavedHtml(S, mine, people, who){
+  const items = mine.slice().sort((a, b)=> a.period.date < b.period.date ? 1 : a.period.date > b.period.date ? -1 : 0);
   const rows = items.map(p=>{ const c = psCalc(p); return {p, c}; });
   const tot = rows.reduce((s, r)=>({g:s.g + r.c.shown.gross, n:s.n + r.c.shown.net}), {g:0, n:0});
-  const open = DB.ui.psListOpen !== false;
+  const open = DB.ui.psListOpen !== false, others = people.filter(q=>q.id !== who), me = people.find(q=>q.id === who);
   /* a plain card with a button rather than a <details>: the page restores which <details> were open by position, and this one comes and goes */
   return `<div class="card ps-noprint">
-    <div class="card-h"><h2>📚 Your saved payslips <span class="pill">${items.length}</span></h2>
+    <div class="card-h"><h2>📚 ${people.length > 1 && me ? 'Saved payslips for ' + esc(me.name) : 'Your saved payslips'} <span class="pill">${items.length}</span></h2>
       <div class="actions">${open ? '<button class="btn sm ghost" data-psact="csv">Export as CSV</button>' : ''}
         <button class="btn sm" data-psact="togglelist" aria-expanded="${open}">${open ? 'Hide the list' : 'Show the list'}</button></div></div>
     ${open ? `<div class="tw"><table class="stack-m">
@@ -102,6 +163,7 @@ function psSavedHtml(S, d){
         <td class="n" data-label="Gross">${fmt(c.shown.gross)}</td>
         <td class="n" data-label="Take-home"><b>${fmt(c.shown.net)}</b></td>
         <td class="act"><button class="btn sm" data-psact="open" data-arg="${esc(p.id)}">${p.id === S.draftOf ? 'On screen' : 'Open'}</button>
+          ${others.length ? `<select class="ps-move" data-psmove="${esc(p.id)}" aria-label="Move this payslip to another person"><option value="">Move to...</option>${others.map(q=>`<option value="${esc(q.id)}">${esc(q.name)}</option>`).join('')}</select>` : ''}
           <button class="btn sm danger" data-psact="delete" data-arg="${esc(p.id)}" aria-label="Delete this saved payslip">x</button></td></tr>`).join('')}</tbody>
       <tfoot><tr><td>Total</td><td></td><td></td><td class="n">${fmt(tot.g)}</td><td class="n">${fmt(tot.n)}</td><td></td></tr></tfoot>
     </table></div>` : ''}
@@ -291,7 +353,7 @@ function psPanelHtml(d, c, checks, key, order){
 /* compare with the payslip before this one */
 function psChangeHtml(d, c){
   const S = psData(), date = d.period.date;
-  const prev = S.items.filter(x=>x.id !== S.draftOf && x.period.date < date).sort((a, b)=> a.period.date < b.period.date ? 1 : -1)[0];
+  const prev = psMine().filter(x=>x.id !== S.draftOf && x.period.date < date).sort((a, b)=> a.period.date < b.period.date ? 1 : -1)[0];
   if(!prev || !(c.gross > 0)) return '';
   const pc = psCalc(prev), rows = psCompare(pc, c);
   const big = rows.filter(r=>r.label !== 'Take-home pay' && r.label !== 'Gross pay').sort((a, b)=> Math.abs(b.diff) - Math.abs(a.diff))[0];
@@ -367,7 +429,7 @@ function psConfirmReplace(what){
 }
 function psSave(asNew){
   const S = psData(), d = psDraft(), snap = JSON.parse(JSON.stringify(d));
-  snap.saved = new Date().toISOString();
+  snap.saved = new Date().toISOString(); snap.personId = d.personId = psWho();
   const at = (!asNew && S.draftOf) ? S.items.findIndex(x=>x.id === S.draftOf) : -1;
   if(at >= 0){ snap.id = S.draftOf; S.items[at] = snap; d.saved = snap.saved; save(); render(); toast('Saved payslip updated'); return; }
   snap.id = uid(); S.items.push(snap); S.draftOf = snap.id; d.id = snap.id; d.saved = snap.saved;
@@ -380,6 +442,13 @@ function psUse(p){
 
 function psAct(act, arg){
   const S = psData(), d = psDraft();
+  if(act === 'who'){
+    const q = psPeopleNow().find(x=>x.id === arg);
+    if(!q || arg === psWho()) return;
+    const kept = psSwitch(arg); save(true); render({reset:true});
+    if(kept) toast('Your unfinished payslip is kept - it will be here when you switch back');
+    return;
+  }
   if(act === 'mode'){ DB.ui.psMode = arg === 'read' ? 'read' : 'build'; save(true); render({reset:true}); return; }
   if(act === 'layout'){ d.layout = arg; save(true); render(); return; }
   if(act === 'pick'){ psPick(arg); return; }
@@ -423,7 +492,10 @@ function psAct(act, arg){
   if(act === 'delpay'){ d.payments = d.payments.filter(x=>x.id !== arg); save(true); render(); return; }
   if(act === 'delded'){ d.deductions = d.deductions.filter(x=>x.id !== arg); save(true); render(); return; }
   if(act === 'togglelist'){ DB.ui.psListOpen = DB.ui.psListOpen === false; save(true); render(); return; }
-  if(act === 'csv'){ downloadCSV('payslips.csv', psCsvRows(S.items)); return; }
+  if(act === 'csv'){
+    const people = psPeopleNow(), me = people.find(q=>q.id === psWho()), tag = people.length > 1 && me ? '-' + (me.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'person') : '';
+    downloadCSV('payslips' + tag + '.csv', psCsvRows(psMine(), people)); return;
+  }
   if(act === 'svg'){ downloadText('payslip-' + d.period.date + '.svg', psSvg(d, {plain:true, size:true}), 'image/svg+xml'); toast('Payslip downloaded as an SVG image'); return; }
   if(act === 'print'){ window.print(); return; }
 }
@@ -443,6 +515,8 @@ function psWire(el){
   };
   el.oninput = e=>{ const i = e.target.closest && e.target.closest('[data-psp]'); if(i && i.dataset.t !== 'kind') psSetFromInput(i); };
   el.onchange = e=>{
+    const mv = e.target.closest && e.target.closest('[data-psmove]');
+    if(mv){ const to = mv.value; mv.value = ''; if(to) psMove(mv.dataset.psmove, to); return; }
     const i = e.target.closest && e.target.closest('[data-psp]');
     if(i && i.dataset.t === 'kind') psKindChanged(i.dataset.list, +i.dataset.psp.split('.')[1], i.value);
     else if(i && (i.type === 'checkbox' || i.tagName === 'SELECT' || i.type === 'date')) psSetFromInput(i);

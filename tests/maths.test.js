@@ -644,6 +644,32 @@ function runMathsTests(){
     const rows = psCsvRows([q]);
     same(rows[0].indexOf('Employer pension') > 0, true); same(rows[0].length, rows[1].length);
   });
+  test('payslip: people - the list comes from Setup, other years add only people with payslips, and an unknown owner falls to the first', () => {
+    const y26 = {people:[{id:'a', name:'Aoife'}, {id:'b', name:'  '}]}, y25 = {people:[{id:'a', name:'Aoife'}, {id:'c', name:'Cian'}, {id:'d', name:'Dara'}]};
+    const years = {'2025':y25, '2026':y26};
+    const mk = id => Object.assign(psBlank(), {personId:id});
+    const items = [mk('c'), mk('a'), mk('zz'), mk('')];
+    same(psPeople(years, y26, items).map(q => q.id + ':' + q.name), ['a:Aoife', 'b:Person 2', 'c:Cian']);   // Dara has nothing saved, so is not offered; blank names get a number
+    same(psPeople(years, y25, []).map(q => q.id), ['a', 'c', 'd']);
+    same(psPeople(null, null, null), []);
+    const people = psPeople(years, y26, items);
+    same(items.map(x => psOwner(x, people)), ['c', 'a', 'a', 'a']);              // zz (removed) and '' (saved before people existed) go to the first person
+    same(psPersonName(items[0], people), 'Cian'); same(psPersonName(items[2], people), 'Aoife');
+    same(psOwner(mk('x'), []), ''); same(psPersonName(mk('x'), []), '');
+  });
+  test('payslip: the owner and the parked drafts survive a restore, junk is dropped, and the owner never makes a draft look edited', () => {
+    const a = psExample(); a.personId = 'a';
+    const park = {draft:psExample(), draftOf:'gone'};
+    const st = psStore({items:[a], who:'b', parked:{b:park, c:'nope', d:{draft:5}, __proto__:{draft:{}}}});
+    same([st.who, st.items[0].personId, Object.keys(st.parked)], ['b', 'a', ['b']]);
+    same(st.parked.b.draftOf, '');                                                 // its saved copy is gone
+    same(st.parked.b.draft.employer.name, 'Example Ltd');
+    same([psStore(null).who, psStore(null).parked, psStore({who:7}).who], ['', {}, '']);
+    same(psNormalise({personId:'x'.repeat(60)}).personId.length, 24);
+    const b = psExample(); b.personId = 'a'; const c = JSON.parse(JSON.stringify(b)); c.personId = ''; c.id = 'other'; c.saved = 'x';
+    same(psSig(b), psSig(c));
+    same(psCsvRows([a], [{id:'a', name:'Aoife'}])[1][1], 'Aoife'); same(psCsvRows([a])[1][1], '');
+  });
   test('payslip: the spreadsheet export has one line per payslip, oldest first', () => {
     const a = psExample(), b = psNextFrom(a), rows = psCsvRows([b, a]);
     same(rows.length, 3); same([rows[1][0], rows[2][0]], ['2026-07-31', '2026-08-31']);

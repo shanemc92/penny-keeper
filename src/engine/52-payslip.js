@@ -3,9 +3,14 @@
    and explains every box. This file is the data and the maths behind it - plain objects and sums, no page code - so
    the tests can run it.
 
-   Where it lives: DB.payslips = {v:1, items:[...saved payslips], draft:{...}, draftOf:'id of the saved one being edited'}.
+   Where it lives: DB.payslips = {v:1, items:[...saved payslips], draft:{...}, draftOf:'id of the saved one being edited',
+   who:'id of the person on screen', parked:{personId:{draft, draftOf}}}.
    It is deliberately not part of a tax year: a payslip belongs to the date it was paid, and a "what-if copy" of a year
    should not duplicate someone's payroll history. It sits beside DB.tracker and DB.netWorth and travels with every backup.
+
+   Each saved payslip carries the personId of whoever it belongs to - the people from Setup / Take-Home Pay, whose ids stay
+   the same when a year is copied. The draft on screen is always the current person's; when the page switches to someone
+   else, the unfinished draft is parked under its owner and the other person's is brought back.
 
    Every figure is typed in by the person from their own payslip. The checks (psChecks) recompute what Irish payroll
    should have produced from the same inputs and say whether it agrees, in plain words. They are a second opinion, not an
@@ -81,7 +86,7 @@ function psNewDed(kind, amount){
 function psBlank(layout){
   const d = new Date();
   return {
-    id:uid(), saved:'', layout:PS_LAYOUTS[layout] ? layout : 'sage', title:'',
+    id:uid(), saved:'', layout:PS_LAYOUTS[layout] ? layout : 'sage', title:'', personId:'',
     employer:{name:'', regNo:''},
     employee:{name:'', number:'', dept:'', cost:'', ppsn:''},
     period:{freq:'M', number:d.getMonth()+1, date:iso(d), method:'Bank transfer'},
@@ -101,7 +106,7 @@ function psNormalise(p){
   if(!p || typeof p !== 'object') return b;
   const obj = v => (v && typeof v === 'object') ? v : {};
   const str = (v, d, max) => (v == null ? d : String(v)).slice(0, max || 80);
-  const q = {id:str(p.id, uid(), 24) || uid(), saved:str(p.saved, '', 30), layout:b.layout, title:str(p.title, '', 60)};
+  const q = {id:str(p.id, uid(), 24) || uid(), saved:str(p.saved, '', 30), layout:b.layout, title:str(p.title, '', 60), personId:str(p.personId, '', 24)};
   const em = obj(p.employer), ee = obj(p.employee), pe = obj(p.period);
   q.employer = {name:str(em.name, ''), regNo:str(em.regNo, '', 30)};
   q.employee = {name:str(ee.name, ''), number:str(ee.number, '', 20), dept:str(ee.dept, '', 20), cost:str(ee.cost, '', 20), ppsn:str(ee.ppsn, '', 12).toUpperCase()};
@@ -136,11 +141,32 @@ function psStore(s){
   const items = (Array.isArray(o.items) ? o.items : []).filter(x=>x && typeof x === 'object').map(psNormalise);
   const seen = new Set();
   items.forEach(x=>{ while(seen.has(x.id)) x.id = uid(); seen.add(x.id); });
+  const parked = {};
+  if(o.parked && typeof o.parked === 'object') Object.keys(o.parked).slice(0, 40).forEach(k=>{
+    const e = o.parked[k];
+    if(k === '__proto__' || !e || typeof e !== 'object' || !e.draft || typeof e.draft !== 'object') return;
+    parked[k.slice(0, 24)] = {draft:psNormalise(e.draft), draftOf:items.some(x=>x.id === e.draftOf) ? e.draftOf : ''};
+  });
   return {v:1, items, draft:(o.draft && typeof o.draft === 'object') ? psNormalise(o.draft) : null,
-    draftOf:items.some(x=>x.id === o.draftOf) ? o.draftOf : ''};
+    draftOf:items.some(x=>x.id === o.draftOf) ? o.draftOf : '', who:typeof o.who === 'string' ? o.who.slice(0, 24) : '', parked};
 }
-/* what makes two payslips "the same" when deciding whether there is anything unsaved: everything but the ids and the save time */
-const psSig = p => JSON.stringify(p, (k, v) => (k === 'id' || k === 'saved') ? undefined : v);
+
+/* Who a payslip can belong to: the people set up for the tax year on screen, then anyone from another year who has a payslip
+   saved (someone added later still owns the payslips they were paid). Names that were left empty become Person 1, Person 2... */
+function psPeople(years, now, items){
+  const out = [], seen = new Set();
+  const add = q=>{ if(q && q.id && !seen.has(q.id)){ seen.add(q.id); out.push({id:q.id, name:String(q.name || '').trim() || 'Person ' + (out.length + 1)}); } };
+  ((now && now.people) || []).forEach(add);
+  const owners = new Set((items || []).map(x=>x.personId).filter(Boolean));
+  Object.keys(years || {}).sort().reverse().forEach(k=>{ const y = years[k]; if(y && y !== now) (y.people || []).forEach(q=>{ if(q && owners.has(q.id)) add(q); }); });
+  return out;
+}
+/* The person a payslip counts as belonging to. One saved before people were told apart, or for someone no longer anywhere in
+   Setup, goes to the first person - nothing is hidden, and the page can move it. */
+const psOwner = (p, people) => people.some(q=>q.id === p.personId) ? p.personId : (people[0] ? people[0].id : '');
+const psPersonName = (p, people) => { const o = psOwner(p, people), q = people.find(x=>x.id === o); return q ? q.name : ''; };
+/* what makes two payslips "the same" when deciding whether there is anything unsaved: everything but the ids, the owner and the save time */
+const psSig = p => JSON.stringify(p, (k, v) => (k === 'id' || k === 'saved' || k === 'personId') ? undefined : v);
 
 const psPeriodWord = p => { const u = (PS_FREQS[p.period.freq] || PS_FREQS.M).unit; return u.charAt(0).toUpperCase() + u.slice(1); };
 function psTitle(p){
@@ -429,12 +455,12 @@ function psExample(layout){
 }
 
 /* A summary line per saved payslip, for the spreadsheet export. */
-function psCsvRows(items){
-  const rows = [['Payment date', 'Period', 'Employer', 'Employee', 'Gross pay', 'PAYE', 'USC', 'PRSI', 'Pension and AVC', 'Other deductions', 'Total deductions',
+function psCsvRows(items, people){
+  const rows = [['Payment date', 'Person', 'Period', 'Employer', 'Employee', 'Gross pay', 'PAYE', 'USC', 'PRSI', 'Pension and AVC', 'Other deductions', 'Total deductions',
     'Non-tax adjustments', 'Net pay', 'Employer PRSI', 'Employer pension', 'Gross pay to date', 'Tax paid to date']];
   items.slice().sort((a, b)=> a.period.date < b.period.date ? -1 : a.period.date > b.period.date ? 1 : 0).forEach(p=>{
     const c = psCalc(p);
-    rows.push([p.period.date, psPeriodWord(p) + ' ' + p.period.number, p.employer.name, p.employee.name, c.shown.gross, c.paye, c.usc, c.prsi, c.pension,
+    rows.push([p.period.date, psPersonName(p, people || []), psPeriodWord(p) + ' ' + p.period.number, p.employer.name, p.employee.name, c.shown.gross, c.paye, c.usc, c.prsi, c.pension,
       round2(c.totalDeds - c.paye - c.usc - c.prsi - c.pension), c.shown.deds, c.shown.nonTax, c.shown.net, num(p.er.prsiPeriod), num(p.er.pensPeriod), num(p.cum.gross), num(p.cum.taxPaid) || c.ytd.paye]);
   });
   return rows;

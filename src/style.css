@@ -326,6 +326,11 @@ details.plain>summary{font-size:17px;font-weight:650;color:var(--text);padding:6
 
 /* ---------- payslips ---------- */
 .ps-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ps-who{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.ps-who-l{font-size:13px;font-weight:650;color:var(--muted)}
+.ps-who button{display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:650;cursor:pointer;font-size:14px}
+.ps-who button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.ps-move{width:auto;max-width:9.5em;padding:3px 6px;font-size:12.5px;border-radius:7px}
 .ps-seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .ps-seg button{background:var(--surface);color:var(--text);border:0;padding:8px 14px;font-weight:650;cursor:pointer;font-size:14px}
 .ps-seg button+button{border-left:1px solid var(--line)}

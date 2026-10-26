@@ -62,6 +62,8 @@ phone or a laptop.
   scanner: nothing is read from a file. The payslip is drawn from SVG shapes in a layout you pick (the first
   follows the Sage Payroll layout), tapping a box explains it, and you can save payslips as history, start the
   next one with the year-to-date figures carried forward, compare with the last one, and download one as an SVG.
+  When Set-up has more than one person, a row of names at the top of the page switches between them: each person
+  has their own saved payslips and their own unfinished one.
 
 **Backup & settings** - download everything as one file and restore it, export a workbook (`.xlsx`) or CSV,
 start a new tax year with your bills carried over, or make a what-if copy of a year.
@@ -257,6 +259,12 @@ If `main` is protected against direct pushes, let `github-actions[bot]` bypass t
   difference is a reason to ask payroll, not proof of a mistake.
 - **Where it is kept.** `DB.payslips` holds the saved payslips and the one on screen, so it travels with every backup and
   is shared by every tax year. The spreadsheet export adds a *Payslips* sheet (without the PPS number).
+- **More than one person.** The names come from Set-up / Take-Home Pay. Each saved payslip carries the id of the person it
+  belongs to (ids stay the same when a year is copied), and the page shows one person's payslips and unfinished draft at a
+  time. Switching parks the draft under its owner (`DB.payslips.parked`), so nothing typed is lost. Payslips saved before
+  people were told apart, or for someone no longer in Set-up, show under the first person, and each saved payslip has a
+  *Move to...* menu to hand it to someone else. Someone who only exists in another tax year is still offered while they own
+  a saved payslip. The spreadsheet sheet has a *Person* column.
 - **Optional lines.** The Sage layout's *Additional Details* box shows employer PRSI and benefit in kind, and, when you
   fill them in, the employer pension lines (*Er Pens TP* and *Er Pens TY*). Leave those boxes empty and they are not
   drawn, explained or listed in the walk-through. The other two layouts show the same figures in their own style.

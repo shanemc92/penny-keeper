@@ -212,7 +212,7 @@ function allSheets(){
   Y.loans.forEach(l=> s.push({name:('Loan '+l.name).slice(0,28), rows:loanCSV(l)}));
   if((Y.mortgages||[]).length) s.push({name:'Mortgages', rows:mortgagesSummaryCSV()});
   (Y.mortgages||[]).forEach(m=> s.push({name:('Mortgage '+m.name).slice(0,28), rows:mortgageCSV(m)}));
-  if(DB.payslips && DB.payslips.items.length) s.push({name:'Payslips', rows:psCsvRows(DB.payslips.items)});
+  if(DB.payslips && DB.payslips.items.length) s.push({name:'Payslips', rows:psCsvRows(DB.payslips.items, psPeople(DB.years, Y, DB.payslips.items))});
   return s;
 }
 
