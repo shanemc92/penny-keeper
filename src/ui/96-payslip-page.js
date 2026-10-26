@@ -123,6 +123,12 @@ function psSel(d, label, path, opts, o){
   return `<label class="f"><span data-nott>${esc(label)}</span><select data-psp="${path}" data-t="s" data-fk="${o.fk || path}">${opts.map(([val, text])=>`<option value="${esc(val)}" ${String(val) === String(v) ? 'selected' : ''}>${esc(text)}</option>`).join('')}</select>${o.hint ? `<div class="hint">${o.hint}</div>` : ''}</label>`;
 }
 
+/* the buttons at the end of a payment or deduction line: move it up, move it down, remove it. The order here is the order it is printed in. */
+const psActs = (kind, id, i, n, noun) => `<div class="ps-acts">
+      <button class="btn sm" data-psact="up${kind}" data-arg="${esc(id)}" data-fk="up:${esc(id)}" title="Move up" aria-label="Move this ${noun} up" ${i === 0 ? 'disabled' : ''}>&uarr;</button>
+      <button class="btn sm" data-psact="down${kind}" data-arg="${esc(id)}" data-fk="down:${esc(id)}" title="Move down" aria-label="Move this ${noun} down" ${i === n - 1 ? 'disabled' : ''}>&darr;</button>
+      <button class="btn sm danger" data-psact="del${kind}" data-arg="${esc(id)}" title="Remove" aria-label="Remove this ${noun}">x</button></div>`;
+
 function psBuildHtml(d, c, checks){
   const payRows = d.payments.map((x, i)=>`<div class="ps-row">
       <div class="a" data-label="What was it"><input data-psp="payments.${i}.desc" data-t="s" data-fk="pay:${x.id}:desc" value="${esc(x.desc)}" aria-label="What was it" maxlength="40"></div>
@@ -130,14 +136,14 @@ function psBuildHtml(d, c, checks){
       <div class="a" data-label="Hours"><input class="num" style="text-align:right" inputmode="decimal" data-psp="payments.${i}.hours" data-t="n" value="${num(x.hours) || ''}" placeholder="-" aria-label="Hours"></div>
       <div class="a" data-label="Amount"><input class="num" style="text-align:right" inputmode="decimal" data-psp="payments.${i}.amount" data-t="n" data-fk="pay:${x.id}" value="${num(x.amount) || ''}" placeholder="0.00" aria-label="Amount"></div>
       <label class="ps-chk" title="Is this taxable? This is the Y/N column"><input type="checkbox" data-psp="payments.${i}.taxable" data-t="b" ${x.taxable ? 'checked' : ''} ${x.kind === 'bik' ? 'disabled' : ''}> Taxable</label>
-      <button class="btn sm danger" data-psact="delpay" data-arg="${esc(x.id)}" aria-label="Remove this payment">x</button></div>`).join('');
+      ${psActs('pay', x.id, i, d.payments.length, 'payment')}</div>`).join('');
   const dedRows = d.deductions.map((x, i)=>`<div class="ps-row">
       <div class="a" data-label="What was it"><input data-psp="deductions.${i}.desc" data-t="s" data-fk="ded:${x.id}:desc" value="${esc(x.desc)}" aria-label="What was it" maxlength="40"></div>
       <div class="a" data-label="Type"><select data-psp="deductions.${i}.kind" data-t="kind" data-list="deductions" aria-label="Type">${Object.keys(PS_DED_KINDS).map(k=>`<option value="${k}" ${k === x.kind ? 'selected' : ''}>${esc(PS_DED_KINDS[k].label)}</option>`).join('')}</select></div>
       <div class="a" data-label="This pay"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.amount" data-t="n" data-fk="ded:${x.id}" value="${num(x.amount) || ''}" placeholder="0.00" aria-label="This pay"></div>
       <div class="a" data-label="Year to date"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.ytd" data-t="n" value="${num(x.ytd) || ''}" placeholder="0.00" aria-label="Year to date"></div>
       <label class="ps-chk" title="Does it come off before income tax is worked out? On the Sage layout this prints as G (Gross) in the T/N column; other deductions print N"><input type="checkbox" data-psp="deductions.${i}.pre" data-t="b" ${x.pre ? 'checked' : ''}> Before tax (G)</label>
-      <button class="btn sm danger" data-psact="delded" data-arg="${esc(x.id)}" aria-label="Remove this deduction">x</button></div>`).join('');
+      ${psActs('ded', x.id, i, d.deductions.length, 'deduction')}</div>`).join('');
 
   return `<div class="ps-build">
   <div class="ps-form ps-noprint">
@@ -405,6 +411,15 @@ function psAct(act, arg){
   }
   if(act === 'addpay'){ const x = psNewPay(arg); d.payments.push(x); PSUI.focus = 'pay:' + x.id + ':desc'; save(true); render(); return; }
   if(act === 'addded'){ const x = psNewDed(arg); d.deductions.push(x); PSUI.focus = 'ded:' + x.id + ':desc'; save(true); render(); return; }
+  if(act === 'uppay' || act === 'downpay' || act === 'upded' || act === 'downded'){
+    const list = act.slice(-3) === 'pay' ? d.payments : d.deductions, dir = act.indexOf('up') === 0 ? -1 : 1, i = list.findIndex(x=>x.id === arg);
+    if(i >= 0 && moveItem(list, i, dir)){
+      const at = i + dir;      // keep the keyboard on a button that still works, so a line can be walked up or down with repeated presses
+      PSUI.focus = (dir < 0 ? (at === 0 ? 'down:' : 'up:') : (at === list.length - 1 ? 'up:' : 'down:')) + arg;
+      save(true); render();
+    }
+    return;
+  }
   if(act === 'delpay'){ d.payments = d.payments.filter(x=>x.id !== arg); save(true); render(); return; }
   if(act === 'delded'){ d.deductions = d.deductions.filter(x=>x.id !== arg); save(true); render(); return; }
   if(act === 'togglelist'){ DB.ui.psListOpen = DB.ui.psListOpen === false; save(true); render(); return; }
