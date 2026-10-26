@@ -138,7 +138,8 @@ function psDrawSage(g, p, c){
     ['TAX CREDIT', 'cum.credit', psN(cum.credit)], ['STD CUT OFF', 'cum.cutoff', psN(cum.cutoff)], ['TAX PAID', 'cum.taxPaid', psN(cum.taxPaid)]]);
   panel(282, 276, 'TAX/PRSI DETAILS', [['TAX/USC STATUS', 'tax.status', psClip(p.tax.status, 6)], ['EMER ST. PER', 'tax.emer', psClip(p.tax.emer, 6)],
     ['TAX CREDIT TTP', 'tax.creditPeriod', num(p.tax.creditPeriod) ? psN(p.tax.creditPeriod) : ''], ['PRSI CODE', 'tax.prsiClass', psClip(p.tax.prsiClass, 6)], ['TOTAL INS WK', 'tax.insWeeks', num(p.tax.insWeeks) ? String(num(p.tax.insWeeks)) : '']]);
-  panel(562, 270, 'COMMENTS', [['EMPER PRSI PER', 'er.prsi', psN(p.er.prsiPeriod)], ['EMPER PRSI TD', 'er.prsiYtd', psN(p.er.prsiYtd)], ['BIK YTD', 'er.bikYtd', psN(p.er.bikYtd)]]);
+  panel(562, 270, 'ADDITIONAL DETAILS', [["EMP'ER PRSI T.P.", 'er.prsi', psN(p.er.prsiPeriod)], ["EMP'ER PRSI T.D.", 'er.prsiYtd', psN(p.er.prsiYtd)]]
+    .concat(psHasErPens(p) ? [['ER PENS TP', 'er.pens', psN(p.er.pensPeriod)], ['ER PENS TY', 'er.pensYtd', psN(p.er.pensYtd)]] : [], [['BIK YTD', 'er.bikYtd', psN(p.er.bikYtd)]]));
   return [W, H];
 }
 
@@ -211,11 +212,13 @@ function psDrawClassic(g, p, c){
   y += h1 + 14;
   /* employer's side */
   g.text(34, y + 4, 'EMPLOYER COSTS - NOT TAKEN FROM YOUR PAY', 'qm', null, 'style="font-size:10.5px;letter-spacing:1px"'); y += 10;
-  [['Employer PRSI this pay', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)], ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)]].forEach((r, i)=>{
-    const x = 24 + i * 240; g.rect(x, y, 232, 46, 'rx="8" fill="' + STRIPE + '"'); g.text(x + 12, y + 18, r[0], 'qm', null, 'style="font-size:11.5px"'); g.text(x + 12, y + 38, r[2], 'qvb');
-    g.hot(r[1], x, y, 232, 46, r[0] + ': ' + r[2]);
+  const er = [['Employer PRSI this pay', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)]]
+    .concat(psHasErPens(p) ? [['Employer pension this pay', 'er.pens', psN(p.er.pensPeriod)], ['Employer pension to date', 'er.pensYtd', psN(p.er.pensYtd)]] : [], [['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)]]);
+  er.forEach((r, i)=>{
+    const x = 24 + (i % 3) * 240, yy = y + Math.floor(i / 3) * 54; g.rect(x, yy, 232, 46, 'rx="8" fill="' + STRIPE + '"'); g.text(x + 12, yy + 18, r[0], 'qm', null, 'style="font-size:11.5px"'); g.text(x + 12, yy + 38, r[2], 'qvb');
+    g.hot(r[1], x, yy, 232, 46, r[0] + ': ' + r[2]);
   });
-  y += 66;
+  y += Math.ceil(er.length / 3) * 54 + 12;
   return [W, y];
 }
 
@@ -293,7 +296,9 @@ function psDrawModern(g, p, c){
   const chips = [['Tax basis', 'tax.status', psClip(p.tax.status || PS_BASES[p.tax.basis], 14)], ['Emergency status', 'tax.emer', psClip(p.tax.emer, 10)],
     ['Credit this pay', 'tax.creditPeriod', num(p.tax.creditPeriod) ? psN(p.tax.creditPeriod) : ''], ['Cut-off this pay', 'tax.cutoffPeriod', num(p.tax.cutoffPeriod) ? psN(p.tax.cutoffPeriod) : ''],
     ['PRSI class', 'tax.prsiClass', p.tax.prsiClass], ['Insurable weeks', 'tax.insWeeks', num(p.tax.insWeeks) ? String(num(p.tax.insWeeks)) : ''],
-    ['Employer PRSI', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)], ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)],
+    ['Employer PRSI', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)],
+    ...(psHasErPens(p) ? [['Employer pension', 'er.pens', psN(p.er.pensPeriod)], ['Employer pension to date', 'er.pensYtd', psN(p.er.pensYtd)]] : []),
+    ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)],
     ['Employee number', 'employee.number', psClip(p.employee.number, 10)], ['Department', 'employee.dept', psClip(p.employee.dept, 10)], ['Cost centre', 'employee.cost', psClip(p.employee.cost, 10)],
     ['PPS number', 'employee.ppsn', p.employee.ppsn]];
   chips.forEach((t, i)=>{

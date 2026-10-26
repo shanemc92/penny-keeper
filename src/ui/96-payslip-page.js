@@ -197,6 +197,7 @@ function psBuildHtml(d, c, checks){
     <details class="more"><summary>🏢 Employer costs <span class="mut">(shown on the payslip, not taken from you)</span></summary>
       <div class="grid g3" style="margin-top:8px">
         ${psIn(d, 'Employer PRSI this pay', 'er.prsiPeriod', {t:'n', fk:'er.prsi'})}${psIn(d, 'Employer PRSI to date', 'er.prsiYtd', {t:'n', fk:'er.prsiYtd'})}
+        ${psIn(d, 'Employer pension this pay', 'er.pensPeriod', {t:'n', opt:1, fk:'er.pens', hint:'Shown as ER PENS TP on some payslips. Leave both pension boxes empty if yours does not show them.'})}${psIn(d, 'Employer pension to date', 'er.pensYtd', {t:'n', opt:1, fk:'er.pensYtd', hint:'Shown as ER PENS TY.'})}
         ${psIn(d, 'Benefit in kind to date', 'er.bikYtd', {t:'n', fk:'er.bikYtd'})}
       </div>
     </details>

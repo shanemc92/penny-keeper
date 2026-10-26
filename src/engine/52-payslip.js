@@ -53,6 +53,8 @@ const PS_DED_KINDS = {
    and nothing for the three statutory ones. Sage's own set-up help lists the types as Gross and Nett; it does not say what the printed column shows, so the
    explanations hedge. */
 const psDedCode = x => x.pre ? 'G' : (x.kind === 'paye' || x.kind === 'prsi' || x.kind === 'usc') ? '' : 'N';
+/* The employer pension lines are optional: they are drawn, explained and walked through only when one of them has a figure. */
+const psHasErPens = p => num(p.er.pensPeriod) !== 0 || num(p.er.pensYtd) !== 0;
 const PS_BASES = {cumulative:'Cumulative', week1:'Week 1 / Month 1', emergency:'Emergency'};
 const PS_USC_MODES = {ordinary:'Ordinary rates', reduced:'Reduced rates (medical card or aged 70+)', exempt:'Exempt (income under 13,000)'};
 const PS_METHODS = ['Bank transfer', 'Cheque', 'Cash'];
@@ -89,7 +91,7 @@ function psBlank(layout){
     printed:{gross:'', deds:'', nonTax:'', rounding:'', net:''},
     cum:{gross:0, nonTaxDeds:0, taxable:0, credit:0, cutoff:0, taxPaid:0},
     tax:{basis:'cumulative', status:'', emer:'', creditPeriod:0, cutoffPeriod:0, prsiClass:'A1', insWeeks:0, usc:'ordinary'},
-    er:{prsiPeriod:0, prsiYtd:0, bikYtd:0}
+    er:{prsiPeriod:0, prsiYtd:0, pensPeriod:0, pensYtd:0, bikYtd:0}
   };
 }
 
@@ -386,7 +388,7 @@ function psNextFrom(src){
     p.period.number = 1;
     Object.keys(p.cum).forEach(k=>{ p.cum[k] = 0; });
     p.deductions.forEach(x=>{ x.ytd = 0; });
-    p.er.prsiYtd = 0; p.er.bikYtd = 0; p.tax.insWeeks = 0;
+    p.er.prsiYtd = 0; p.er.pensYtd = 0; p.er.bikYtd = 0; p.tax.insWeeks = 0;
     return p;
   }
   p.period.number = no + 1;
@@ -398,6 +400,7 @@ function psNextFrom(src){
   p.cum.taxPaid = round2(num(p.cum.taxPaid) + c.paye);
   p.deductions.forEach(x=>{ x.ytd = round2(num(x.ytd) + num(x.amount)); });
   p.er.prsiYtd = round2(num(p.er.prsiYtd) + num(p.er.prsiPeriod));
+  p.er.pensYtd = round2(num(p.er.pensYtd) + num(p.er.pensPeriod));
   p.er.bikYtd = round2(num(p.er.bikYtd) + bik);
   if(num(p.tax.insWeeks) > 0) p.tax.insWeeks += Math.round(52 * (no + 1) / n) - Math.round(52 * no / n);
   return p;
@@ -421,18 +424,18 @@ function psExample(layout){
   p.deductions = [ded('paye', round2(payeTo(no) - payeTo(no - 1)), payeTo(no)), ded('prsi', prsi, prsi * no), ded('usc', round2(uscTo(no) - uscTo(no - 1)), uscTo(no)), ded('pension', pension, pension * no)];
   p.cum = {gross:salary * no, nonTaxDeds:pension * no, taxable:taxableM * no, credit:round2(creditM * no), cutoff:round2(cutoffM * no), taxPaid:round2(payeTo(no))};
   p.tax = {basis:'cumulative', status:'N', emer:'', creditPeriod:round2(creditM), cutoffPeriod:round2(cutoffM), prsiClass:'A1', insWeeks:30, usc:'ordinary'};
-  p.er = {prsiPeriod:round2(salary * R.erHigh), prsiYtd:round2(salary * R.erHigh * no), bikYtd:0};
+  p.er = {prsiPeriod:round2(salary * R.erHigh), prsiYtd:round2(salary * R.erHigh * no), pensPeriod:pension, pensYtd:round2(pension * no), bikYtd:0};   // the employer matches the 5%
   return p;
 }
 
 /* A summary line per saved payslip, for the spreadsheet export. */
 function psCsvRows(items){
   const rows = [['Payment date', 'Period', 'Employer', 'Employee', 'Gross pay', 'PAYE', 'USC', 'PRSI', 'Pension and AVC', 'Other deductions', 'Total deductions',
-    'Non-tax adjustments', 'Net pay', 'Employer PRSI', 'Gross pay to date', 'Tax paid to date']];
+    'Non-tax adjustments', 'Net pay', 'Employer PRSI', 'Employer pension', 'Gross pay to date', 'Tax paid to date']];
   items.slice().sort((a, b)=> a.period.date < b.period.date ? -1 : a.period.date > b.period.date ? 1 : 0).forEach(p=>{
     const c = psCalc(p);
     rows.push([p.period.date, psPeriodWord(p) + ' ' + p.period.number, p.employer.name, p.employee.name, c.shown.gross, c.paye, c.usc, c.prsi, c.pension,
-      round2(c.totalDeds - c.paye - c.usc - c.prsi - c.pension), c.shown.deds, c.shown.nonTax, c.shown.net, num(p.er.prsiPeriod), num(p.cum.gross), num(p.cum.taxPaid) || c.ytd.paye]);
+      round2(c.totalDeds - c.paye - c.usc - c.prsi - c.pension), c.shown.deds, c.shown.nonTax, c.shown.net, num(p.er.prsiPeriod), num(p.er.pensPeriod), num(p.cum.gross), num(p.cum.taxPaid) || c.ytd.paye]);
   });
   return rows;
 }

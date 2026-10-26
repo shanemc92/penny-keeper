@@ -623,6 +623,27 @@ function runMathsTests(){
     pen.pre = false;
     if(!/\*\*N\*\*/.test(psExplain(p, psCalc(p), ck, 'ded:' + pen.id).say.join(' '))) throw new Error('an after-tax pension should explain the N');
   });
+  test('payslip: the employer pension lines are optional - explained only when filled, and rolled forward', () => {
+    const keysOf = p => psOrder(p).reduce((a, g) => a.concat(g.keys), []);
+    const blank = psBlank();
+    same(psHasErPens(blank), false);
+    same(keysOf(blank).filter(k => k.indexOf('er.') === 0), ['er.prsi', 'er.prsiYtd', 'er.bikYtd']);
+    const p = psExample(), c = psCalc(p), ck = psChecks(p, c);
+    same(psHasErPens(p), true);
+    same(keysOf(p).filter(k => k.indexOf('er.') === 0), ['er.prsi', 'er.prsiYtd', 'er.pens', 'er.pensYtd', 'er.bikYtd']);
+    const a = psExplain(p, c, ck, 'er.pens'), b = psExplain(p, c, ck, 'er.pensYtd');
+    if(a.say.join(' ').indexOf('Er Pens TP') < 0 || b.say.join(' ').indexOf('Er Pens TY') < 0) throw new Error('should explain the printed labels');
+    same([a.how.length, b.how.length], [3, 3]);
+    p.er.pensPeriod = 0; p.er.pensYtd = 2097.72;
+    same(psHasErPens(p), true);                                   // a to-date figure alone is enough to show the pair
+    const q = psExample(), n = psNextFrom(q);
+    near(n.er.pensYtd, q.er.pensYtd + q.er.pensPeriod, 0.005);
+    const dec = psExample(); dec.period.number = 12; dec.period.date = '2026-12-31';
+    same(psNextFrom(dec).er.pensYtd, 0);
+    same(psNormalise({er:{prsiPeriod:5}}).er.pensPeriod, 0);        // a backup from before these boxes existed
+    const rows = psCsvRows([q]);
+    same(rows[0].indexOf('Employer pension') > 0, true); same(rows[0].length, rows[1].length);
+  });
   test('payslip: the spreadsheet export has one line per payslip, oldest first', () => {
     const a = psExample(), b = psNextFrom(a), rows = psCsvRows([b, a]);
     same(rows.length, 3); same([rows[1][0], rows[2][0]], ['2026-07-31', '2026-08-31']);

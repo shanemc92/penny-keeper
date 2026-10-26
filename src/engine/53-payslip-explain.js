@@ -156,6 +156,18 @@ function psExplain(p, c, checks, key){
       tip:'Employer PRSI goes up in small steps each 1 October. The standard rate was ' + pr(R.erHigh) + ' on this payment date.'}),
     'er.prsiYtd': () => T('Employer PRSI to date', {value:M(num(p.er.prsiYtd)), sub:'since 1 January',
       say:['The running total of employer PRSI this year. Like the amount for this pay, it is paid by your employer on top of your wages.']}),
+    'er.pens': () => T('Employer pension this pay', {value:M(num(p.er.pensPeriod)), sub:c.gross > 0 && num(p.er.pensPeriod) > 0 ? pr(num(p.er.pensPeriod) / c.gross) + ' of your pay' : '',
+      say:['Your employer\'s contribution to your pension for this pay. It is paid by your employer on top of your wages, so it is not taken from your pay and does not change your take-home pay.',
+        'It does not count as pay for tax: a contribution by your employer to an approved pension is normally not taxed on you as income, and has no USC or PRSI on it. That is why it never appears in your gross pay. On payslips like this one **Er Pens TP** is most likely short for employer pension, this period.'],
+      how:c.pension > 0 ? [['Your own pension contribution', M(c.pension)], ['Your employer\'s contribution', M(num(p.er.pensPeriod))], ['Going into your pension this pay', M(c.pension + num(p.er.pensPeriod)), 'sum']] : [],
+      tip:'Many employers match what you put in up to a limit, so a higher contribution from you can mean a higher one from them. Ask payroll or your pension scheme how yours works.'}),
+    'er.pensYtd': () => {
+      const own = p.deductions.filter(x=>x.kind === 'pension' || x.kind === 'avc').reduce((s, x)=> s + num(x.ytd), 0);
+      return T('Employer pension to date', {value:M(num(p.er.pensYtd)), sub:'since 1 January',
+        say:['The running total of your employer\'s pension contributions this year. Like the figure for this pay, it is paid by your employer on top of your wages. On payslips like this one **Er Pens TY** most likely means this year, or this tax year to date.'],
+        how:own > 0 ? [['Your own contributions so far', M(own)], ['Your employer\'s so far', M(num(p.er.pensYtd))], ['Paid into your pension this year', M(own + num(p.er.pensYtd)), 'sum']] : [],
+        tip:'It starts again at zero each January, and a change part-way through the year (a new employer, a different rate) changes the total.'});
+    },
     'er.bikYtd': () => T('Benefit in kind to date', {value:M(num(p.er.bikYtd)), sub:'since 1 January',
       say:['The taxable value of perks given to you in kind this year, such as a company car or health insurance paid by your employer. You are not paid it in cash, but it counts as pay for tax, USC and PRSI, so payroll keeps a running total to report to Revenue.'],
       tip:'Zero is normal. It only applies if your employer provides a perk like this.'})
@@ -283,7 +295,7 @@ function psOrder(p){
     {title:'Your pay at a glance', keys:['sum.gross', 'sum.deds'].concat(c.nonTaxAdj !== 0 || c.shown.nonTax !== 0 ? ['sum.nontax'] : [], c.rounding !== 0 ? ['sum.rounding'] : [], ['sum.net', 'period.method'])},
     {title:'Your year so far', keys:['cum.gross', 'cum.nonTaxDeds', 'cum.taxable', 'cum.credit', 'cum.cutoff', 'cum.taxPaid']},
     {title:'The tax settings behind it', keys:['tax.status'].concat(has(p.tax.emer) ? ['tax.emer'] : [], ['tax.creditPeriod'], num(p.tax.cutoffPeriod) > 0 && p.layout !== 'sage' ? ['tax.cutoffPeriod'] : [], ['tax.prsiClass', 'tax.insWeeks'])},
-    {title:'What your employer pays on top', keys:['er.prsi', 'er.prsiYtd', 'er.bikYtd']}
+    {title:'What your employer pays on top', keys:['er.prsi', 'er.prsiYtd'].concat(psHasErPens(p) ? ['er.pens', 'er.pensYtd'] : [], ['er.bikYtd'])}
   ];
   return groups.filter(g=>g.keys.length);
 }

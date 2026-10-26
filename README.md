@@ -257,6 +257,9 @@ If `main` is protected against direct pushes, let `github-actions[bot]` bypass t
   difference is a reason to ask payroll, not proof of a mistake.
 - **Where it is kept.** `DB.payslips` holds the saved payslips and the one on screen, so it travels with every backup and
   is shared by every tax year. The spreadsheet export adds a *Payslips* sheet (without the PPS number).
+- **Optional lines.** The Sage layout's *Additional Details* box shows employer PRSI and benefit in kind, and, when you
+  fill them in, the employer pension lines (*Er Pens TP* and *Er Pens TY*). Leave those boxes empty and they are not
+  drawn, explained or listed in the walk-through. The other two layouts show the same figures in their own style.
 
 ## Maternity leave notes
 

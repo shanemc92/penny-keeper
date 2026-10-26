@@ -2478,6 +2478,8 @@ const PS_DED_KINDS = {
    and nothing for the three statutory ones. Sage's own set-up help lists the types as Gross and Nett; it does not say what the printed column shows, so the
    explanations hedge. */
 const psDedCode = x => x.pre ? 'G' : (x.kind === 'paye' || x.kind === 'prsi' || x.kind === 'usc') ? '' : 'N';
+/* The employer pension lines are optional: they are drawn, explained and walked through only when one of them has a figure. */
+const psHasErPens = p => num(p.er.pensPeriod) !== 0 || num(p.er.pensYtd) !== 0;
 const PS_BASES = {cumulative:'Cumulative', week1:'Week 1 / Month 1', emergency:'Emergency'};
 const PS_USC_MODES = {ordinary:'Ordinary rates', reduced:'Reduced rates (medical card or aged 70+)', exempt:'Exempt (income under 13,000)'};
 const PS_METHODS = ['Bank transfer', 'Cheque', 'Cash'];
@@ -2514,7 +2516,7 @@ function psBlank(layout){
     printed:{gross:'', deds:'', nonTax:'', rounding:'', net:''},
     cum:{gross:0, nonTaxDeds:0, taxable:0, credit:0, cutoff:0, taxPaid:0},
     tax:{basis:'cumulative', status:'', emer:'', creditPeriod:0, cutoffPeriod:0, prsiClass:'A1', insWeeks:0, usc:'ordinary'},
-    er:{prsiPeriod:0, prsiYtd:0, bikYtd:0}
+    er:{prsiPeriod:0, prsiYtd:0, pensPeriod:0, pensYtd:0, bikYtd:0}
   };
 }
 
@@ -2811,7 +2813,7 @@ function psNextFrom(src){
     p.period.number = 1;
     Object.keys(p.cum).forEach(k=>{ p.cum[k] = 0; });
     p.deductions.forEach(x=>{ x.ytd = 0; });
-    p.er.prsiYtd = 0; p.er.bikYtd = 0; p.tax.insWeeks = 0;
+    p.er.prsiYtd = 0; p.er.pensYtd = 0; p.er.bikYtd = 0; p.tax.insWeeks = 0;
     return p;
   }
   p.period.number = no + 1;
@@ -2823,6 +2825,7 @@ function psNextFrom(src){
   p.cum.taxPaid = round2(num(p.cum.taxPaid) + c.paye);
   p.deductions.forEach(x=>{ x.ytd = round2(num(x.ytd) + num(x.amount)); });
   p.er.prsiYtd = round2(num(p.er.prsiYtd) + num(p.er.prsiPeriod));
+  p.er.pensYtd = round2(num(p.er.pensYtd) + num(p.er.pensPeriod));
   p.er.bikYtd = round2(num(p.er.bikYtd) + bik);
   if(num(p.tax.insWeeks) > 0) p.tax.insWeeks += Math.round(52 * (no + 1) / n) - Math.round(52 * no / n);
   return p;
@@ -2846,18 +2849,18 @@ function psExample(layout){
   p.deductions = [ded('paye', round2(payeTo(no) - payeTo(no - 1)), payeTo(no)), ded('prsi', prsi, prsi * no), ded('usc', round2(uscTo(no) - uscTo(no - 1)), uscTo(no)), ded('pension', pension, pension * no)];
   p.cum = {gross:salary * no, nonTaxDeds:pension * no, taxable:taxableM * no, credit:round2(creditM * no), cutoff:round2(cutoffM * no), taxPaid:round2(payeTo(no))};
   p.tax = {basis:'cumulative', status:'N', emer:'', creditPeriod:round2(creditM), cutoffPeriod:round2(cutoffM), prsiClass:'A1', insWeeks:30, usc:'ordinary'};
-  p.er = {prsiPeriod:round2(salary * R.erHigh), prsiYtd:round2(salary * R.erHigh * no), bikYtd:0};
+  p.er = {prsiPeriod:round2(salary * R.erHigh), prsiYtd:round2(salary * R.erHigh * no), pensPeriod:pension, pensYtd:round2(pension * no), bikYtd:0};   // the employer matches the 5%
   return p;
 }
 
 /* A summary line per saved payslip, for the spreadsheet export. */
 function psCsvRows(items){
   const rows = [['Payment date', 'Period', 'Employer', 'Employee', 'Gross pay', 'PAYE', 'USC', 'PRSI', 'Pension and AVC', 'Other deductions', 'Total deductions',
-    'Non-tax adjustments', 'Net pay', 'Employer PRSI', 'Gross pay to date', 'Tax paid to date']];
+    'Non-tax adjustments', 'Net pay', 'Employer PRSI', 'Employer pension', 'Gross pay to date', 'Tax paid to date']];
   items.slice().sort((a, b)=> a.period.date < b.period.date ? -1 : a.period.date > b.period.date ? 1 : 0).forEach(p=>{
     const c = psCalc(p);
     rows.push([p.period.date, psPeriodWord(p) + ' ' + p.period.number, p.employer.name, p.employee.name, c.shown.gross, c.paye, c.usc, c.prsi, c.pension,
-      round2(c.totalDeds - c.paye - c.usc - c.prsi - c.pension), c.shown.deds, c.shown.nonTax, c.shown.net, num(p.er.prsiPeriod), num(p.cum.gross), num(p.cum.taxPaid) || c.ytd.paye]);
+      round2(c.totalDeds - c.paye - c.usc - c.prsi - c.pension), c.shown.deds, c.shown.nonTax, c.shown.net, num(p.er.prsiPeriod), num(p.er.pensPeriod), num(p.cum.gross), num(p.cum.taxPaid) || c.ytd.paye]);
   });
   return rows;
 }
@@ -3019,6 +3022,18 @@ function psExplain(p, c, checks, key){
       tip:'Employer PRSI goes up in small steps each 1 October. The standard rate was ' + pr(R.erHigh) + ' on this payment date.'}),
     'er.prsiYtd': () => T('Employer PRSI to date', {value:M(num(p.er.prsiYtd)), sub:'since 1 January',
       say:['The running total of employer PRSI this year. Like the amount for this pay, it is paid by your employer on top of your wages.']}),
+    'er.pens': () => T('Employer pension this pay', {value:M(num(p.er.pensPeriod)), sub:c.gross > 0 && num(p.er.pensPeriod) > 0 ? pr(num(p.er.pensPeriod) / c.gross) + ' of your pay' : '',
+      say:['Your employer\'s contribution to your pension for this pay. It is paid by your employer on top of your wages, so it is not taken from your pay and does not change your take-home pay.',
+        'It does not count as pay for tax: a contribution by your employer to an approved pension is normally not taxed on you as income, and has no USC or PRSI on it. That is why it never appears in your gross pay. On payslips like this one **Er Pens TP** is most likely short for employer pension, this period.'],
+      how:c.pension > 0 ? [['Your own pension contribution', M(c.pension)], ['Your employer\'s contribution', M(num(p.er.pensPeriod))], ['Going into your pension this pay', M(c.pension + num(p.er.pensPeriod)), 'sum']] : [],
+      tip:'Many employers match what you put in up to a limit, so a higher contribution from you can mean a higher one from them. Ask payroll or your pension scheme how yours works.'}),
+    'er.pensYtd': () => {
+      const own = p.deductions.filter(x=>x.kind === 'pension' || x.kind === 'avc').reduce((s, x)=> s + num(x.ytd), 0);
+      return T('Employer pension to date', {value:M(num(p.er.pensYtd)), sub:'since 1 January',
+        say:['The running total of your employer\'s pension contributions this year. Like the figure for this pay, it is paid by your employer on top of your wages. On payslips like this one **Er Pens TY** most likely means this year, or this tax year to date.'],
+        how:own > 0 ? [['Your own contributions so far', M(own)], ['Your employer\'s so far', M(num(p.er.pensYtd))], ['Paid into your pension this year', M(own + num(p.er.pensYtd)), 'sum']] : [],
+        tip:'It starts again at zero each January, and a change part-way through the year (a new employer, a different rate) changes the total.'});
+    },
     'er.bikYtd': () => T('Benefit in kind to date', {value:M(num(p.er.bikYtd)), sub:'since 1 January',
       say:['The taxable value of perks given to you in kind this year, such as a company car or health insurance paid by your employer. You are not paid it in cash, but it counts as pay for tax, USC and PRSI, so payroll keeps a running total to report to Revenue.'],
       tip:'Zero is normal. It only applies if your employer provides a perk like this.'})
@@ -3146,7 +3161,7 @@ function psOrder(p){
     {title:'Your pay at a glance', keys:['sum.gross', 'sum.deds'].concat(c.nonTaxAdj !== 0 || c.shown.nonTax !== 0 ? ['sum.nontax'] : [], c.rounding !== 0 ? ['sum.rounding'] : [], ['sum.net', 'period.method'])},
     {title:'Your year so far', keys:['cum.gross', 'cum.nonTaxDeds', 'cum.taxable', 'cum.credit', 'cum.cutoff', 'cum.taxPaid']},
     {title:'The tax settings behind it', keys:['tax.status'].concat(has(p.tax.emer) ? ['tax.emer'] : [], ['tax.creditPeriod'], num(p.tax.cutoffPeriod) > 0 && p.layout !== 'sage' ? ['tax.cutoffPeriod'] : [], ['tax.prsiClass', 'tax.insWeeks'])},
-    {title:'What your employer pays on top', keys:['er.prsi', 'er.prsiYtd', 'er.bikYtd']}
+    {title:'What your employer pays on top', keys:['er.prsi', 'er.prsiYtd'].concat(psHasErPens(p) ? ['er.pens', 'er.pensYtd'] : [], ['er.bikYtd'])}
   ];
   return groups.filter(g=>g.keys.length);
 }
@@ -8037,7 +8052,8 @@ function psDrawSage(g, p, c){
     ['TAX CREDIT', 'cum.credit', psN(cum.credit)], ['STD CUT OFF', 'cum.cutoff', psN(cum.cutoff)], ['TAX PAID', 'cum.taxPaid', psN(cum.taxPaid)]]);
   panel(282, 276, 'TAX/PRSI DETAILS', [['TAX/USC STATUS', 'tax.status', psClip(p.tax.status, 6)], ['EMER ST. PER', 'tax.emer', psClip(p.tax.emer, 6)],
     ['TAX CREDIT TTP', 'tax.creditPeriod', num(p.tax.creditPeriod) ? psN(p.tax.creditPeriod) : ''], ['PRSI CODE', 'tax.prsiClass', psClip(p.tax.prsiClass, 6)], ['TOTAL INS WK', 'tax.insWeeks', num(p.tax.insWeeks) ? String(num(p.tax.insWeeks)) : '']]);
-  panel(562, 270, 'COMMENTS', [['EMPER PRSI PER', 'er.prsi', psN(p.er.prsiPeriod)], ['EMPER PRSI TD', 'er.prsiYtd', psN(p.er.prsiYtd)], ['BIK YTD', 'er.bikYtd', psN(p.er.bikYtd)]]);
+  panel(562, 270, 'ADDITIONAL DETAILS', [["EMP'ER PRSI T.P.", 'er.prsi', psN(p.er.prsiPeriod)], ["EMP'ER PRSI T.D.", 'er.prsiYtd', psN(p.er.prsiYtd)]]
+    .concat(psHasErPens(p) ? [['ER PENS TP', 'er.pens', psN(p.er.pensPeriod)], ['ER PENS TY', 'er.pensYtd', psN(p.er.pensYtd)]] : [], [['BIK YTD', 'er.bikYtd', psN(p.er.bikYtd)]]));
   return [W, H];
 }
 
@@ -8110,11 +8126,13 @@ function psDrawClassic(g, p, c){
   y += h1 + 14;
   /* employer's side */
   g.text(34, y + 4, 'EMPLOYER COSTS - NOT TAKEN FROM YOUR PAY', 'qm', null, 'style="font-size:10.5px;letter-spacing:1px"'); y += 10;
-  [['Employer PRSI this pay', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)], ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)]].forEach((r, i)=>{
-    const x = 24 + i * 240; g.rect(x, y, 232, 46, 'rx="8" fill="' + STRIPE + '"'); g.text(x + 12, y + 18, r[0], 'qm', null, 'style="font-size:11.5px"'); g.text(x + 12, y + 38, r[2], 'qvb');
-    g.hot(r[1], x, y, 232, 46, r[0] + ': ' + r[2]);
+  const er = [['Employer PRSI this pay', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)]]
+    .concat(psHasErPens(p) ? [['Employer pension this pay', 'er.pens', psN(p.er.pensPeriod)], ['Employer pension to date', 'er.pensYtd', psN(p.er.pensYtd)]] : [], [['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)]]);
+  er.forEach((r, i)=>{
+    const x = 24 + (i % 3) * 240, yy = y + Math.floor(i / 3) * 54; g.rect(x, yy, 232, 46, 'rx="8" fill="' + STRIPE + '"'); g.text(x + 12, yy + 18, r[0], 'qm', null, 'style="font-size:11.5px"'); g.text(x + 12, yy + 38, r[2], 'qvb');
+    g.hot(r[1], x, yy, 232, 46, r[0] + ': ' + r[2]);
   });
-  y += 66;
+  y += Math.ceil(er.length / 3) * 54 + 12;
   return [W, y];
 }
 
@@ -8192,7 +8210,9 @@ function psDrawModern(g, p, c){
   const chips = [['Tax basis', 'tax.status', psClip(p.tax.status || PS_BASES[p.tax.basis], 14)], ['Emergency status', 'tax.emer', psClip(p.tax.emer, 10)],
     ['Credit this pay', 'tax.creditPeriod', num(p.tax.creditPeriod) ? psN(p.tax.creditPeriod) : ''], ['Cut-off this pay', 'tax.cutoffPeriod', num(p.tax.cutoffPeriod) ? psN(p.tax.cutoffPeriod) : ''],
     ['PRSI class', 'tax.prsiClass', p.tax.prsiClass], ['Insurable weeks', 'tax.insWeeks', num(p.tax.insWeeks) ? String(num(p.tax.insWeeks)) : ''],
-    ['Employer PRSI', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)], ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)],
+    ['Employer PRSI', 'er.prsi', psN(p.er.prsiPeriod)], ['Employer PRSI to date', 'er.prsiYtd', psN(p.er.prsiYtd)],
+    ...(psHasErPens(p) ? [['Employer pension', 'er.pens', psN(p.er.pensPeriod)], ['Employer pension to date', 'er.pensYtd', psN(p.er.pensYtd)]] : []),
+    ['Benefit in kind to date', 'er.bikYtd', psN(p.er.bikYtd)],
     ['Employee number', 'employee.number', psClip(p.employee.number, 10)], ['Department', 'employee.dept', psClip(p.employee.dept, 10)], ['Cost centre', 'employee.cost', psClip(p.employee.cost, 10)],
     ['PPS number', 'employee.ppsn', p.employee.ppsn]];
   chips.forEach((t, i)=>{
@@ -8402,6 +8422,7 @@ function psBuildHtml(d, c, checks){
     <details class="more"><summary>🏢 Employer costs <span class="mut">(shown on the payslip, not taken from you)</span></summary>
       <div class="grid g3" style="margin-top:8px">
         ${psIn(d, 'Employer PRSI this pay', 'er.prsiPeriod', {t:'n', fk:'er.prsi'})}${psIn(d, 'Employer PRSI to date', 'er.prsiYtd', {t:'n', fk:'er.prsiYtd'})}
+        ${psIn(d, 'Employer pension this pay', 'er.pensPeriod', {t:'n', opt:1, fk:'er.pens', hint:'Shown as ER PENS TP on some payslips. Leave both pension boxes empty if yours does not show them.'})}${psIn(d, 'Employer pension to date', 'er.pensYtd', {t:'n', opt:1, fk:'er.pensYtd', hint:'Shown as ER PENS TY.'})}
         ${psIn(d, 'Benefit in kind to date', 'er.bikYtd', {t:'n', fk:'er.bikYtd'})}
       </div>
     </details>
