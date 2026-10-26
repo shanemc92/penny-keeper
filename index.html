@@ -2474,6 +2474,10 @@ const PS_DED_KINDS = {
   union:  {label:'Union subscription',      desc:'Union subs',       pre:false},
   other:  {label:'Other deduction',         desc:'Other deduction',  pre:false}
 };
+/* The T/N column of a deduction as the Sage layout prints it: G for one taken from gross pay (before income tax), N for one taken from nett pay,
+   and nothing for the three statutory ones. Sage's own set-up help lists the types as Gross and Nett; it does not say what the printed column shows, so the
+   explanations hedge. */
+const psDedCode = x => x.pre ? 'G' : (x.kind === 'paye' || x.kind === 'prsi' || x.kind === 'usc') ? '' : 'N';
 const PS_BASES = {cumulative:'Cumulative', week1:'Week 1 / Month 1', emergency:'Emergency'};
 const PS_USC_MODES = {ordinary:'Ordinary rates', reduced:'Reduced rates (medical card or aged 70+)', exempt:'Exempt (income under 13,000)'};
 const PS_METHODS = ['Bank transfer', 'Cheque', 'Cash'];
@@ -3061,7 +3065,10 @@ function psExplainDeduction(p, c, mine, key, T){
   const M = fmt, pr = r => String(+(r * 100).toFixed(2)) + '%', a = num(x.amount), y = num(x.ytd), n = c.n, no = c.no;
   const b = presetFor(c.year), R = psPrsiRates(c.date);
   const out = {value:M(a), sub:y > 0 ? M(y) + ' so far this year' : '', say:[], how:[], tip:''};
-  const timing = x.pre ? 'It comes off **before** income tax is worked out (the Y in the T/N column), so it lowers your taxable pay.' : 'It comes off **after** tax has been worked out, so it does not change your tax.';
+  const timing = x.pre ? 'It comes off **before** income tax is worked out, so it lowers your taxable pay.' : 'It comes off **after** tax has been worked out, so it does not change your tax.';
+  /* what the T/N column on the Sage layout is saying about this line */
+  const code = x.pre ? '**G** in the T/N column most likely means **Gross**. Sage lets a deduction be taken from your gross pay (before income tax) or from your nett pay (after tax, PRSI and USC, shown as **N**), and a pension is normally set up as the Gross kind. Sage does not publish what the column shows on the printed payslip, so if you are not sure, ask payroll.'
+    : psDedCode(x) === 'N' ? 'An **N** in the T/N column most likely means **Nett**: taken from your pay after tax, PRSI and USC, so it does not change them. A **G** would mean it came off your gross pay instead. Sage does not publish what the column shows on the printed payslip, so ask payroll if you are not sure.' : '';
 
   if(x.kind === 'paye'){
     const taxableTD = num(p.cum.taxable) || (num(p.cum.gross) - num(p.cum.nonTaxDeds)), cut = num(p.cum.cutoff), cred = num(p.cum.credit);
@@ -3108,20 +3115,20 @@ function psExplainDeduction(p, c, mine, key, T){
     out.how = [['This pay', M(a)], ['× pays a year', String(n)], ['= LPT over a full year', M(a * n), 'sum']];
     out.tip = 'You can change how you pay LPT, or stop the payroll deduction, with Revenue - not with your employer.';
   } else if(x.kind === 'pension'){
-    out.say = ['Your own contribution to a workplace pension. ' + timing, 'Because it comes off before tax, you get income tax relief at your highest rate. It does **not** reduce USC or PRSI, which are still worked out on your full gross pay.'];
+    out.say = ['Your own contribution to a workplace pension. ' + timing, code, 'Because it comes off before tax, you get income tax relief at your highest rate. It does **not** reduce USC or PRSI, which are still worked out on your full gross pay.'].filter(Boolean);
     out.how = c.gross > 0 ? [['Your contribution', M(a)], ['As a share of gross pay', pr(a / c.gross)], ['Taxable pay falls from', M(c.gross) + ' to ' + M(c.taxablePay)]] : [];
     out.tip = 'Because of the tax relief, putting 100 into a pension costs you only about 80 if you pay tax at 20%, or 60 if some of it would be taxed at 40%.';
   } else if(x.kind === 'avc'){
-    out.say = ['An Additional Voluntary Contribution is extra money you choose to put into a pension through your pay. ' + timing, 'You get the same tax relief as for a normal pension contribution, but not on USC or PRSI.'];
+    out.say = ['An Additional Voluntary Contribution is extra money you choose to put into a pension through your pay. ' + timing, code, 'You get the same tax relief as for a normal pension contribution, but not on USC or PRSI.'].filter(Boolean);
     out.how = c.gross > 0 ? [['Your AVC', M(a)], ['As a share of gross pay', pr(a / c.gross)]] : [];
     out.tip = 'Tax relief is limited by your age, from 15% of your earnings under 30 up to 40% from 60, and applies to earnings up to 115,000.';
   } else if(x.kind === 'health'){
-    out.say = ['Your health insurance premium, taken from your pay. ' + timing, 'Tax relief (20%, on up to 1,000 for an adult and 500 for a child) is normally given by the insurer, which charges you a lower premium, so you do not claim it again.'];
+    out.say = ['Your health insurance premium, taken from your pay. ' + timing, 'Tax relief (20%, on up to 1,000 for an adult and 500 for a child) is normally given by the insurer, which charges you a lower premium, so you do not claim it again.', code].filter(Boolean);
     out.tip = 'If your employer pays part of your premium, that part is a benefit in kind and shows on the payments side instead.';
   } else if(x.kind === 'union'){
-    out.say = ['A subscription to your trade union, taken from your pay. ' + timing];
+    out.say = ['A subscription to your trade union, taken from your pay. ' + timing, code].filter(Boolean);
   } else {
-    out.say = ['A deduction your employer makes because you agreed to it or the law says so - a savings or credit union scheme, a uniform, parking, a loan repayment. ' + timing];
+    out.say = ['A deduction your employer makes because you agreed to it or the law says so - a savings or credit union scheme, a uniform, parking, a loan repayment. ' + timing, code].filter(Boolean);
   }
   out.say.push('The **balance** is the total so far this year (' + M(y) + '). It goes up by this amount with each pay.');
   if(!(y > 0)) out.say.pop();
@@ -3668,6 +3675,7 @@ const TERMS = [
   ['PRSI','Pay Related Social Insurance. A contribution that builds your entitlement to social welfare benefits and the State pension.'],
   ['USC','Universal Social Charge. A separate charge on your gross income, on top of income tax. Lower earners pay it at lower rates.'],
   ['Standard rate band','The slice of income taxed at 20%. Income above it is taxed at 40%. Also called the standard rate cut-off point.'],
+  ['G / N in the T/N column','On a Sage payslip, the T/N column of the deductions box marks how a deduction is taken. G most likely means Gross: taken from your gross pay, before income tax, which is how a pension is usually set up. N most likely means Nett: taken after tax, PRSI and USC. Sage does not publish what the printed column shows, so ask payroll if you are unsure.'],
   ['Cut-off point','Another name for the standard rate band: the amount of pay taxed at 20% before the 40% rate starts. It is on your Tax Credit Certificate, and your payslip may show it for the pay and for the year so far.'],
   ['Cumulative basis','The normal way PAYE is worked out: each payslip adds up your whole year so far and takes off the tax already paid, so a missed or extra week evens itself out. The other ways are Week 1 / Month 1 and emergency.'],
   ['Week 1 / Month 1','A way of working out PAYE where each payslip stands alone, with no memory of earlier pay. It is used when Revenue has told your employer to, or when your details are not yet on file.'],
@@ -3908,7 +3916,6 @@ const NAV = [
   {items:[['dashboard','🏠','Home','Your money at a glance'], ['setup','🧭','Set-up guide','Start here']]},
   {title:'Money in & out', items:[
     ['tax','💶','Take-home pay','Salary, tax and what you keep'],
-    ['payslip','📄','Payslips','Build one, understand every line'],
     ['budget','🧾','Bills & budget','What you spend and save'],
     ['disposable','🛍️','Disposable income','Where spare money goes'],
     ['bank','🏦','Spending','Import a bank statement'],
@@ -3924,7 +3931,8 @@ const NAV = [
     ['history','📈','Bill history','What bills really cost'],
     ['accounts','🗂️','Accounts & payees','Bank details in one place'],
     ['maternity','👶','Maternity leave','Plan the cash flow'],
-    ['tracker','🏗️','Budget tracker','Renovation, wedding, build']]},
+    ['tracker','🏗️','Budget tracker','Renovation, wedding, build'],
+    ['payslip','📄','Payslips','Build one, understand every line']]},
   {items:[['data','💾','Backup & settings','Back up, restore, export']]}
 ];
 const ALL_TABS = NAV.flatMap(g=>g.items);
@@ -7998,7 +8006,7 @@ function psDrawSage(g, p, c){
   });
   p.deductions.slice(0, fit).forEach((x, i)=>{
     g.text(412, base(i), psClip(x.desc, 17));
-    g.text(562, base(i), x.pre ? 'Y' : '', 'qv', 'middle');
+    g.text(562, base(i), psDedCode(x), 'qv', 'middle');
     g.text(702, base(i), psN(x.amount), 'qv', 'end');
     g.text(826, base(i), num(x.ytd) ? psN(x.ytd) : '', 'qv', 'end');
     g.hot('ded:' + x.id, 407, rowY(i), 424, lh, (x.desc || 'Deduction') + ': ' + psN(x.amount));
@@ -8333,7 +8341,7 @@ function psBuildHtml(d, c, checks){
       <div class="a" data-label="Type"><select data-psp="deductions.${i}.kind" data-t="kind" data-list="deductions" aria-label="Type">${Object.keys(PS_DED_KINDS).map(k=>`<option value="${k}" ${k === x.kind ? 'selected' : ''}>${esc(PS_DED_KINDS[k].label)}</option>`).join('')}</select></div>
       <div class="a" data-label="This pay"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.amount" data-t="n" data-fk="ded:${x.id}" value="${num(x.amount) || ''}" placeholder="0.00" aria-label="This pay"></div>
       <div class="a" data-label="Year to date"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.ytd" data-t="n" value="${num(x.ytd) || ''}" placeholder="0.00" aria-label="Year to date"></div>
-      <label class="ps-chk" title="Does it come off before tax is worked out? This is the Y/N column"><input type="checkbox" data-psp="deductions.${i}.pre" data-t="b" ${x.pre ? 'checked' : ''}> Before tax</label>
+      <label class="ps-chk" title="Does it come off before income tax is worked out? On the Sage layout this prints as G (Gross) in the T/N column; other deductions print N"><input type="checkbox" data-psp="deductions.${i}.pre" data-t="b" ${x.pre ? 'checked' : ''}> Before tax (G)</label>
       <button class="btn sm danger" data-psact="delded" data-arg="${esc(x.id)}" aria-label="Remove this deduction">x</button></div>`).join('');
 
   return `<div class="ps-build">
@@ -8363,7 +8371,7 @@ function psBuildHtml(d, c, checks){
       <div class="chips" style="margin-top:10px">${[['basic', 'Salary'], ['overtime', 'Overtime'], ['bonus', 'Bonus'], ['allowance', 'Allowance'], ['expense', 'Expenses'], ['bik', 'Benefit in kind']].map(([k, t])=>`<button class="chip" data-psact="addpay" data-arg="${k}">+ ${t}</button>`).join('')}</div>
     </div>
     <div class="card">
-      ${cardHead('4. What came off', 'One line for each deduction. The year-to-date figure is the "balance" column.')}
+      ${cardHead('4. What came off', 'One line for each deduction. The year-to-date figure is the "balance" column. Tick <b>Before tax</b> for a pension or AVC: the Sage layout prints it as a <b>G</b> (Gross) in the T/N column.')}
       ${dedRows}
       <div class="chips" style="margin-top:10px">${[['paye', 'PAYE'], ['prsi', 'PRSI'], ['usc', 'USC'], ['pension', 'Pension'], ['avc', 'AVC'], ['health', 'Health insurance'], ['lpt', 'LPT'], ['union', 'Union'], ['other', 'Other']].map(([k, t])=>`<button class="chip" data-psact="addded" data-arg="${k}">+ ${t}</button>`).join('')}</div>
     </div>

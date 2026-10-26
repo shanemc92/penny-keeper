@@ -107,7 +107,7 @@ function psDrawSage(g, p, c){
   });
   p.deductions.slice(0, fit).forEach((x, i)=>{
     g.text(412, base(i), psClip(x.desc, 17));
-    g.text(562, base(i), x.pre ? 'Y' : '', 'qv', 'middle');
+    g.text(562, base(i), psDedCode(x), 'qv', 'middle');
     g.text(702, base(i), psN(x.amount), 'qv', 'end');
     g.text(826, base(i), num(x.ytd) ? psN(x.ytd) : '', 'qv', 'end');
     g.hot('ded:' + x.id, 407, rowY(i), 424, lh, (x.desc || 'Deduction') + ': ' + psN(x.amount));

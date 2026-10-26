@@ -237,6 +237,7 @@ const TERMS = [
   ['PRSI','Pay Related Social Insurance. A contribution that builds your entitlement to social welfare benefits and the State pension.'],
   ['USC','Universal Social Charge. A separate charge on your gross income, on top of income tax. Lower earners pay it at lower rates.'],
   ['Standard rate band','The slice of income taxed at 20%. Income above it is taxed at 40%. Also called the standard rate cut-off point.'],
+  ['G / N in the T/N column','On a Sage payslip, the T/N column of the deductions box marks how a deduction is taken. G most likely means Gross: taken from your gross pay, before income tax, which is how a pension is usually set up. N most likely means Nett: taken after tax, PRSI and USC. Sage does not publish what the printed column shows, so ask payroll if you are unsure.'],
   ['Cut-off point','Another name for the standard rate band: the amount of pay taxed at 20% before the 40% rate starts. It is on your Tax Credit Certificate, and your payslip may show it for the pay and for the year so far.'],
   ['Cumulative basis','The normal way PAYE is worked out: each payslip adds up your whole year so far and takes off the tax already paid, so a missed or extra week evens itself out. The other ways are Week 1 / Month 1 and emergency.'],
   ['Week 1 / Month 1','A way of working out PAYE where each payslip stands alone, with no memory of earlier pay. It is used when Revenue has told your employer to, or when your details are not yet on file.'],

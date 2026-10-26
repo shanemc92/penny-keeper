@@ -3,7 +3,6 @@ const NAV = [
   {items:[['dashboard','🏠','Home','Your money at a glance'], ['setup','🧭','Set-up guide','Start here']]},
   {title:'Money in & out', items:[
     ['tax','💶','Take-home pay','Salary, tax and what you keep'],
-    ['payslip','📄','Payslips','Build one, understand every line'],
     ['budget','🧾','Bills & budget','What you spend and save'],
     ['disposable','🛍️','Disposable income','Where spare money goes'],
     ['bank','🏦','Spending','Import a bank statement'],
@@ -19,7 +18,8 @@ const NAV = [
     ['history','📈','Bill history','What bills really cost'],
     ['accounts','🗂️','Accounts & payees','Bank details in one place'],
     ['maternity','👶','Maternity leave','Plan the cash flow'],
-    ['tracker','🏗️','Budget tracker','Renovation, wedding, build']]},
+    ['tracker','🏗️','Budget tracker','Renovation, wedding, build'],
+    ['payslip','📄','Payslips','Build one, understand every line']]},
   {items:[['data','💾','Backup & settings','Back up, restore, export']]}
 ];
 const ALL_TABS = NAV.flatMap(g=>g.items);

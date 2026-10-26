@@ -202,7 +202,10 @@ function psExplainDeduction(p, c, mine, key, T){
   const M = fmt, pr = r => String(+(r * 100).toFixed(2)) + '%', a = num(x.amount), y = num(x.ytd), n = c.n, no = c.no;
   const b = presetFor(c.year), R = psPrsiRates(c.date);
   const out = {value:M(a), sub:y > 0 ? M(y) + ' so far this year' : '', say:[], how:[], tip:''};
-  const timing = x.pre ? 'It comes off **before** income tax is worked out (the Y in the T/N column), so it lowers your taxable pay.' : 'It comes off **after** tax has been worked out, so it does not change your tax.';
+  const timing = x.pre ? 'It comes off **before** income tax is worked out, so it lowers your taxable pay.' : 'It comes off **after** tax has been worked out, so it does not change your tax.';
+  /* what the T/N column on the Sage layout is saying about this line */
+  const code = x.pre ? '**G** in the T/N column most likely means **Gross**. Sage lets a deduction be taken from your gross pay (before income tax) or from your nett pay (after tax, PRSI and USC, shown as **N**), and a pension is normally set up as the Gross kind. Sage does not publish what the column shows on the printed payslip, so if you are not sure, ask payroll.'
+    : psDedCode(x) === 'N' ? 'An **N** in the T/N column most likely means **Nett**: taken from your pay after tax, PRSI and USC, so it does not change them. A **G** would mean it came off your gross pay instead. Sage does not publish what the column shows on the printed payslip, so ask payroll if you are not sure.' : '';
 
   if(x.kind === 'paye'){
     const taxableTD = num(p.cum.taxable) || (num(p.cum.gross) - num(p.cum.nonTaxDeds)), cut = num(p.cum.cutoff), cred = num(p.cum.credit);
@@ -249,20 +252,20 @@ function psExplainDeduction(p, c, mine, key, T){
     out.how = [['This pay', M(a)], ['× pays a year', String(n)], ['= LPT over a full year', M(a * n), 'sum']];
     out.tip = 'You can change how you pay LPT, or stop the payroll deduction, with Revenue - not with your employer.';
   } else if(x.kind === 'pension'){
-    out.say = ['Your own contribution to a workplace pension. ' + timing, 'Because it comes off before tax, you get income tax relief at your highest rate. It does **not** reduce USC or PRSI, which are still worked out on your full gross pay.'];
+    out.say = ['Your own contribution to a workplace pension. ' + timing, code, 'Because it comes off before tax, you get income tax relief at your highest rate. It does **not** reduce USC or PRSI, which are still worked out on your full gross pay.'].filter(Boolean);
     out.how = c.gross > 0 ? [['Your contribution', M(a)], ['As a share of gross pay', pr(a / c.gross)], ['Taxable pay falls from', M(c.gross) + ' to ' + M(c.taxablePay)]] : [];
     out.tip = 'Because of the tax relief, putting 100 into a pension costs you only about 80 if you pay tax at 20%, or 60 if some of it would be taxed at 40%.';
   } else if(x.kind === 'avc'){
-    out.say = ['An Additional Voluntary Contribution is extra money you choose to put into a pension through your pay. ' + timing, 'You get the same tax relief as for a normal pension contribution, but not on USC or PRSI.'];
+    out.say = ['An Additional Voluntary Contribution is extra money you choose to put into a pension through your pay. ' + timing, code, 'You get the same tax relief as for a normal pension contribution, but not on USC or PRSI.'].filter(Boolean);
     out.how = c.gross > 0 ? [['Your AVC', M(a)], ['As a share of gross pay', pr(a / c.gross)]] : [];
     out.tip = 'Tax relief is limited by your age, from 15% of your earnings under 30 up to 40% from 60, and applies to earnings up to 115,000.';
   } else if(x.kind === 'health'){
-    out.say = ['Your health insurance premium, taken from your pay. ' + timing, 'Tax relief (20%, on up to 1,000 for an adult and 500 for a child) is normally given by the insurer, which charges you a lower premium, so you do not claim it again.'];
+    out.say = ['Your health insurance premium, taken from your pay. ' + timing, 'Tax relief (20%, on up to 1,000 for an adult and 500 for a child) is normally given by the insurer, which charges you a lower premium, so you do not claim it again.', code].filter(Boolean);
     out.tip = 'If your employer pays part of your premium, that part is a benefit in kind and shows on the payments side instead.';
   } else if(x.kind === 'union'){
-    out.say = ['A subscription to your trade union, taken from your pay. ' + timing];
+    out.say = ['A subscription to your trade union, taken from your pay. ' + timing, code].filter(Boolean);
   } else {
-    out.say = ['A deduction your employer makes because you agreed to it or the law says so - a savings or credit union scheme, a uniform, parking, a loan repayment. ' + timing];
+    out.say = ['A deduction your employer makes because you agreed to it or the law says so - a savings or credit union scheme, a uniform, parking, a loan repayment. ' + timing, code].filter(Boolean);
   }
   out.say.push('The **balance** is the total so far this year (' + M(y) + '). It goes up by this amount with each pay.');
   if(!(y > 0)) out.say.pop();

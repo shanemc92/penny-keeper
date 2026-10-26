@@ -611,6 +611,18 @@ function runMathsTests(){
     const row = psCompare(c, psCalc(q)).find(r => r.label === 'Gross pay');
     same([row.before, row.after, row.diff], [3900, 4000, 100]);
   });
+  test('payslip: a pre-tax deduction prints as G, optional after-tax ones as N, and the statutory three as nothing', () => {
+    const code = k => psDedCode(psNewDed(k, 10));
+    same(['pension', 'avc'].map(code), ['G', 'G']);
+    same(['health', 'union', 'lpt', 'other'].map(code), ['N', 'N', 'N', 'N']);
+    same(['paye', 'prsi', 'usc'].map(code), ['', '', '']);
+    const p = psExample(), c = psCalc(p), ck = psChecks(p, c), pen = p.deductions.find(x => x.kind === 'pension');
+    const e = psExplain(p, c, ck, 'ded:' + pen.id), txt = e.say.join(' ');
+    if(!/\*\*G\*\* in the T\/N column most likely means \*\*Gross\*\*/.test(txt)) throw new Error('pension should explain the G: ' + txt);
+    if(/\bY in the T\/N/.test(txt)) throw new Error('should not mention Y: ' + txt);
+    pen.pre = false;
+    if(!/\*\*N\*\*/.test(psExplain(p, psCalc(p), ck, 'ded:' + pen.id).say.join(' '))) throw new Error('an after-tax pension should explain the N');
+  });
   test('payslip: the spreadsheet export has one line per payslip, oldest first', () => {
     const a = psExample(), b = psNextFrom(a), rows = psCsvRows([b, a]);
     same(rows.length, 3); same([rows[1][0], rows[2][0]], ['2026-07-31', '2026-08-31']);

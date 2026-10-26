@@ -17,11 +17,6 @@ phone or a laptop.
   standard rate band and credits for your situation (single, single parent, married, both working), pension,
   AVCs, benefit-in-kind and a bonus. A pay-rise calculator shows how much of an extra euro you keep, and
   *What Budget 2027 means for you* runs your pay through next year's figures.
-- **Payslips** - type in your payslip box by box and get a plain-English explanation of every number on it:
-  what it is, how it was worked out with your figures, and whether the sums agree. It is a builder, not a
-  scanner: nothing is read from a file. The payslip is drawn from SVG shapes in a layout you pick (the first
-  follows the Sage Payroll layout), tapping a box explains it, and you can save payslips as history, start the
-  next one with the year-to-date figures carried forward, compare with the last one, and download one as an SVG.
 - **Bills & budget** - bills at any frequency from weekly to annual, shown as weekly, monthly and yearly
   figures. Savings are kept apart from bills. Shared bills can be split three ways: by share of net income, by
   percentages you choose, or so everyone is left with the same spending money each week. A *year ahead* view
@@ -62,6 +57,11 @@ phone or a laptop.
 - **Budget tracker** - plan and track a renovation, a wedding or a build: stages and items with a budget and
   an actual cost, funding sources, a forecast, and how much is left. Files from the standalone [Budget Tracker](https://github.com/shanemc92/budget-tracker)
   import unchanged.
+- **Payslips** - type in your payslip box by box and get a plain-English explanation of every number on it:
+  what it is, how it was worked out with your figures, and whether the sums agree. It is a builder, not a
+  scanner: nothing is read from a file. The payslip is drawn from SVG shapes in a layout you pick (the first
+  follows the Sage Payroll layout), tapping a box explains it, and you can save payslips as history, start the
+  next one with the year-to-date figures carried forward, compare with the last one, and download one as an SVG.
 
 **Backup & settings** - download everything as one file and restore it, export a workbook (`.xlsx`) or CSV,
 start a new tax year with your bills carried over, or make a what-if copy of a year.

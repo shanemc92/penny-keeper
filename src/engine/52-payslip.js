@@ -49,6 +49,10 @@ const PS_DED_KINDS = {
   union:  {label:'Union subscription',      desc:'Union subs',       pre:false},
   other:  {label:'Other deduction',         desc:'Other deduction',  pre:false}
 };
+/* The T/N column of a deduction as the Sage layout prints it: G for one taken from gross pay (before income tax), N for one taken from nett pay,
+   and nothing for the three statutory ones. Sage's own set-up help lists the types as Gross and Nett; it does not say what the printed column shows, so the
+   explanations hedge. */
+const psDedCode = x => x.pre ? 'G' : (x.kind === 'paye' || x.kind === 'prsi' || x.kind === 'usc') ? '' : 'N';
 const PS_BASES = {cumulative:'Cumulative', week1:'Week 1 / Month 1', emergency:'Emergency'};
 const PS_USC_MODES = {ordinary:'Ordinary rates', reduced:'Reduced rates (medical card or aged 70+)', exempt:'Exempt (income under 13,000)'};
 const PS_METHODS = ['Bank transfer', 'Cheque', 'Cash'];

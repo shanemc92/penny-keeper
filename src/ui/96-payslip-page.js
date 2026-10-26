@@ -136,7 +136,7 @@ function psBuildHtml(d, c, checks){
       <div class="a" data-label="Type"><select data-psp="deductions.${i}.kind" data-t="kind" data-list="deductions" aria-label="Type">${Object.keys(PS_DED_KINDS).map(k=>`<option value="${k}" ${k === x.kind ? 'selected' : ''}>${esc(PS_DED_KINDS[k].label)}</option>`).join('')}</select></div>
       <div class="a" data-label="This pay"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.amount" data-t="n" data-fk="ded:${x.id}" value="${num(x.amount) || ''}" placeholder="0.00" aria-label="This pay"></div>
       <div class="a" data-label="Year to date"><input class="num" style="text-align:right" inputmode="decimal" data-psp="deductions.${i}.ytd" data-t="n" value="${num(x.ytd) || ''}" placeholder="0.00" aria-label="Year to date"></div>
-      <label class="ps-chk" title="Does it come off before tax is worked out? This is the Y/N column"><input type="checkbox" data-psp="deductions.${i}.pre" data-t="b" ${x.pre ? 'checked' : ''}> Before tax</label>
+      <label class="ps-chk" title="Does it come off before income tax is worked out? On the Sage layout this prints as G (Gross) in the T/N column; other deductions print N"><input type="checkbox" data-psp="deductions.${i}.pre" data-t="b" ${x.pre ? 'checked' : ''}> Before tax (G)</label>
       <button class="btn sm danger" data-psact="delded" data-arg="${esc(x.id)}" aria-label="Remove this deduction">x</button></div>`).join('');
 
   return `<div class="ps-build">
@@ -166,7 +166,7 @@ function psBuildHtml(d, c, checks){
       <div class="chips" style="margin-top:10px">${[['basic', 'Salary'], ['overtime', 'Overtime'], ['bonus', 'Bonus'], ['allowance', 'Allowance'], ['expense', 'Expenses'], ['bik', 'Benefit in kind']].map(([k, t])=>`<button class="chip" data-psact="addpay" data-arg="${k}">+ ${t}</button>`).join('')}</div>
     </div>
     <div class="card">
-      ${cardHead('4. What came off', 'One line for each deduction. The year-to-date figure is the "balance" column.')}
+      ${cardHead('4. What came off', 'One line for each deduction. The year-to-date figure is the "balance" column. Tick <b>Before tax</b> for a pension or AVC: the Sage layout prints it as a <b>G</b> (Gross) in the T/N column.')}
       ${dedRows}
       <div class="chips" style="margin-top:10px">${[['paye', 'PAYE'], ['prsi', 'PRSI'], ['usc', 'USC'], ['pension', 'Pension'], ['avc', 'AVC'], ['health', 'Health insurance'], ['lpt', 'LPT'], ['union', 'Union'], ['other', 'Other']].map(([k, t])=>`<button class="chip" data-psact="addded" data-arg="${k}">+ ${t}</button>`).join('')}</div>
     </div>
