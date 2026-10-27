@@ -99,6 +99,7 @@ function renderSetup(el){
     ['energy','⚡','Compare electricity tariffs','Upload your smart-meter file', !!(Y.energy.summary)],
     ['networth','📊','Work out your net worth','Own minus owe', (DB.netWorth.snaps||[]).length>0 || (DB.netWorth.assets||[]).length>0],
     ['payslip','📄','Understand a payslip','Every line explained', DB.payslips.items.length>0],
+    ['tco','⚖️','Plan a big spend','What it really costs over time', DB.tco.plans.length>0],
     ['tracker','🏗️','Track a big project','Renovation, wedding or build', trackerHasData()]
   ];
 

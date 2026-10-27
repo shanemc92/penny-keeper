@@ -19,7 +19,8 @@ const NAV = [
     ['accounts','🗂️','Accounts & payees','Bank details in one place'],
     ['maternity','👶','Maternity leave','Plan the cash flow'],
     ['tracker','🏗️','Budget tracker','Renovation, wedding, build'],
-    ['payslip','📄','Payslips','Build one, understand every line']]},
+    ['payslip','📄','Payslips','Build one, understand every line'],
+    ['tco','⚖️','Cost of owning','What a big spend really costs']]},
   {items:[['data','💾','Backup & settings','Back up, restore, export']]}
 ];
 const ALL_TABS = NAV.flatMap(g=>g.items);

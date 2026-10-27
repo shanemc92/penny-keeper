@@ -213,6 +213,7 @@ function allSheets(){
   if((Y.mortgages||[]).length) s.push({name:'Mortgages', rows:mortgagesSummaryCSV()});
   (Y.mortgages||[]).forEach(m=> s.push({name:('Mortgage '+m.name).slice(0,28), rows:mortgageCSV(m)}));
   if(DB.payslips && DB.payslips.items.length) s.push({name:'Payslips', rows:psCsvRows(DB.payslips.items, psPeople(DB.years, Y, DB.payslips.items))});
+  if(DB.tco && DB.tco.plans.length) s.push({name:'Cost of owning', rows:tcoCsvRows(DB.tco.plans)});
   return s;
 }
 

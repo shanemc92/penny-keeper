@@ -101,6 +101,7 @@ function ensureDB(){
   if(!DB.ui.done || typeof DB.ui.done!=='object') DB.ui.done = {};
   DB.tracker = trackerNormalise(DB.tracker) || trackerBlank();         // Budget tracker projects
   DB.payslips = psStore(DB.payslips);                                  // saved payslips and the one being worked on
+  DB.tco = tcoStore(DB.tco);                                           // cost-of-owning plans
   if(!DB.netWorth || typeof DB.netWorth!=='object') DB.netWorth = {};
   ['assets','liabs','snaps'].forEach(k=>{ if(!Array.isArray(DB.netWorth[k])) DB.netWorth[k] = []; });
   DB.netWorth.assets.forEach(a=>{ if(!a.id) a.id = uid(); });

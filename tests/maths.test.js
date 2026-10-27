@@ -676,5 +676,147 @@ function runMathsTests(){
     same(rows[0].length, rows[1].length);
   });
 
+  /* ---------------- cost of owning ---------------- */
+  const tcoPlan = (lines, o) => Object.assign(tcoBlank('blank'), {horizon:5, inflation:0}, o || {}, {lines});
+  test('cost of owning: a loan - repayment, interest by year and in total', () => {
+    const l = tcoLoan(10000, 6, 2);
+    near(l.payment, 443.21, 0.01); near(l.total, 24 * l.payment - 10000, 0.01); near(l.total, 636.95, 0.01);
+    same(l.byYear.length, 3); if(!(l.byYear[1] > l.byYear[2])) throw new Error('interest falls as the balance does');
+    near(tcoLoan(1200, 0, 1).payment, 100, 0.001); same(tcoLoan(1200, 0, 1).total, 0);
+    same(tcoLoan(0, 5, 3).total, 0); same(tcoLoan(1000, 5, 0).months, 0);
+  });
+  test('cost of owning: each kind of line puts money in the right years', () => {
+    const P = (lines, o) => tcoPlan(lines, o), flows = (l, o) => tcoFlows(l, P([l], o)).map(v => Math.round(v * 100) / 100);
+    same(flows(tcoNewLine('once', {amount:1000, at:0})), [-1000, 0, 0, 0, 0, 0]);
+    same(flows(tcoNewLine('once', {amount:500, at:2, dir:'save'})), [0, 0, 500, 0, 0, 0]);
+    same(flows(tcoNewLine('once', {amount:500, at:9})), [0, 0, 0, 0, 0, 0]);                                   // after the plan ends
+    same(flows(tcoNewLine('recur', {amount:100, per:'month'}), {horizon:3}), [0, -1200, -1200, -1200]);
+    same(flows(tcoNewLine('recur', {amount:100, per:'week'}), {horizon:2}), [0, -5200, -5200]);
+    same(flows(tcoNewLine('recur', {amount:100, per:'month', growth:10}), {horizon:3}), [0, -1200, -1320, -1452]);   // year 1 is at today's prices
+    same(flows(tcoNewLine('recur', {amount:100, per:'month'}), {horizon:3, inflation:10}), [0, -1200, -1320, -1452]);   // blank growth follows the plan
+    same(flows(tcoNewLine('recur', {amount:100, per:'month', growth:0}), {horizon:3, inflation:10}), [0, -1200, -1200, -1200]);   // an explicit 0 is respected
+    same(flows(tcoNewLine('recur', {amount:100, per:'year', from:2, to:3}), {horizon:5}), [0, 0, -100, -100, 0, 0]);
+    same(flows(tcoNewLine('recur', {amount:600, per:'every', every:3, dir:'save'}), {horizon:8}), [0, 0, 0, 600, 0, 0, 600, 0, 0]);
+    same(flows(tcoNewLine('drive', {km:12000, use:7, price:1.5})).slice(0, 3), [0, -1260, -1260]);
+    same(flows(tcoNewLine('time', {hours:5, weeks:46, worth:10})).slice(0, 3), [0, 2300, 2300]);               // time saved is a saving by default
+    same(flows(tcoNewLine('time', {hours:-5, weeks:46, worth:10})).slice(0, 3), [0, -2300, -2300]);            // negative hours cost time
+    same(flows(tcoNewLine('value', {base:10000, change:-10}), {horizon:3}), [0, 0, 0, 7290]);
+    same(flows(tcoNewLine('value', {base:10000, change:-10, dir:'cost'}), {horizon:3})[3], -7290);
+    const loan = flows(tcoNewLine('loan', {borrow:10000, apr:6, years:2}));
+    same([loan[0], loan[3]], [0, 0]); near(loan[1] + loan[2], -636.95, 0.02);
+    const long = flows(tcoNewLine('loan', {borrow:10000, apr:6, years:10}), {horizon:3});
+    same(long.length, 4); if(!(long[1] < 0 && long[3] < 0)) throw new Error('interest keeps coming while the loan runs');
+  });
+  test('cost of owning: a lower mortgage rate saves the difference in the repayment, for the years left', () => {
+    const m = tcoMortgage(tcoNewLine('mortgage', {balance:300000, years:25, rateNow:4, rateNew:3}));
+    const pay = r => { const i = r / 100 / 12; return 300000 * i / (1 - Math.pow(1 + i, -300)); };
+    near(m.before, pay(4), 0.01); near(m.after, pay(3), 0.01); near(m.monthly, pay(4) - pay(3), 0.02); near(m.yearly, 12 * m.monthly, 0.001);
+    const f = tcoFlows(tcoNewLine('mortgage', {balance:300000, years:2, rateNow:4, rateNew:3}), tcoPlan([], {horizon:5}));
+    same(f.map(v => v > 0), [false, true, true, false, false, false]);         // only while the mortgage lasts
+    const up = tcoMortgage(tcoNewLine('mortgage', {balance:300000, years:25, rateNow:3, rateNew:4}));
+    if(!(up.yearly < 0)) throw new Error('a higher rate costs');
+    same(tcoMortgage(tcoNewLine('mortgage', {balance:300000, years:25, rateNow:4})).ready, false);   // no new rate yet: nothing to compare
+    same(tcoMortgage(tcoNewLine('mortgage', {balance:300000, years:25, rateNow:4})).yearly, 0);
+  });
+  test('cost of owning: totals, the running total, and when it pays for itself', () => {
+    const lines = [tcoNewLine('once', {amount:1000}), tcoNewLine('recur', {amount:400, dir:'save'})];
+    const c = tcoCalc(tcoPlan(lines));
+    same(c.cum.map(v => Math.round(v)), [-1000, -600, -200, 200, 600, 1000]);
+    same([c.total.cost, c.total.save, c.total.net, c.total.upfront], [1000, 2000, 1000, 1000]);
+    near(c.total.perYear, 200, 0.001); near(c.total.perMonth, 200 / 12, 0.001);
+    same(c.breakEven.status, 'at'); near(c.breakEven.years, 2.5, 0.001); same(tcoWhen(c.breakEven.years), 'about 2 years and 6 months');
+    same(tcoCalc(tcoPlan([tcoNewLine('once', {amount:1000}), tcoNewLine('recur', {amount:100, dir:'save'})])).breakEven.status, 'never');
+    same(tcoCalc(tcoPlan([tcoNewLine('recur', {amount:100, dir:'save'})])).breakEven.status, 'now');          // nothing to pay back
+    same([tcoWhen(0), tcoWhen(0.5), tcoWhen(1), tcoWhen(3 + 1 / 12)], ['straight away', 'about 6 months', 'about 1 year', 'about 3 years and 1 month']);
+    same(tcoCalc(tcoPlan([])).empty, true); same(tcoCalc(tcoPlan(lines)).empty, false);
+    // costs that outrun the savings later: the answer is the last time it crossed, not the first
+    const dip = tcoCalc(tcoPlan([tcoNewLine('once', {amount:100, dir:'save', at:1}), tcoNewLine('once', {amount:500, at:3})]));
+    same(dip.breakEven.status, 'never');
+    // money later is worth less
+    const d = tcoCalc(tcoPlan([tcoNewLine('once', {amount:1100, dir:'save', at:1})], {discount:10}));
+    near(d.total.pv, 1000, 0.001); near(d.total.net, 1100, 0.001);
+    same(tcoCalc(tcoPlan(lines, {discount:0})).total.pv, c.total.net);
+  });
+  test('cost of owning: the "what if I am a bit off" cases move the answer the way they should', () => {
+    const lines = [tcoNewLine('once', {amount:1000}), tcoNewLine('recur', {amount:400, dir:'save'})];
+    const s = tcoSens(tcoPlan(lines));
+    same(s.map(r => Math.round(r.net)), [1000, 600, 800, 400]);
+    same(s.length, 4);
+  });
+  test('cost of owning: a line that cannot work as typed is called out, not silently dropped', () => {
+    const c = tcoCalc(tcoPlan([tcoNewLine('loan', {borrow:5000, apr:5, years:9, label:'Car loan'}), tcoNewLine('once', {amount:10, at:9, label:'Late'}),
+      tcoNewLine('recur', {amount:10, per:'every', every:9, label:'Rare'}), tcoNewLine('mortgage', {balance:1000, label:'Rate'})]));
+    same(c.warns.length, 4);
+    if(!/Car loan/.test(c.warns[0]) || !/Late/.test(c.warns[1]) || !/Rare/.test(c.warns[2]) || !/Rate/.test(c.warns[3])) throw new Error(c.warns.join(' | '));
+    same(tcoCalc(tcoPlan([tcoNewLine('recur', {amount:5})])).warns, []);
+  });
+  test('cost of owning: restoring junk gives usable plans, ids stay unique, and the current plan always exists', () => {
+    const q = tcoNormalise({name:'x'.repeat(200), template:'nope', horizon:500, inflation:'abc', discount:-5,
+      lines:[{kind:'zzz', amount:'1,500', per:'daily', dir:'weird', from:-4, to:99, growth:'', at:'7.6'}, null, 5, {kind:'drive', km:1e12, use:'7', price:'1.5'}]});
+    same([q.name.length, q.template, q.horizon, q.inflation, q.discount], [60, 'blank', 40, 0, 0]);
+    same([q.lines.length, q.lines[0].kind, q.lines[0].amount, q.lines[0].per, q.lines[0].dir, q.lines[0].from, q.lines[0].to, q.lines[0].growth, q.lines[0].at], [2, 'recur', 1500, 'year', 'cost', 1, 60, '', 8]);
+    same([q.lines[1].km, q.lines[1].use, q.lines[1].price], [1e6, 7, 1.5]);
+    same(tcoNormalise(null).horizon, 8); same(tcoNormalise({horizon:'x'}).horizon, 8);
+    same(tcoNormalise({inflation:''}).inflation, 2); same(tcoNormalise({inflation:0}).inflation, 0); same(tcoNormalise({inflation:3.5}).inflation, 3.5);
+    same(tcoNormalise({lines:[{kind:'recur', growth:0}]}).lines[0].growth, 0);                          // a typed 0 is not "blank"
+    const a = tcoBlank('car'); a.lines[1].id = a.lines[0].id;
+    const st = tcoStore({plans:[a, a, 'junk', null], current:'gone'});
+    same([st.plans.length, st.plans[0].id !== st.plans[1].id, st.current === st.plans[0].id], [2, true, true]);
+    same(new Set(st.plans[0].lines.map(l => l.id)).size, st.plans[0].lines.length);
+    same(tcoStore(null), {v:1, plans:[], current:''});
+    const keep = tcoStore({plans:[a, tcoBlank('home')], current:tcoBlank('home').id});
+    same(keep.current, keep.plans[0].id);                                                              // a stale pointer falls back to the first plan
+    const again = tcoStore(JSON.parse(JSON.stringify(st)));
+    same(again.plans[0].lines.length, st.plans[0].lines.length);
+    tcoCalc(tcoNormalise({horizon:1, lines:[{kind:'value', base:1e9, change:1000}]}));                  // large values stay finite
+    if(!isFinite(tcoCalc(tcoNormalise({horizon:40, lines:[{kind:'value', base:1e9, change:1000}]})).total.net)) throw new Error('infinite');
+  });
+  test('cost of owning: every template line is real, has its help text, and the examples work out', () => {
+    ['car', 'home', 'buy'].forEach(t => {
+      const lines = tcoLines(t), ids = new Set(lines.map(l => l.id));
+      same(ids.size, lines.length);
+      lines.forEach(l => {
+        if(!TCO_KINDS[l.kind]) throw new Error('kind ' + l.key);
+        if(!TCO_HINTS[l.key]) throw new Error('no hint for ' + l.key);
+        if(!l.label) throw new Error('no label for ' + l.key);
+      });
+    });
+    same(tcoLines('blank'), []); same(tcoBlank('nonsense').template, 'blank');
+    Object.keys(TCO_HINTS).forEach(k => { const t = k.split('.')[0]; if(!tcoLines(t).some(l => l.key === k)) throw new Error('hint with no line: ' + k); });
+    ['car', 'home'].forEach(t => {
+      const p = tcoExample(t), c = tcoCalc(p);
+      same(c.empty, false);
+      [c.total.cost, c.total.save, c.total.net, c.total.upfront, c.total.pv].forEach(v => { if(!isFinite(v)) throw new Error(t + ' not finite'); });
+      p.lines.forEach(l => { const n = tcoLineNote(l, p, c); if(/undefined|NaN/.test(n)) throw new Error(l.key + ': ' + n); });
+    });
+    const home = tcoCalc(tcoExample('home'));
+    same(home.breakEven.status, 'at'); if(!(home.total.net > 0)) throw new Error('the home example should come out ahead');
+    same(tcoCalc(tcoExample('car')).H, 8);
+  });
+  test('cost of owning: the insights name the biggest cost and saving, and what the time estimate is worth', () => {
+    const p = tcoPlan([tcoNewLine('once', {amount:1000, label:'Price'}), tcoNewLine('recur', {amount:100, label:'Fuel', per:'year'}), tcoNewLine('time', {hours:1, weeks:40, worth:10, label:'Time'}),
+      tcoNewLine('recur', {amount:50, dir:'save', label:'Bus', per:'month'})]);
+    const c = tcoCalc(p), ins = tcoInsights(p, c);
+    same(ins.length, 3);
+    if(!/\*\*Price\*\*: .*1,000, 67%/.test(ins[0])) throw new Error(ins[0]);                          // 1,000 of 1,500 spent
+    if(!/\*\*Bus\*\*: .*3,000, 60%/.test(ins[1])) throw new Error(ins[1]);                            // 3,000 of 5,000 gained
+    if(!/2,000/.test(ins[2]) || !/\*\*.*1,500.*\*\*/.test(ins[2])) throw new Error(ins[2]);             // net 3,500 with time, 1,500 without
+    same(tcoInsights(tcoPlan([]), tcoCalc(tcoPlan([]))), []);
+  });
+  test('cost of owning: a line says in words what it comes to', () => {
+    const p = tcoPlan([tcoNewLine('recur', {amount:100, per:'month', label:'Bus'}), tcoNewLine('once', {amount:14000}), tcoNewLine('recur', {amount:500, per:'every', every:3}),
+      tcoNewLine('loan', {borrow:8000, apr:7.5, years:4}), tcoNewLine('value', {base:10000, change:-10}), tcoNewLine('recur', {amount:0})], {horizon:6, inflation:2});
+    const c = tcoCalc(p), n = p.lines.map(l => tcoLineNote(l, p, c));
+    if(!/1,200 a year, rising 2% a year = .*6 years/.test(n[0])) throw new Error(n[0]);
+    if(!/^Now: .*14,000/.test(n[1])) throw new Error(n[1]);
+    if(!/every 3 years/.test(n[2]) || !/a month/.test(n[3]) || !/Worth/.test(n[4])) throw new Error(n.join(' | '));
+    same(n[5], '');
+  });
+  test('cost of owning: the spreadsheet export has one line per plan', () => {
+    const rows = tcoCsvRows([tcoExample('home'), tcoExample('car')]);
+    same(rows.length, 3); same(rows[0].length, rows[1].length); same(rows[1][0], 'Insulation and heat pump (example)');
+    same(tcoCsvRows([]).length, 1);
+  });
+
   return results;
 }

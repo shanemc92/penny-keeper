@@ -64,6 +64,12 @@ phone or a laptop.
   next one with the year-to-date figures carried forward, compare with the last one, and download one as an SVG.
   When Set-up has more than one person, a row of names at the top of the page switches between them: each person
   has their own saved payslips and their own unfinished one.
+- **Cost of owning** - plan a big spend with long-term effects, such as a car or a home upgrade, and see the net
+  result. List what it costs (the price, interest on a loan, insurance, fuel, servicing, a part replaced every few
+  years) and what it saves or earns (bus fares you stop paying, fuel saved, hours of your time, grants, a lower
+  mortgage rate from a better BER, what it sells for later). You get a headline answer, a year-by-year chart with the
+  point where it pays for itself, where the money goes, and how far the answer moves if you are a bit off. Plans
+  start from a template or a worked example, are saved as you type, and can be copied and compared side by side.
 
 **Backup & settings** - download everything as one file and restore it, export a workbook (`.xlsx`) or CSV,
 start a new tax year with your bills carried over, or make a what-if copy of a year.
@@ -88,14 +94,15 @@ start a new tax year with your bills carried over, or make a what-if copy of a y
 | Savings & goals | Net worth |
 | ![Budget tracker](docs/screenshots/tracker-desktop.jpg) | ![Disposable income](docs/screenshots/disposable-desktop.jpg) |
 | Budget tracker | Disposable income |
-| ![Payslips](docs/screenshots/payslip-desktop.jpg) | |
-| Payslips: tap a box, get it explained | |
+| ![Payslips](docs/screenshots/payslip-desktop.jpg) | ![Cost of owning](docs/screenshots/tco-desktop.jpg) |
+| Payslips: tap a box, get it explained | Cost of owning: what a big spend really costs |
 
 <p align="center">
   <img src="docs/screenshots/home-mobile.jpg" width="220" alt="Home on a phone">
   <img src="docs/screenshots/tracker-mobile.jpg" width="220" alt="Budget tracker on a phone">
   <img src="docs/screenshots/disposable-mobile.jpg" width="220" alt="Disposable income on a phone">
   <img src="docs/screenshots/payslip-mobile.jpg" width="220" alt="A payslip box explained on a phone">
+  <img src="docs/screenshots/tco-mobile.jpg" width="220" alt="The cost of owning headline on a phone">
 </p>
 
 ## Running it
@@ -120,7 +127,8 @@ Everything is held in your browser's `localStorage`. It is never transmitted, an
 telemetry, or fonts or scripts loaded from anywhere. The one request the page makes is to its own address,
 once, to check whether a [self-hosted server](homelab/) wants to sync; it carries none of your data.
 
-Saved payslips are part of that data and include your PPS number, so keep your backup file private.
+Saved payslips are part of that data and include your PPS number, so keep your backup file private. Your
+cost-of-owning plans are in the backup too.
 
 Clearing site data wipes it, so **download a backup now and then**. The Home page and the menu remind you
 if it has been more than 30 days. You can also export a workbook (`.xlsx`) with a sheet per section, or any
@@ -268,6 +276,29 @@ If `main` is protected against direct pushes, let `github-actions[bot]` bypass t
 - **Optional lines.** The Sage layout's *Additional Details* box shows employer PRSI and benefit in kind, and, when you
   fill them in, the employer pension lines (*Er Pens TP* and *Er Pens TY*). Leave those boxes empty and they are not
   drawn, explained or listed in the walk-through. The other two layouts show the same figures in their own style.
+
+## Cost of owning notes
+
+- **Everything is a difference from doing nothing.** A line is money out (a cost) or money in or kept (a saving). The
+  answer is the two added up, so for a replacement car you enter the old car's costs you stop paying as savings, and
+  what it would still have been worth as a cost.
+- **When money moves.** Year 0 is today: the price, a grant, selling the old one. Lines that repeat start in year 1 and
+  rise by a yearly percentage, the plan's general figure unless the line has its own, so year 1 is at today's prices.
+  A line can start and stop in any year, and a cost like new tyres can come every few years.
+- **Borrowing.** The full price counts as a cost, so a loan adds only its interest (worked out monthly from the amount,
+  rate and term, and counted for the years inside the plan). That is the total cost of owning, not a cash-flow view.
+- **Time and the mortgage.** Hours saved a week times weeks a year times what an hour is worth is a judgement rather than
+  cash, so the page shows what the answer would be without it. A mortgage rate change compares the monthly repayment at
+  two rates over the years left (the same monthly formula as the Mortgage page, which can fill in the balance, years and
+  current rate).
+- **Pays for itself.** The running total after each year; the point is the last time it climbs out of the red, worked out
+  within the year. If your money could earn something elsewhere, a second figure shows the result in today's money.
+- **How sure are you?** Re-runs the plan with savings and end value 20% lower, costs 20% higher, and both, so a decision
+  that flips under those is a close one.
+- **It is an estimate** from the figures typed in. Nothing here is a quote, a grant check or financial advice.
+- **Where it is kept.** `DB.tco` holds the plans, shared by every tax year, and travels with every backup. The
+  spreadsheet export adds a *Cost of owning* sheet with one line per plan. The maths is in `src/engine/54-tco.js`, the
+  drawings in `src/ui/97-tco-charts.js` and the page in `src/ui/98-tco-page.js`.
 
 ## Maternity leave notes
 

@@ -419,6 +419,68 @@ i.mk.ok{background:var(--good)} i.mk.warn{background:var(--warn)} i.mk.info{back
   .psv .psv-svg{min-width:0}
 }
 
+/* ---------- cost of owning ---------- */
+.tco-chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tco-chips-l{font-size:13px;font-weight:650;color:var(--muted)}
+.tco-chips button{display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:650;cursor:pointer;font-size:14px}
+.tco-chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tco-head{border-left:4px solid var(--line)}
+.tco-head.good{border-left-color:var(--good)} .tco-head.bad{border-left-color:var(--bad)}
+.tco-hl{font-size:22px;font-weight:650;line-height:1.3}
+.tco-sub{color:var(--muted);margin-top:4px}
+.tco-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0 16px;align-items:start}
+.tco-starts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.tco-start{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:var(--radius);padding:14px;cursor:pointer}
+.tco-start:hover{border-color:var(--accent);background:var(--accent-soft)}
+.tco-start .i{font-size:26px;line-height:1.2}
+.tco-start small{color:var(--muted);font-size:12.5px;line-height:1.4}
+/* one line of the plan: a colour bar on the left says whether it costs or saves */
+.tco-line{border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:10px 12px 8px;margin-bottom:10px;background:var(--surface)}
+.tco-line.cost{border-left-color:var(--bad)} .tco-line.save{border-left-color:var(--good)}
+.tco-line-k{font-size:11.5px;font-weight:650;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.tco-line-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.tco-label{flex:1 1 200px;min-width:0;font-weight:650}
+.tco-dir button{padding:6px 12px;font-size:13px}
+.tco-dir button[aria-pressed="true"][data-arg$=":cost"]{background:var(--bad-soft);color:var(--bad)}
+.tco-dir button[aria-pressed="true"][data-arg$=":save"]{background:var(--good-soft);color:var(--good)}
+.tco-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:0 10px}
+.tco-fields label.f{margin-bottom:8px}
+.tco-note{font-size:13px;line-height:1.4;margin-top:2px}
+.tco-add{display:flex;flex-wrap:wrap;gap:6px}
+.tco-cmp{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px;font-size:13px}
+.tco-cmp .btn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+i.sw{display:inline-block;width:16px;height:0;border-top:3px dashed;margin-right:6px;vertical-align:middle}
+i.sw.o0{border-color:var(--info)} i.sw.o1{border-color:var(--warn)} i.sw.o2{border-color:var(--muted)}
+.tco-ins{margin:0;padding-left:18px;display:grid;gap:6px}
+.tco-svg{display:block;max-width:100%;height:auto}
+.tco-svg .tc-grid{stroke:var(--line);stroke-width:1}
+.tco-svg .tc-zero,.tco-bars .tc-zero{stroke:var(--muted);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.tco-svg .tc-save,.tco-bars .tc-save{fill:var(--good);opacity:.55}
+.tco-svg .tc-cost,.tco-bars .tc-cost{fill:var(--bad);opacity:.5}
+.tco-svg .tc-line{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.tco-svg .tc-dot{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.tco-svg .tc-o{fill:none;stroke-width:2;stroke-dasharray:6 4}
+.tco-svg .tc-o0{stroke:var(--info)} .tco-svg .tc-o1{stroke:var(--warn)} .tco-svg .tc-o2{stroke:var(--muted)}
+.tco-svg .tc-ax{fill:var(--muted);font-size:11px}
+.tco-svg .tc-end{fill:var(--text);font-size:12px;font-weight:700;paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+.tco-svg .tc-be{stroke:var(--info);stroke-width:1.5;stroke-dasharray:4 3}
+.tco-svg .tc-bel{fill:var(--info);font-size:11px;font-weight:650}
+.tco-bars{display:grid;gap:6px}
+.tco-row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) auto;gap:10px;align-items:center;font-size:13.5px}
+.tco-row .l{min-width:0;overflow-wrap:anywhere}
+.tco-row .b{display:block;width:100%;height:16px}
+.tco-row .v{font-weight:650;text-align:right;white-space:nowrap}
+.tco-sens td{white-space:normal}
+@media (min-width:1200px){
+  .tco-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+  .tco-out{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto}
+}
+@media print{
+  .tco-grid{display:block}
+  .tco-out{position:static;max-height:none;overflow:visible}
+  .tco-out .card,.tco-head{break-inside:avoid}
+}
+
 /* ---------- drawer / modal / tour ---------- */
 .scrim{position:fixed;inset:0;background:rgba(10,15,22,.5);z-index:90;display:none}
 .scrim.on{display:block}
@@ -1057,6 +1119,7 @@ function ensureDB(){
   if(!DB.ui.done || typeof DB.ui.done!=='object') DB.ui.done = {};
   DB.tracker = trackerNormalise(DB.tracker) || trackerBlank();         // Budget tracker projects
   DB.payslips = psStore(DB.payslips);                                  // saved payslips and the one being worked on
+  DB.tco = tcoStore(DB.tco);                                           // cost-of-owning plans
   if(!DB.netWorth || typeof DB.netWorth!=='object') DB.netWorth = {};
   ['assets','liabs','snaps'].forEach(k=>{ if(!Array.isArray(DB.netWorth[k])) DB.netWorth[k] = []; });
   DB.netWorth.assets.forEach(a=>{ if(!a.id) a.id = uid(); });
@@ -3196,6 +3259,332 @@ function psOrder(p){
   ];
   return groups.filter(g=>g.keys.length);
 }
+/* ---------- cost of owning: what a big spend really costs, and saves, over the years ----------
+   A price tag is only the start. A car also needs insurance, tax, servicing and fuel; it may save a bus fare and an hour a
+   day; it loses value. A better-insulated house costs a lot now and saves on bills for years, and may even earn a lower
+   mortgage rate. The Cost of owning page lets someone list every one of those things for a purchase they are thinking
+   about and see the net result: year by year, in total, and when (if ever) it pays for itself. This file is the data and
+   the maths behind it - plain objects and sums, no page code - so the tests can run it.
+
+   Where it lives: DB.tco = {v:1, plans:[...], current:'id of the plan on screen'}. Like payslips it is not part of a tax
+   year (a plan looks years ahead and a "what-if copy" of a year should not duplicate it) and it travels with every backup.
+
+   Everything is a difference from "do nothing": a cost is money out, a saving is money kept or earned, and the answer is
+   the two added up. Money is counted in the year it moves: year 0 is today (the price, a grant, selling the old one),
+   year 1 is the next twelve months, and so on to the end of the plan. Prices rise by a yearly percentage (a line can have
+   its own, otherwise the plan's general one). It is an estimate built from the figures typed in, not a forecast. */
+
+const TCO_KINDS = {
+  once:    {name:'One-off cost or saving', blurb:'Paid or received once: the price, a grant, selling the old one, a repair in year 5.'},
+  recur:   {name:'Regular cost or saving', blurb:'Comes or goes on a schedule: insurance, servicing, bus fares you no longer pay.'},
+  drive:   {name:'Driving costs', blurb:'Fuel or electricity, worked out from the kilometres you drive.'},
+  time:    {name:'Time saved', blurb:'Hours you get back each week, with a value put on an hour.'},
+  loan:    {name:'A loan for it', blurb:'Borrowing some of the money. The interest is the extra cost.'},
+  value:   {name:'Worth at the end', blurb:'What it could be sold for, or adds to your home, when the plan ends.'},
+  mortgage:{name:'Mortgage rate change', blurb:'A lower (or higher) mortgage rate, for example from a better BER.'}
+};
+const TCO_PER = {week:'a week', month:'a month', year:'a year', every:'every few years'};
+const TCO_TEMPLATES = {
+  car:  {icon:'🚗', name:'Buying a car', plan:'Car', blurb:'The price, insurance, tax, fuel and upkeep, against the bus fares and time it saves and what it sells for later.'},
+  home: {icon:'🏠', name:'Upgrading your home', plan:'Home upgrade', blurb:'Insulation, a heat pump, solar panels or windows: the outlay and grants, against bill savings, a better BER and a lower mortgage rate.'},
+  buy:  {icon:'🛒', name:'Another big purchase', plan:'Big purchase', blurb:'Anything with a price, running costs and perhaps something it saves you.'},
+  blank:{icon:'✏️', name:'Start from nothing', plan:'New plan', blurb:'An empty plan: add just the lines you need.'}
+};
+/* the one-line help under a line that came from a template, by the line's key */
+const TCO_HINTS = {
+  'car.price':'The full price, even if you borrow some of it. The interest on a loan is added separately below.',
+  'car.grant':'Grants and discounts that bring the price down, such as an electric vehicle grant. Check the current amounts before you rely on them.',
+  'car.trade':'What you get for selling or trading in a car you are replacing. Delete this line if you are not replacing one.',
+  'car.loan':'If you borrow some of the money: how much, the interest rate and the years to repay. Only the interest counts as an extra cost, because the price is already counted above.',
+  'car.insurance':'Your insurance quote. If you are replacing a car, enter the difference only if you enter the old car\'s costs as savings below; otherwise enter the full cost.',
+  'car.tax':'Motor tax depends on the car, mainly its emissions.',
+  'car.service':'Servicing and the NCT, averaged out over a year.',
+  'car.tyres':'Tyres, brakes and the bigger repairs that come every few years.',
+  'car.fuel':'Fuel or electricity: kilometres a year, how much the car uses per 100 km, and the price per litre or kWh.',
+  'car.park':'Parking, tolls and anything else only the car costs.',
+  'car.bus':'What you spend now that you would no longer pay: bus, train, taxis, a Leap card, or the running costs of a car you are getting rid of.',
+  'car.oldfuel':'The fuel for a car you are replacing. It counts as a saving because you stop paying it.',
+  'car.time':'Hours the car saves you each week. Put a value on an hour; a cautious figure is about half your take-home pay per hour. Leave it at 0 to keep time out of the sums.',
+  'car.resale':'What you could sell it for at the end. Start with the price and how much value it loses each year; cars lose the most in the first few years.',
+  'car.old':'If you are selling an old car, what it would still be worth at the end if you kept it. You give that up, so it counts as a cost.',
+  'home.work':'The full cost of the work, including VAT and any assessment fees.',
+  'home.grant':'Grants reduce the outlay, such as SEAI home energy grants. Check what is available, and the conditions, before you commit.',
+  'home.loan':'If you borrow for the work: how much, the interest rate and the years to repay.',
+  'home.bills':'How much less you expect to spend each year on heating, electricity or fuel. Last year\'s bills are the best starting point; a BER assessor\'s report gives an estimate. Energy prices can rise faster than the general figure, so set this line\'s yearly change if you want.',
+  'home.running':'Anything new that costs you more to run, such as the extra electricity a heat pump uses.',
+  'home.upkeep':'Servicing, filters and maintenance the upgrade needs.',
+  'home.replace':'A part that wears out and has to be replaced every so many years.',
+  'home.mortgage':'Some lenders offer a lower rate on a better-rated (higher BER) home. Enter your balance, the years left, today\'s rate and the rate you would get.',
+  'home.value':'Better-rated homes can sell for more, but be cautious: enter a figure you are confident of, or leave it at 0.',
+  'buy.price':'The full price, even if you borrow some of it.',
+  'buy.loan':'If you borrow some of the money: how much, the interest rate and the years to repay.',
+  'buy.running':'What it costs to run: power, fuel, subscriptions, consumables.',
+  'buy.upkeep':'Servicing, repairs and insurance.',
+  'buy.saves':'What it saves you or earns you, month by month, compared with doing nothing.',
+  'buy.resale':'What you could sell it for at the end.'
+};
+
+function tcoNewLine(kind, o){
+  const k = TCO_KINDS[kind] ? kind : 'recur';
+  return Object.assign({id:uid(), key:'', kind:k, label:'', dir:(k === 'time' || k === 'value' || k === 'mortgage') ? 'save' : 'cost',
+    amount:0, at:0, per:'year', every:3, from:1, to:'', growth:'',
+    km:0, use:0, price:0, hours:0, weeks:46, worth:0, borrow:0, apr:0, years:5, base:0, change:0, balance:0, rateNow:0, rateNew:0}, o || {});
+}
+function tcoLines(template){
+  const L = (kind, key, label, o) => tcoNewLine(kind, Object.assign({key, label}, o || {}));
+  if(template === 'car') return [
+    L('once', 'car.price', 'Price of the car'),
+    L('once', 'car.grant', 'Grants or discounts', {dir:'save'}),
+    L('once', 'car.trade', 'Selling or trading in the old car', {dir:'save'}),
+    L('loan', 'car.loan', 'Loan for the car', {years:4}),
+    L('recur', 'car.insurance', 'Insurance'),
+    L('recur', 'car.tax', 'Motor tax'),
+    L('recur', 'car.service', 'Servicing and NCT'),
+    L('recur', 'car.tyres', 'Tyres and bigger repairs', {per:'every', every:3}),
+    L('drive', 'car.fuel', 'Fuel or electricity'),
+    L('recur', 'car.park', 'Parking and tolls', {per:'month'}),
+    L('recur', 'car.bus', 'Bus, train or taxi fares you no longer pay', {dir:'save', per:'month'}),
+    L('drive', 'car.oldfuel', 'Fuel for the car you are replacing', {dir:'save'}),
+    L('time', 'car.time', 'Time saved'),
+    L('value', 'car.resale', 'What it could be sold for at the end', {change:-12}),
+    L('value', 'car.old', 'What the old car would still have been worth', {dir:'cost', change:-12})
+  ];
+  if(template === 'home') return [
+    L('once', 'home.work', 'Cost of the work'),
+    L('once', 'home.grant', 'Grants', {dir:'save'}),
+    L('loan', 'home.loan', 'Loan for the work', {years:7}),
+    L('recur', 'home.bills', 'Less spent on heating and electricity', {dir:'save'}),
+    L('recur', 'home.running', 'Extra running costs'),
+    L('recur', 'home.upkeep', 'Servicing and upkeep'),
+    L('recur', 'home.replace', 'Replacing a part', {per:'every', every:12}),
+    L('mortgage', 'home.mortgage', 'Lower mortgage rate (better BER)', {years:20}),
+    L('value', 'home.value', 'Value added to the home', {change:0})
+  ];
+  if(template === 'buy') return [
+    L('once', 'buy.price', 'Price'),
+    L('loan', 'buy.loan', 'Loan', {years:3}),
+    L('recur', 'buy.running', 'Running costs', {per:'month'}),
+    L('recur', 'buy.upkeep', 'Servicing and repairs'),
+    L('recur', 'buy.saves', 'What it saves you', {dir:'save', per:'month'}),
+    L('value', 'buy.resale', 'What it could be sold for at the end', {change:-10})
+  ];
+  return [];
+}
+function tcoBlank(template){
+  const t = TCO_TEMPLATES[template] ? template : 'blank';
+  return {id:uid(), name:TCO_TEMPLATES[t].plan, template:t, horizon:8, inflation:2, discount:0, notes:'', lines:tcoLines(t)};
+}
+
+/* Tidy anything that claims to be a plan - one from a restored backup, say. Missing fields are filled in, and nothing
+   typed in by hand can send a sum to infinity. */
+function tcoNormaliseLine(x){
+  const b = tcoNewLine(x && TCO_KINDS[x.kind] ? x.kind : 'recur');
+  if(!x || typeof x !== 'object') return b;
+  const n = (v, lo, hi) => clamp(num(v), lo, hi);
+  const opt = (v, lo, hi) => (blankish(v) || String(v).trim() === '') ? '' : clamp(num(v), lo, hi);
+  const str = (v, d, max) => (v == null ? d : String(v)).slice(0, max);
+  return {id:str(x.id, b.id, 24) || b.id, key:str(x.key, '', 20), kind:b.kind, label:str(x.label, '', 70), dir:x.dir === 'save' ? 'save' : (x.dir === 'cost' ? 'cost' : b.dir),
+    amount:n(x.amount, -1e9, 1e9), at:Math.round(n(x.at, 0, 60)), per:TCO_PER[x.per] ? x.per : 'year', every:Math.max(1, Math.round(n(x.every, 1, 60))) || 3,
+    from:Math.max(1, Math.round(n(x.from, 1, 60))) || 1, to:opt(x.to, 0, 60) === '' ? '' : Math.round(opt(x.to, 0, 60)), growth:opt(x.growth, -50, 100),
+    km:n(x.km, 0, 1e6), use:n(x.use, 0, 1e4), price:n(x.price, 0, 1e6), hours:n(x.hours, -168, 168), weeks:n(x.weeks, 0, 52), worth:n(x.worth, 0, 1e5),
+    borrow:n(x.borrow, 0, 1e9), apr:n(x.apr, 0, 100), years:n(x.years, 0, 60), base:n(x.base, 0, 1e9), change:n(x.change, -100, 1000),
+    balance:n(x.balance, 0, 1e9), rateNow:n(x.rateNow, 0, 100), rateNew:n(x.rateNew, 0, 100)};
+}
+function tcoNormalise(p){
+  const b = tcoBlank('blank');
+  if(!p || typeof p !== 'object') return b;
+  const str = (v, d, max) => (v == null ? d : String(v)).slice(0, max);
+  const lines = (Array.isArray(p.lines) ? p.lines : []).filter(x=>x && typeof x === 'object').slice(0, 60).map(tcoNormaliseLine);
+  const seen = new Set();
+  lines.forEach(l=>{ while(seen.has(l.id)) l.id = uid(); seen.add(l.id); });
+  return {id:str(p.id, b.id, 24) || b.id, name:str(p.name, 'Plan', 60), template:TCO_TEMPLATES[p.template] ? p.template : 'blank',
+    horizon:Math.round(num(p.horizon)) >= 1 ? clamp(Math.round(num(p.horizon)), 1, 40) : 8,
+    inflation:blankish(p.inflation) ? 2 : clamp(num(p.inflation), -10, 30), discount:blankish(p.discount) ? 0 : clamp(num(p.discount), 0, 30),
+    notes:str(p.notes, '', 500), lines};
+}
+/* The whole store, as it sits in DB.tco. */
+function tcoStore(s){
+  const o = (s && typeof s === 'object') ? s : {};
+  const plans = (Array.isArray(o.plans) ? o.plans : []).filter(x=>x && typeof x === 'object').slice(0, 30).map(tcoNormalise);
+  const seen = new Set();
+  plans.forEach(x=>{ while(seen.has(x.id)) x.id = uid(); seen.add(x.id); });
+  return {v:1, plans, current:plans.some(x=>x.id === o.current) ? o.current : (plans[0] ? plans[0].id : '')};
+}
+
+/* ---------------- the sums ---------------- */
+
+/* A loan paid off monthly: the repayment, and the interest in each year of it (index 1 is the first twelve months). */
+function tcoLoan(borrow, apr, years){
+  const P = num(borrow), n = Math.round(num(years) * 12), r = num(apr) / 100 / 12, byYear = [0];
+  if(!(P > 0) || n <= 0) return {payment:0, byYear, total:0, months:0};
+  const pay = r > 0 ? P * r / (1 - Math.pow(1 + r, -n)) : P / n;
+  let bal = P;
+  for(let m = 1; m <= n; m++){
+    const i = bal * r, y = Math.ceil(m / 12);
+    byYear[y] = (byYear[y] || 0) + i; bal -= pay - i;
+  }
+  for(let y = 1; y < byYear.length; y++) byYear[y] = byYear[y] || 0;
+  return {payment:pay, byYear, total:byYear.reduce((s, v)=> s + v, 0), months:n};
+}
+/* A mortgage at one rate against another over what is left of it: what the lower rate saves each month. Both rates have
+   to be filled in, otherwise there is nothing to compare. */
+function tcoMortgage(l){
+  const bal = num(l.balance), months = Math.round(num(l.years) * 12), a = num(l.rateNow), b = num(l.rateNew);
+  const ready = bal > 0 && months > 0 && a > 0 && b > 0;
+  const before = ready ? mortPayment(bal, a, months, '12') : 0, after = ready ? mortPayment(bal, b, months, '12') : 0;
+  return {ready, before, after, monthly:before - after, yearly:(before - after) * 12};
+}
+/* what a repeating line comes to in a year, at today's prices */
+function tcoYearly(l){
+  if(l.kind === 'drive') return num(l.km) * num(l.use) / 100 * num(l.price);
+  if(l.kind === 'time') return num(l.hours) * num(l.weeks) * num(l.worth);
+  return num(l.amount) * (l.per === 'week' ? 52 : l.per === 'month' ? 12 : 1);
+}
+const tcoGrowth = (l, plan) => blankish(l.growth) ? num(plan.inflation) : num(l.growth);
+const tcoLabel = l => (l.label && l.label.trim()) || TCO_KINDS[l.kind].name;
+const tcoSign = l => l.dir === 'save' ? 1 : -1;
+
+/* Money in (+) or out (-) for each year 0..horizon. Year 0 is today; a line that repeats starts in year 1. */
+function tcoFlows(l, plan){
+  const H = plan.horizon, f = new Array(H + 1).fill(0), s = tcoSign(l);
+  const grow = 1 + tcoGrowth(l, plan) / 100, price = t => Math.pow(grow, Math.max(0, t - 1));
+  const from = clamp(Math.round(num(l.from)) || 1, 1, H), to = blankish(l.to) ? H : clamp(Math.round(num(l.to)), 0, H);
+  if(l.kind === 'once'){
+    const t = Math.round(num(l.at));
+    if(t >= 0 && t <= H) f[t] = s * num(l.amount) * price(t);
+  } else if(l.kind === 'recur' && l.per === 'every'){
+    const n = Math.max(1, Math.round(num(l.every)));
+    for(let t = n; t <= H; t += n) if(t >= from && t <= to) f[t] = s * num(l.amount) * price(t);
+  } else if(l.kind === 'recur' || l.kind === 'drive' || l.kind === 'time'){
+    const y = tcoYearly(l);
+    for(let t = from; t <= to; t++) f[t] = s * y * price(t);
+  } else if(l.kind === 'loan'){
+    const ln = tcoLoan(l.borrow, l.apr, l.years);
+    for(let t = 1; t <= H; t++) f[t] = -(ln.byYear[t] || 0);
+  } else if(l.kind === 'value'){
+    f[H] = s * num(l.base) * Math.pow(1 + num(l.change) / 100, H);
+  } else if(l.kind === 'mortgage'){
+    const m = tcoMortgage(l), last = Math.min(H, Math.ceil(num(l.years)));
+    for(let t = 1; t <= last; t++) f[t] = m.yearly;
+  }
+  return f;
+}
+
+/* When the running total (cum, one figure per year from year 0) climbs out of the red for good: 'now' if it never was in it,
+   'never' if it is still in it at the end, otherwise how many years in, worked out within the year. */
+function tcoBreakEven(cum){
+  let last = -1;
+  cum.forEach((c, i)=>{ if(c < -0.005) last = i; });
+  if(last === -1) return {status:'now', years:0};
+  if(last === cum.length - 1) return {status:'never', years:null};
+  const a = cum[last], b = cum[last + 1];
+  return {status:'at', years:last + (-a) / (b - a)};
+}
+/* "about 6 years and 3 months" */
+function tcoWhen(years){
+  const m = Math.round(years * 12), y = Math.floor(m / 12), mo = m % 12;
+  if(m <= 0) return 'straight away';
+  const parts = [];
+  if(y) parts.push(y + ' year' + (y === 1 ? '' : 's'));
+  if(mo) parts.push(mo + ' month' + (mo === 1 ? '' : 's'));
+  return 'about ' + parts.join(' and ');
+}
+
+/* The whole result for a plan. o.save and o.cost scale everything gained or spent, to ask "what if I am a bit off?". */
+function tcoCalc(plan, o){
+  o = o || {};
+  const H = plan.horizon, sF = o.save == null ? 1 : o.save, cF = o.cost == null ? 1 : o.cost, d = num(plan.discount) / 100;
+  const cost = new Array(H + 1).fill(0), save = cost.slice(), lines = [], warns = [];
+  plan.lines.forEach(l=>{
+    const flows = tcoFlows(l, plan).map(v => v > 0 ? v * sF : v * cF);
+    flows.forEach((v, t)=>{ if(v > 0) save[t] += v; else cost[t] -= v; });
+    lines.push({id:l.id, kind:l.kind, label:tcoLabel(l), flows, total:flows.reduce((s, v)=> s + v, 0)});
+    if(l.kind === 'loan' && num(l.borrow) > 0 && num(l.years) > H) warns.push('The loan "' + tcoLabel(l) + '" runs for ' + num(l.years) + ' years but your plan ends after ' + H + ', so only the first ' + H + ' years of its interest are counted.');
+    if(l.kind === 'once' && num(l.amount) && Math.round(num(l.at)) > H) warns.push('"' + tcoLabel(l) + '" happens after your plan ends, so it is not counted.');
+    if(l.kind === 'recur' && l.per === 'every' && num(l.amount) && Math.max(1, Math.round(num(l.every))) > H) warns.push('"' + tcoLabel(l) + '" repeats every ' + Math.max(1, Math.round(num(l.every))) + ' years, which is longer than your plan, so it is not counted.');
+    if(l.kind === 'mortgage' && (num(l.balance) || num(l.rateNow) || num(l.rateNew)) && !tcoMortgage(l).ready) warns.push('"' + tcoLabel(l) + '" needs the balance, the years left and both rates before it can be worked out.');
+  });
+  const net = cost.map((c, t)=> save[t] - c), cum = [];
+  net.forEach((v, t)=>{ cum[t] = (t ? cum[t - 1] : 0) + v; });
+  const sum = a => a.reduce((s, v)=> s + v, 0);
+  const total = {cost:sum(cost), save:sum(save), net:cum[H], upfront:cost[0] - save[0], pv:sum(net.map((v, t)=> v / Math.pow(1 + d, t)))};
+  total.perYear = total.net / H; total.perMonth = total.net / H / 12;
+  return {H, cost, save, net, cum, lines, warns, total, breakEven:tcoBreakEven(cum), empty:!lines.some(l=> Math.abs(l.total) > 0.005)};
+}
+/* the answer under a few "what if I am a bit off" cases */
+function tcoSens(plan){
+  return [['As you entered it', {}], ['Savings and end value 20% lower', {save:0.8}], ['Costs 20% higher', {cost:1.2}], ['Both of those together', {save:0.8, cost:1.2}]]
+    .map(([label, o])=>{ const c = tcoCalc(plan, o); return {label, net:c.total.net, breakEven:c.breakEven}; });
+}
+
+/* A few plain sentences about what is driving the answer: the biggest cost, the biggest saving, and how much rests on the value
+   put on time, which is a judgement rather than money. **x** marks bold. */
+function tcoInsights(plan, c){
+  const out = [], costs = c.lines.filter(l=> l.total < -0.005).sort((a, b)=> a.total - b.total), gains = c.lines.filter(l=> l.total > 0.005).sort((a, b)=> b.total - a.total);
+  const share = (v, all) => all > 0 ? Math.round(Math.abs(v) / all * 100) : 0;
+  if(costs.length) out.push('Your biggest cost is **' + costs[0].label + '**: ' + fmt0(-costs[0].total) + ', ' + share(costs[0].total, c.total.cost) + '% of everything you spend.');
+  if(gains.length) out.push('Your biggest saving is **' + gains[0].label + '**: ' + fmt0(gains[0].total) + ', ' + share(gains[0].total, c.total.save) + '% of everything you gain.');
+  const time = c.lines.filter(l=> l.kind === 'time').reduce((s, l)=> s + l.total, 0);
+  if(Math.abs(time) > 0.005) out.push('The value put on your time makes up ' + fmt0(time) + ' of that. Leave it out and the net result is **' + fmt0(c.total.net - time) + '**.');
+  return out;
+}
+
+/* One plain sentence on what a line comes to, for the line itself. */
+function tcoLineNote(l, plan, calc){
+  const H = plan.horizon, row = calc.lines.find(x=>x.id === l.id), tot = row ? row.total : 0, over = ' over ' + H + ' year' + (H === 1 ? '' : 's');
+  const g = tcoGrowth(l, plan), rise = g ? ', rising ' + (Math.round(g * 10) / 10) + '% a year' : '';
+  if(l.kind === 'once') return num(l.amount) ? (Math.round(num(l.at)) > H ? 'After your plan ends, so not counted.' : (Math.round(num(l.at)) ? 'In year ' + Math.round(num(l.at)) + ': ' : 'Now: ') + fmt0(Math.abs(tot))) : '';
+  if(l.kind === 'recur' && l.per === 'every') return num(l.amount) ? fmt0(num(l.amount)) + ' every ' + Math.max(1, Math.round(num(l.every))) + ' years' + rise + ' = ' + fmt0(Math.abs(tot)) + over : '';
+  if(l.kind === 'recur' || l.kind === 'drive' || l.kind === 'time'){
+    const y = Math.abs(tcoYearly(l));
+    return y ? fmt0(y) + ' a year' + rise + ' = ' + fmt0(Math.abs(tot)) + over : '';
+  }
+  if(l.kind === 'loan'){
+    const ln = tcoLoan(l.borrow, l.apr, l.years);
+    return ln.months ? 'Repayments of ' + fmt0(ln.payment) + ' a month; ' + fmt0(ln.total) + ' interest in total' + (Math.abs(tot) < ln.total - 0.5 ? ' (' + fmt0(Math.abs(tot)) + ' of it within your plan)' : '') : '';
+  }
+  if(l.kind === 'value') return num(l.base) ? 'Worth ' + fmt0(Math.abs(tot)) + ' after ' + H + ' year' + (H === 1 ? '' : 's') : '';
+  if(l.kind === 'mortgage'){
+    const m = tcoMortgage(l);
+    return m.ready ? 'Repayment goes from ' + fmt0(m.before) + ' to ' + fmt0(m.after) + ' a month: ' + fmt0(Math.abs(m.monthly)) + (m.monthly < 0 ? ' more' : ' less') + ', ' + fmt0(Math.abs(tot)) + over : '';
+  }
+  return '';
+}
+
+/* ---------------- worked examples (made up) ---------------- */
+function tcoSet(plan, key, o){ const l = plan.lines.find(x=>x.key === key); if(l) Object.assign(l, o); return l; }
+function tcoExample(template){
+  if(template === 'home'){
+    const p = tcoBlank('home');
+    p.name = 'Insulation and heat pump (example)'; p.horizon = 15;
+    tcoSet(p, 'home.work', {amount:22000}); tcoSet(p, 'home.grant', {amount:7500});
+    tcoSet(p, 'home.loan', {borrow:10000, apr:5.5, years:7});
+    tcoSet(p, 'home.bills', {amount:2100, growth:3}); tcoSet(p, 'home.running', {amount:700, growth:3});
+    tcoSet(p, 'home.upkeep', {amount:150}); tcoSet(p, 'home.replace', {amount:1500});
+    tcoSet(p, 'home.mortgage', {balance:210000, years:22, rateNow:4.1, rateNew:3.85});
+    tcoSet(p, 'home.value', {base:8000});
+    return p;
+  }
+  const p = tcoBlank('car');
+  p.name = 'A car instead of the bus (example)'; p.horizon = 8;
+  p.lines = p.lines.filter(l=> ['car.grant', 'car.trade', 'car.oldfuel', 'car.old'].indexOf(l.key) < 0);
+  tcoSet(p, 'car.price', {amount:14000}); tcoSet(p, 'car.loan', {borrow:8000, apr:7.5, years:4});
+  tcoSet(p, 'car.insurance', {amount:900}); tcoSet(p, 'car.tax', {amount:280}); tcoSet(p, 'car.service', {amount:450});
+  tcoSet(p, 'car.tyres', {amount:500}); tcoSet(p, 'car.fuel', {km:12000, use:6.5, price:1.75}); tcoSet(p, 'car.park', {amount:25});
+  tcoSet(p, 'car.bus', {amount:130}); tcoSet(p, 'car.time', {hours:6, worth:10}); tcoSet(p, 'car.resale', {base:14000, change:-12});
+  return p;
+}
+
+/* A summary line per plan, for the spreadsheet export. */
+function tcoCsvRows(plans){
+  const rows = [['Plan', 'Years', 'Paid up front', 'Total costs', 'Total savings and end value', 'Net impact', 'Pays for itself after (years)', 'Prices rise (% a year)']];
+  plans.forEach(p=>{
+    const c = tcoCalc(p), be = c.breakEven;
+    rows.push([p.name, p.horizon, round2(c.total.upfront), round2(c.total.cost), round2(c.total.save), round2(c.total.net),
+      be.status === 'never' ? 'not within the plan' : round2(be.years), p.inflation]);
+  });
+  return rows;
+}
 /* ---------------- charts (canvas, no libraries) ----------------
    Sizing rule: the .chartbox owns the dimensions. We set the canvas
    CSS size in px and the backing store to css * dpr, so the element
@@ -3511,6 +3900,17 @@ const PAGES = {
       'More than one person in Set-up? A row of names at the top switches between them. Each person has their own saved payslips and their own half-finished one, and the saved ones show a <b>Move to...</b> menu if one was filed under the wrong person.',
       '<b>Save to history</b> keeps a copy so you can compare this payslip with the last one. <b>Next payslip</b> starts the following one with the year-to-date figures carried forward.',
       'Saved payslips include your PPS number and are part of your backup file, so keep that file private.']},
+  tco:{ico:'⚖️', title:'Cost of owning',
+    lead:'Thinking of a big spend that costs or saves money for years - a car, a home upgrade? List what it costs and what it saves, and see the net result.',
+    steps:['Describe the spend','List the costs and savings','Read the net result'],
+    tips:['Everything is compared with <b>not doing it</b>. Money going out is a <b>cost</b>; money coming in, or no longer going out (the bus fare you stop paying), is a <b>saving</b>.',
+      'Start from a template, or load an example to see how it works. The example numbers are made up, so replace them with your own.',
+      '<b>In year 0</b> means today: the price, a grant, selling the old one. Lines that repeat start in year 1 and rise by the plan\'s yearly price change, unless a line has its own.',
+      'Borrowing some of it? Enter the full price as a cost, then add <b>A loan for it</b>. Only the interest is added, because the price is already counted.',
+      'Time saved is a judgement, not cash. The page shows what the answer would be with and without it.',
+      'A better BER can mean a lower mortgage rate with some lenders. <b>Mortgage rate change</b> works out what that gap is worth over the years you have left.',
+      '<b>How sure are you?</b> shows how far the answer moves if savings are 20% lower or costs 20% higher. If the answer flips, the decision is close.',
+      'Plans are kept in this browser as you type and are part of your backup file. Use <b>Copy this plan</b> to compare two choices side by side.']},
   budget:{ico:'🧾', title:'Bills & budget',
     lead:'List what you spend and put aside. Everything is converted into weekly, monthly and yearly figures for you.',
     steps:['Add your bills','Add your savings','Check what is left over'],
@@ -3757,7 +4157,12 @@ const TERMS = [
   ['Home Carer credit','A credit for a married couple or civil partners where one cares for dependants at home and has low income.'],
   ['TRS','Tax Relief at Source. Health insurance premiums are quoted net of tax relief already given.'],
   ['DIRT','Deposit Interest Retention Tax. Tax taken from interest on savings accounts.'],
-  ['Net worth','Everything you own minus everything you owe.']
+  ['Net worth','Everything you own minus everything you owe.'],
+  ['Total cost of ownership','Everything something costs you over the years you keep it, not just the price: running costs, upkeep and interest on any loan, less what you get back when you sell it or what it saves you.'],
+  ['Break-even','The point where what you have saved or earned has caught up with what you spent. Before it you are behind; after it you are ahead.'],
+  ['Depreciation','How much value something loses as it ages. Cars lose the most in their first few years.'],
+  ['BER','Building Energy Rating: A (most efficient) to G, on the energy certificate a home needs to be sold or let. Some lenders offer a lower mortgage rate on better-rated homes.'],
+  ['Money later is worth less','A euro in ten years buys less than a euro today, and a euro today could be earning interest. The "your money could earn" box on Cost of owning turns the result into today\'s money.']
 ];
 
 /* Not a tab stop: the icon sits before its input, so a focusable "?" made Tab land on help instead of the
@@ -3979,7 +4384,8 @@ const NAV = [
     ['accounts','🗂️','Accounts & payees','Bank details in one place'],
     ['maternity','👶','Maternity leave','Plan the cash flow'],
     ['tracker','🏗️','Budget tracker','Renovation, wedding, build'],
-    ['payslip','📄','Payslips','Build one, understand every line']]},
+    ['payslip','📄','Payslips','Build one, understand every line'],
+    ['tco','⚖️','Cost of owning','What a big spend really costs']]},
   {items:[['data','💾','Backup & settings','Back up, restore, export']]}
 ];
 const ALL_TABS = NAV.flatMap(g=>g.items);
@@ -4418,6 +4824,7 @@ function renderSetup(el){
     ['energy','⚡','Compare electricity tariffs','Upload your smart-meter file', !!(Y.energy.summary)],
     ['networth','📊','Work out your net worth','Own minus owe', (DB.netWorth.snaps||[]).length>0 || (DB.netWorth.assets||[]).length>0],
     ['payslip','📄','Understand a payslip','Every line explained', DB.payslips.items.length>0],
+    ['tco','⚖️','Plan a big spend','What it really costs over time', DB.tco.plans.length>0],
     ['tracker','🏗️','Track a big project','Renovation, wedding or build', trackerHasData()]
   ];
 
@@ -6859,6 +7266,7 @@ function allSheets(){
   if((Y.mortgages||[]).length) s.push({name:'Mortgages', rows:mortgagesSummaryCSV()});
   (Y.mortgages||[]).forEach(m=> s.push({name:('Mortgage '+m.name).slice(0,28), rows:mortgageCSV(m)}));
   if(DB.payslips && DB.payslips.items.length) s.push({name:'Payslips', rows:psCsvRows(DB.payslips.items, psPeople(DB.years, Y, DB.payslips.items))});
+  if(DB.tco && DB.tco.plans.length) s.push({name:'Cost of owning', rows:tcoCsvRows(DB.tco.plans)});
   return s;
 }
 
@@ -7296,6 +7704,7 @@ function adoptDB(j, keepPrefs){
     j.netWorth = j.netWorth || DB.netWorth;
     j.tracker = j.tracker || DB.tracker;
     j.payslips = j.payslips || DB.payslips;
+    j.tco = j.tco || DB.tco;
     j.theme = j.theme || DB.theme;
     j.lastBackup = j.lastBackup || DB.lastBackup;
   }
@@ -7376,7 +7785,7 @@ function renderData(el){
     ${cardHead('🔒 Privacy')}
     <p style="margin:0">Everything you enter stays in this browser's local storage. There are no accounts, no analytics and no trackers, and nothing is sent anywhere.
     The page makes one request, to its own address, to check whether it is being served by a self-hosted sync server (<a href="homelab/README.md">see homelab</a>); that request carries none of your data.</p>
-    <div class="note">Clearing your browser's site data erases it - which is why backups matter. Your backup also includes any projects in the Budget tracker and any payslips you saved. <b>Saved payslips include your PPS number</b>, so keep the backup file somewhere private.</div>
+    <div class="note">Clearing your browser's site data erases it - which is why backups matter. Your backup also includes any projects in the Budget tracker, any payslips you saved and your cost-of-owning plans. <b>Saved payslips include your PPS number</b>, so keep the backup file somewhere private.</div>
   </div>
 
   <div class="card">
@@ -7464,7 +7873,7 @@ function renderData(el){
   $('#replayTour').onclick = startTour;
   $('#replayWelcome').onclick = showWelcome;
   $('#wipe').onclick = ()=>{
-    if(!confirm('Erase all years, your Budget tracker projects and your saved payslips from this browser? Download a backup first; this cannot be undone.')) return;
+    if(!confirm('Erase all years, your Budget tracker projects, your saved payslips and your cost-of-owning plans from this browser? Download a backup first; this cannot be undone.')) return;
     [KEY].concat(EARLIER_KEYS).forEach(k=> localStorage.removeItem(k));
     load(); active = 'dashboard'; render(); toast('Cleared');
   };
@@ -8779,6 +9188,415 @@ function psWire(el){
     else if(i && (i.type === 'checkbox' || i.tagName === 'SELECT' || i.type === 'date')) psSetFromInput(i);
   };
 }
+/* ---------------- cost of owning: the drawings ----------------
+   Both are plain SVG. The year-by-year chart is drawn at the width of its box (so its text stays the size of the page's
+   text on a phone as well as on a desktop) and redrawn when the box changes size; the bars for "where the money goes" are
+   stretched to fit and carry no text of their own. Colours come from the page's variables, so dark mode follows. */
+const tcoR = n => Math.round(n * 10) / 10;
+
+/* One bar per year - savings up, costs down - and a line for the running total. `others` are other plans drawn as thin dashed lines. */
+function tcoChartSvg(c, others, W){
+  const small = W < 440, Ht = small ? 250 : 300, L = small ? 50 : 58, R = 12, T = 22, B = 36;
+  const H = Math.max.apply(null, [c.H].concat(others.map(o=> o.calc.H)));
+  let lo = 0, hi = 0;
+  c.save.forEach(v=>{ hi = Math.max(hi, v); }); c.cost.forEach(v=>{ lo = Math.min(lo, -v); });
+  [c.cum].concat(others.map(o=> o.calc.cum)).forEach(s=> s.forEach(v=>{ lo = Math.min(lo, v); hi = Math.max(hi, v); }));
+  const nb = niceBounds(lo, hi), span = (nb.hi - nb.lo) || 1;
+  const step = (W - L - R) / (H + 1), X = t => L + step * (t + 0.5), Y = v => T + (nb.hi - v) / span * (Ht - T - B);
+  const bw = clamp(step * 0.6, 3, 30), every = H > 24 ? 5 : H > 12 ? 2 : 1;
+  let g = '', ax = '';
+  for(let v = nb.lo; v <= nb.hi + nb.step * 0.001; v += nb.step){
+    const y = tcoR(Y(v));
+    g += `<line class="tc-grid" x1="${L}" x2="${W - R}" y1="${y}" y2="${y}"/>`;
+    ax += `<text class="tc-ax" x="${L - 6}" y="${tcoR(y + 4)}" text-anchor="end">${esc(shortNum(v))}</text>`;
+  }
+  let bars = '', hits = '';
+  for(let t = 0; t <= c.H; t++){
+    const sv = c.save[t], cs = c.cost[t], x = tcoR(X(t) - bw / 2);
+    if(sv > 0.005) bars += `<rect class="tc-save" x="${x}" y="${tcoR(Y(sv))}" width="${tcoR(bw)}" height="${tcoR(Math.max(1, Y(0) - Y(sv)))}"/>`;
+    if(cs > 0.005) bars += `<rect class="tc-cost" x="${x}" y="${tcoR(Y(0))}" width="${tcoR(bw)}" height="${tcoR(Math.max(1, Y(-cs) - Y(0)))}"/>`;
+    hits += `<rect x="${tcoR(X(t) - step / 2)}" y="${T}" width="${tcoR(step)}" height="${Ht - T - B}" fill="transparent"><title>${t ? 'Year ' + t : 'Now'}: costs ${esc(fmt0(cs))}, savings ${esc(fmt0(sv))}, running total ${esc(fmt0(c.cum[t]))}</title></rect>`;
+  }
+  const pts = a => a.map((v, t)=> tcoR(X(t)) + ',' + tcoR(Y(v))).join(' ');
+  const lines = others.map((o, i)=> `<polyline class="tc-o tc-o${i % 3}" points="${pts(o.calc.cum)}"/>`).join('');
+  const dots = c.H <= 20 ? c.cum.map((v, t)=> `<circle class="tc-dot" cx="${tcoR(X(t))}" cy="${tcoR(Y(v))}" r="3.5"/>`).join('') : '';
+  let xl = '';
+  for(let t = 0; t <= H; t++) if(t % every === 0 || t === H) xl += `<text class="tc-ax" x="${tcoR(X(t))}" y="${Ht - B + 15}" text-anchor="middle">${t ? t : 'Now'}</text>`;
+  const last = c.cum[c.H], endY = last >= 0 ? Y(last) - 10 : Y(last) + 17;
+  const end = `<text class="tc-end" x="${tcoR(X(c.H) + bw / 2)}" y="${tcoR(endY)}" text-anchor="end">${esc(fmt0(last))}</text>`;
+  let be = '';
+  if(c.breakEven.status === 'at'){
+    const bx = X(c.breakEven.years), anchor = bx < L + 60 ? 'start' : bx > W - R - 60 ? 'end' : 'middle';
+    be = `<line class="tc-be" x1="${tcoR(bx)}" x2="${tcoR(bx)}" y1="${T - 4}" y2="${Ht - B}"/><text class="tc-bel" x="${tcoR(bx)}" y="${T - 8}" text-anchor="${anchor}">pays for itself</text>`;
+  }
+  const label = 'Chart of what you are ahead or behind after each year: it starts at ' + fmt0(c.cum[0]) + ' now and ends at ' + fmt0(last) + ' after ' + c.H + ' year' + (c.H === 1 ? '' : 's') + '.';
+  return `<svg class="tco-svg" viewBox="0 0 ${W} ${Ht}" width="${W}" height="${Ht}" role="img" aria-label="${esc(label)}">
+    ${g}${ax}<line class="tc-zero" x1="${L}" x2="${W - R}" y1="${tcoR(Y(0))}" y2="${tcoR(Y(0))}"/>${bars}${lines}${be}
+    <polyline class="tc-line" points="${pts(c.cum)}"/>${dots}${xl}${end}
+    <text class="tc-ax" x="${W - R}" y="${Ht - 3}" text-anchor="end">years from today</text>${hits}</svg>`;
+}
+
+/* every line's total over the plan, costs to the left and savings to the right, biggest first */
+function tcoBarsHtml(c){
+  const rows = c.lines.filter(l=> Math.abs(l.total) > 0.005).sort((a, b)=> Math.abs(b.total) - Math.abs(a.total));
+  if(!rows.length) return '<div class="empty">Nothing to show yet.</div>';
+  const max = Math.abs(rows[0].total);
+  return `<div class="tco-bars">${rows.map(r=>{
+    const w = Math.max(1.5, Math.abs(r.total) / max * 48), pos = r.total > 0;
+    return `<div class="tco-row"><span class="l">${esc(r.label)}</span>
+      <svg class="b" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line class="tc-zero" x1="50" x2="50" y1="0" y2="14"/><rect class="${pos ? 'tc-save' : 'tc-cost'}" x="${tcoR(pos ? 50 : 50 - w)}" y="2" width="${tcoR(w)}" height="10"/></svg>
+      <span class="v num ${pos ? 'pos' : 'neg'}">${pos ? '+' : ''}${esc(fmt0(r.total))}</span></div>`;
+  }).join('')}</div>`;
+}
+/* ---------------- cost of owning ----------------
+   A plan is a list of lines - what a purchase costs, what it saves, what it is worth at the end - and the page shows the net
+   result of all of them: a headline, a year-by-year chart, where the money goes, and how far the answer moves if the figures
+   are a bit off. The page is laid out as:
+
+     the plans you have, with a net figure on each, and the buttons that act on one
+     the headline answer (live)
+     the form on the left - describe it, then the lines - and on the right, in a column that stays in view on a wide screen,
+       the chart, what stands out, where the money goes, how sure you are, the numbers and a side-by-side of your plans
+
+   There is no separate "save": every edit is kept as you type, in DB.tco. Typing never rebuilds the form (that would drop the
+   cursor), so tcoLive redraws only the answer and the one-line explanations; adding, moving or removing a line rebuilds the
+   page. The engine side is in engine/54-tco.js and the drawings in ui/97-tco-charts.js. */
+const TCOUI = {focus:'', choosing:false};
+
+const tcoData = () => DB.tco || (DB.tco = tcoStore(null));
+function tcoCurrent(){ const S = tcoData(); return S.plans.find(x=>x.id === S.current) || S.plans[0] || null; }
+const tcoRich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+/* the other plans drawn on the chart, in the order they were ticked */
+const tcoCmpIds = plan => (DB.ui.tcoCmp || []).filter(id => id !== plan.id && tcoData().plans.some(p=>p.id === id));
+const tcoYears = n => n + ' year' + (n === 1 ? '' : 's');
+const tcoNet = c => `<b class="${c.total.net < -0.5 ? 'neg' : c.total.net > 0.5 ? 'pos' : ''}">${esc(fmt0(c.total.net))}</b>`;
+const tcoPays = (c, H) => c.breakEven.status === 'now' ? 'At once' : c.breakEven.status === 'at' ? tcoWhen(c.breakEven.years) : 'Not within ' + tcoYears(H);
+
+/* how a field is shown in its box: zero is left blank on money fields, but a typed 0 matters on the few where blank means "use the default" */
+function tcoShow(l, f){
+  const v = l[f];
+  if(f === 'label') return v;
+  if(f === 'to' || f === 'growth') return blankish(v) ? '' : String(v);
+  if(f === 'at' || f === 'every' || f === 'from' || f === 'weeks' || f === 'years') return String(v);
+  return num(v) ? String(v) : '';
+}
+const tcoShowPlan = (p, f) => f === 'name' || f === 'notes' ? p[f] : f === 'discount' ? (num(p.discount) ? String(p.discount) : '') : String(p[f]);
+
+function tcoIn(label, scope, field, value, o){
+  o = o || {};
+  const attr = scope === 'p' ? 'data-tp' : 'data-tl', lid = o.lid ? ` data-lid="${esc(o.lid)}"` : '';
+  const fk = scope === 'p' ? 'p:' + field : 'l:' + o.lid + ':' + field, text = (o.t === 's');
+  return `<label class="f"><span data-nott>${esc(label)}${o.opt ? ' <span class="opt">(optional)</span>' : ''}</span>
+    <input ${attr}="${field}"${lid} data-t="${o.t || 'n'}" data-fk="${fk}" inputmode="${text ? 'text' : 'decimal'}" ${text ? '' : 'class="num" style="text-align:right"'} value="${esc(value)}"${o.ph !== undefined ? ` placeholder="${esc(o.ph)}"` : ''}${o.max ? ` maxlength="${o.max}"` : ''}>${o.hint ? `<div class="hint">${esc(o.hint)}</div>` : ''}</label>`;
+}
+
+/* ---------------- the plans, and starting one ---------------- */
+function tcoChipsHtml(S){
+  return `<div class="tco-chips" id="tcoChips" role="group" aria-label="Your plans"><span class="tco-chips-l" data-nott>Plans</span>
+    ${S.plans.map(p=>{
+      const c = tcoCalc(p);
+      return `<button data-tact="plan" data-arg="${esc(p.id)}" aria-pressed="${p.id === S.current && !TCOUI.choosing}">${esc(p.name || 'Plan')}${c.empty ? '' : ` <span class="pill ${c.total.net < -0.5 ? 'bad' : 'good'}">${esc(fmt0(c.total.net))}</span>`}</button>`;
+    }).join('')}</div>`;
+}
+function tcoTopHtml(S){
+  return `<div class="card ps-noprint">
+    ${tcoChipsHtml(S)}
+    <div class="ps-top"><span class="spacer"></span>
+      <button class="btn" data-tact="newplan">+ New plan</button>
+      <button class="btn" data-tact="copy" title="A copy to try a different choice, such as the same car with a different fuel">Copy this plan</button>
+      <button class="btn" data-tact="print">🖨️ Print</button>
+      <button class="btn danger" data-tact="delete">Delete</button></div>
+  </div>`;
+}
+function tcoStartHtml(hasPlans){
+  return `${hasPlans ? '' : callout('tipc', '⚖️', 'Think beyond the price tag', 'A car is the price plus insurance, tax, fuel and servicing, less the bus fares and time it saves and what it sells for later. A home upgrade is the outlay and grants against years of lower bills, and perhaps a lower mortgage rate. List it all here and see the net result.')}
+  <div class="card ps-noprint">
+    <div class="card-h"><h2>${hasPlans ? 'Start another plan' : 'What are you thinking of spending on?'}</h2>
+      <div class="sub">Pick the closest match. You can add, change or delete any line afterwards.</div>
+      ${hasPlans ? '<div class="actions"><button class="btn sm" data-tact="cancelnew">Cancel</button></div>' : ''}</div>
+    <div class="tco-starts">${Object.keys(TCO_TEMPLATES).map(k=>`<button class="tco-start" data-tact="start" data-arg="${k}"><span class="i" aria-hidden="true">${TCO_TEMPLATES[k].icon}</span><b>${esc(TCO_TEMPLATES[k].name)}</b><small>${esc(TCO_TEMPLATES[k].blurb)}</small></button>`).join('')}</div>
+    <div class="row" style="margin-top:14px;align-items:center"><span class="note" style="margin:0">Want to see how it works first? Both examples use made-up numbers.</span>
+      <button class="btn sm" data-tact="example" data-arg="car">A car instead of the bus</button>
+      <button class="btn sm" data-tact="example" data-arg="home">Insulation and a heat pump</button></div>
+  </div>`;
+}
+
+/* ---------------- the answer ---------------- */
+function tcoHeadHtml(plan, c){
+  const H = c.H, yrs = tcoYears(H), t = c.total, be = c.breakEven;
+  if(c.empty) return `<div class="card tco-head"><div class="tco-hl">Fill in the costs and savings below</div>
+    <div class="tco-sub">The net result over ${yrs} appears here as soon as there are amounts.</div></div>`;
+  const ahead = t.net > 0.5, behind = t.net < -0.5;
+  let hl, sub = [];
+  if(ahead){
+    hl = `Over ${yrs} this leaves you <b class="pos">${esc(fmt0(t.net))} better off</b>.`;
+    sub.push(be.status === 'now' ? 'You are ahead from the start.' : 'It pays for itself in ' + tcoWhen(be.years) + '.');
+  } else if(behind){
+    hl = `Over ${yrs} this costs you <b class="neg">${esc(fmt0(-t.net))} more than it saves</b>.`;
+    sub.push('That is about ' + fmt0(-t.perYear) + ' a year, or ' + fmt0(-t.perMonth) + ' a month, for what you get.');
+    sub.push('It does not pay for itself within ' + yrs + '.');
+  } else {
+    hl = `Over ${yrs} this roughly <b>breaks even</b>.`;
+  }
+  if(num(plan.discount) > 0) sub.push('In today\'s money, allowing for ' + plan.discount + '% a year that your money could earn elsewhere, the net result is ' + fmt0(t.pv) + '.');
+  const kpi = (lbl, val, s, cls) => `<div class="kpi"><div class="lbl" data-nott>${lbl}</div><div class="val ${cls || ''}">${val}</div><div class="sub">${s}</div></div>`;
+  return `<div class="card tco-head ${ahead ? 'good' : behind ? 'bad' : ''}">
+    <div class="tco-hl">${hl}</div>${sub.length ? `<div class="tco-sub">${sub.map(esc).join(' ')}</div>` : ''}
+    <div class="grid g4" style="margin-top:12px">
+      ${kpi('Paid up front', esc(fmt0(t.upfront)), 'today, after grants and trade-ins')}
+      ${kpi('All the costs', esc(fmt0(t.cost)), 'over ' + yrs + ', up front included')}
+      ${kpi('All the savings', esc(fmt0(t.save)), 'including what it is worth at the end')}
+      ${kpi('Net result', esc(fmt0(t.net)), esc(fmt0(t.perYear)) + ' a year on average', t.net < -0.5 ? 'neg' : t.net > 0.5 ? 'pos' : '')}
+      ${kpi('Pays for itself', esc(be.status === 'at' ? 'Year ' + Math.ceil(be.years) : be.status === 'now' ? 'At once' : 'Not in ' + H + ' yrs'), esc(be.status === 'at' ? tcoWhen(be.years) : be.status === 'now' ? 'nothing to pay back' : 'still behind at the end'))}
+    </div>
+    ${c.warns.length ? c.warns.map(w=> `<div class="note" style="color:var(--warn)">⚠️ ${esc(w)}</div>`).join('') : ''}
+  </div>`;
+}
+
+function tcoOutHtml(plan, c){
+  const S = tcoData(), others = S.plans.filter(p=>p.id !== plan.id), on = tcoCmpIds(plan);
+  const ins = tcoInsights(plan, c), sens = tcoSens(plan), open = DB.ui.tcoTable === true, H = c.H;
+  const table = open ? `<div class="tw"><table>
+      <thead><tr><th data-nott>Year</th><th class="n" data-nott>Costs</th><th class="n" data-nott>Savings</th><th class="n" data-nott>Net</th><th class="n" data-nott>Running total</th></tr></thead>
+      <tbody>${c.net.map((v, t)=>`<tr><td>${t ? t : 'Now'}</td><td class="n">${fmt0(c.cost[t])}</td><td class="n">${fmt0(c.save[t])}</td><td class="n ${v < -0.5 ? 'neg' : v > 0.5 ? 'pos' : ''}">${fmt0(v)}</td><td class="n"><b>${fmt0(c.cum[t])}</b></td></tr>`).join('')}</tbody>
+      <tfoot><tr><td>Total</td><td class="n">${fmt0(c.total.cost)}</td><td class="n">${fmt0(c.total.save)}</td><td class="n">${fmt0(c.total.net)}</td><td></td></tr></tfoot></table></div>` : '';
+  const side = S.plans.length > 1 ? `<div class="card ps-noprint"><div class="card-h"><h2>Your plans side by side</h2></div>
+    <div class="tw"><table class="stack-m"><thead><tr><th data-nott>Plan</th><th data-nott>Years</th><th class="n" data-nott>Paid up front</th><th class="n" data-nott>Net result</th><th data-nott>Pays for itself</th><th></th></tr></thead>
+      <tbody>${S.plans.map(p=>{
+        const q = tcoCalc(p);
+        return `<tr ${p.id === plan.id ? 'style="background:var(--accent-soft)"' : ''}><td class="first" data-label="Plan"><b>${esc(p.name)}</b></td><td data-label="Years">${p.horizon}</td>
+          <td class="n" data-label="Paid up front">${q.empty ? '-' : esc(fmt0(q.total.upfront))}</td><td class="n" data-label="Net result">${q.empty ? '-' : tcoNet(q)}</td>
+          <td data-label="Pays for itself">${q.empty ? '-' : esc(tcoPays(q, p.horizon))}</td>
+          <td class="act"><button class="btn sm" data-tact="plan" data-arg="${esc(p.id)}">${p.id === plan.id ? 'On screen' : 'Open'}</button></td></tr>`;
+      }).join('')}</tbody></table></div></div>` : '';
+  return `<div class="card"><div class="card-h"><h2>Year by year</h2>
+      <div class="sub">Each bar is one year on its own: <b class="pos">savings</b> going up, <b class="neg">costs</b> going down. The line is your running total - above zero, you are ahead.</div></div>
+    ${others.length ? `<div class="tco-cmp ps-noprint"><span class="mut">Also show:</span>${others.map(p=>{
+      const k = on.indexOf(p.id);
+      return `<button class="btn sm" data-tact="cmp" data-arg="${esc(p.id)}" aria-pressed="${k >= 0}">${k >= 0 ? `<i class="sw o${k % 3}"></i>` : ''}${esc(p.name)}</button>`;
+    }).join('')}</div>` : ''}
+    <div class="chartbox auto" id="tcoChart"></div></div>
+  ${ins.length ? `<div class="card"><div class="card-h"><h2>What stands out</h2></div><ul class="tco-ins">${ins.map(t=>`<li>${tcoRich(t)}</li>`).join('')}</ul></div>` : ''}
+  <div class="card"><div class="card-h"><h2>Where the money goes</h2>
+      <div class="sub">Each line added up over ${tcoYears(H)}. <b class="neg">Costs</b> to the left, <b class="pos">savings</b> to the right.</div></div>
+    ${tcoBarsHtml(c)}</div>
+  <div class="card"><div class="card-h"><h2>How sure are you?</h2>
+      <div class="sub">Figures about the future are rarely exact. This shows how far the answer moves if you are a bit off.</div></div>
+    <div class="tw"><table class="tco-sens"><thead><tr><th data-nott>If...</th><th class="n" data-nott>Net result</th><th data-nott>Pays for itself</th></tr></thead>
+      <tbody>${sens.map(r=>`<tr><td>${esc(r.label)}</td><td class="n"><b class="${r.net < -0.5 ? 'neg' : r.net > 0.5 ? 'pos' : ''}">${esc(fmt0(r.net))}</b></td>
+        <td>${esc(r.breakEven.status === 'now' ? 'At once' : r.breakEven.status === 'at' ? tcoWhen(r.breakEven.years) : 'Not within ' + tcoYears(H))}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="card"><div class="card-h"><h2>The numbers, year by year</h2>
+      <div class="actions ps-noprint"><button class="btn sm" data-tact="table" aria-expanded="${open}">${open ? 'Hide' : 'Show'}</button></div></div>${table}</div>
+  ${side}`;
+}
+
+/* ---------------- the form ---------------- */
+function tcoBasicsHtml(plan){
+  return `<div class="card ps-noprint"><div class="card-h"><h2>1. Describe it</h2></div>
+    ${tcoIn('Name of this plan', 'p', 'name', plan.name, {t:'s', max:60, ph:'e.g. Electric car'})}
+    <div class="grid g3">
+      ${tcoIn('Years to plan for', 'p', 'horizon', tcoShowPlan(plan, 'horizon'), {hint:'How long you expect to keep it, up to 40.'})}
+      ${tcoIn('Prices rise by (% a year)', 'p', 'inflation', tcoShowPlan(plan, 'inflation'), {hint:'Applied to every line that repeats unless it has its own figure.'})}
+      ${tcoIn('What savings would earn (%)', 'p', 'discount', tcoShowPlan(plan, 'discount'), {hint:'Optional. What your money could earn if you did not spend it. Fill it in and the answer is also shown in today\'s money.'})}
+    </div>
+    <label class="f"><span data-nott>Notes <span class="opt">(optional)</span></span><textarea data-tp="notes" data-t="s" data-fk="p:notes" rows="2" maxlength="500" placeholder="Why you are considering it, quotes, where the figures came from">${esc(plan.notes)}</textarea></label>
+  </div>`;
+}
+
+function tcoActs(id, i, n){
+  return `<div class="ps-acts">
+      <button class="btn sm" data-tact="up" data-arg="${esc(id)}" data-fk="up:${esc(id)}" title="Move up" aria-label="Move this line up" ${i === 0 ? 'disabled' : ''}>&uarr;</button>
+      <button class="btn sm" data-tact="down" data-arg="${esc(id)}" data-fk="down:${esc(id)}" title="Move down" aria-label="Move this line down" ${i === n - 1 ? 'disabled' : ''}>&darr;</button>
+      <button class="btn sm danger" data-tact="del" data-arg="${esc(id)}" title="Remove" aria-label="Remove this line">x</button></div>`;
+}
+/* a line's colour follows what it does: a loan is always a cost, a mortgage rate change is a saving only if the rate falls */
+function tcoLineClass(l){
+  if(l.kind === 'loan') return 'cost';
+  if(l.kind === 'mortgage'){ const m = tcoMortgage(l); return m.ready && m.yearly < 0 ? 'cost' : 'save'; }
+  return l.dir === 'save' ? 'save' : 'cost';
+}
+function tcoNoteHtml(l, plan, c){
+  const n = tcoLineNote(l, plan, c);
+  return n ? '<b>' + esc(n) + '</b>' : '<span class="mut">' + esc(TCO_HINTS[l.key] || TCO_KINDS[l.kind].blurb) + '</span>';
+}
+function tcoLineHtml(l, i, n, plan, c){
+  const id = l.id, k = l.kind, F = (label, field, o) => tcoIn(label, 'l', field, tcoShow(l, field), Object.assign({lid:id}, o));
+  const span = F('From year', 'from', {hint:''}), to = F('To year', 'to', {ph:'the end'});
+  const grow = F('Yearly price change (%)', 'growth', {t:'o', ph:String(plan.inflation)});
+  let fields = '';
+  if(k === 'once') fields = F('Amount', 'amount') + F('In year (0 = today)', 'at');
+  else if(k === 'recur') fields = F('Amount', 'amount') + `<label class="f"><span data-nott>How often</span><select data-tl="per" data-lid="${esc(id)}" data-t="s" data-fk="l:${esc(id)}:per">${Object.keys(TCO_PER).map(p=>`<option value="${p}" ${l.per === p ? 'selected' : ''}>${esc(TCO_PER[p])}</option>`).join('')}</select></label>`
+    + (l.per === 'every' ? F('Every how many years', 'every') : '') + span + to + grow;
+  else if(k === 'drive') fields = F('Kilometres a year', 'km') + F('Uses per 100 km (litres or kWh)', 'use') + F('Price per litre or kWh', 'price') + span + to + grow;
+  else if(k === 'time') fields = F('Hours saved a week', 'hours') + F('Weeks a year', 'weeks') + F('What an hour is worth', 'worth') + span + to + grow;
+  else if(k === 'loan') fields = F('Amount borrowed', 'borrow') + F('Interest rate (% a year)', 'apr') + F('Years to repay', 'years');
+  else if(k === 'value') fields = F('Worth to start with', 'base') + F('Changes by (% a year)', 'change', {hint:'Minus if it loses value.'});
+  else if(k === 'mortgage') fields = F('Balance left', 'balance') + F('Years left', 'years') + F('Rate now (%)', 'rateNow') + F('New rate (%)', 'rateNew');
+  const dir = (k === 'loan' || k === 'mortgage') ? '' : `<div class="ps-seg tco-dir" role="group" aria-label="Does this line cost you money or save you money?">
+      <button data-tact="dir" data-arg="${esc(id)}:cost" aria-pressed="${l.dir === 'cost'}">Cost</button>
+      <button data-tact="dir" data-arg="${esc(id)}:save" aria-pressed="${l.dir === 'save'}">Saving</button></div>`;
+  const useMort = (k === 'mortgage' && (Y.mortgages || []).length) ? `<div class="row" style="margin:-4px 0 8px"><button class="btn sm" data-tact="usemort" data-arg="${esc(id)}">Use my mortgage for the balance, years and rate</button></div>` : '';
+  return `<div class="tco-line ${tcoLineClass(l)}" data-lrow="${esc(id)}">
+    <div class="tco-line-k">${esc(TCO_KINDS[k].name)}</div>
+    <div class="tco-line-h">
+      <input class="tco-label" data-tl="label" data-lid="${esc(id)}" data-t="s" data-fk="l:${esc(id)}:label" value="${esc(l.label)}" placeholder="${esc(TCO_KINDS[k].name)}" maxlength="70" aria-label="What this line is">
+      ${dir}${tcoActs(id, i, n)}</div>
+    <div class="tco-fields">${fields}</div>${useMort}
+    <div class="tco-note" data-lnote="${esc(id)}">${tcoNoteHtml(l, plan, c)}</div>
+  </div>`;
+}
+function tcoLinesHtml(plan, c){
+  return `<div class="card ps-noprint"><div class="card-h"><h2>2. What changes <span class="pill" id="tcoCount">${plan.lines.length}</span></h2>
+      <div class="sub">Compared with not doing it. <b class="neg">Red</b> lines are money going out; <b class="pos">green</b> lines are money coming in, or no longer going out. Leave a line empty and it counts for nothing.</div></div>
+    ${plan.lines.length ? plan.lines.map((l, i)=> tcoLineHtml(l, i, plan.lines.length, plan, c)).join('') : '<div class="empty">No lines yet. Add the first one below.</div>'}
+    <h3 class="sect">Add a line</h3>
+    <div class="tco-add">${Object.keys(TCO_KINDS).map(k=>`<button class="btn sm" data-tact="addline" data-arg="${k}" title="${esc(TCO_KINDS[k].blurb)}">+ ${esc(TCO_KINDS[k].name)}</button>`).join('')}</div>
+  </div>`;
+}
+
+/* ---------------- the page ---------------- */
+function renderTco(el){
+  const S = tcoData(), plan = tcoCurrent();
+  if(!plan || TCOUI.choosing){
+    el.innerHTML = (plan ? tcoTopHtml(S) : '') + tcoStartHtml(!!plan);
+    tcoWire(el); return;
+  }
+  const c = tcoCalc(plan);
+  el.innerHTML = `${tcoTopHtml(S)}
+  <div id="tcoHead">${tcoHeadHtml(plan, c)}</div>
+  <div class="tco-grid">
+    <div class="tco-form">${tcoBasicsHtml(plan)}${tcoLinesHtml(plan, c)}</div>
+    <div class="tco-out" id="tcoOut">${tcoOutHtml(plan, c)}</div>
+  </div>`;
+  tcoWire(el);
+  chart(tcoDrawChart);
+  if(TCOUI.focus){
+    const t = $('[data-fk="' + TCOUI.focus + '"]', el); TCOUI.focus = '';
+    if(t){ t.focus(); if(t.select && t.tagName === 'INPUT') t.select(); }
+  }
+}
+function tcoDrawChart(){
+  const box = $('#tcoChart'), plan = tcoCurrent(); if(!box || !plan) return;
+  const W = Math.max(280, Math.floor(box.clientWidth) || 0), S = tcoData();
+  const others = tcoCmpIds(plan).map(id=>{ const p = S.plans.find(x=>x.id === id); return {plan:p, calc:tcoCalc(p)}; });
+  box.innerHTML = tcoChartSvg(tcoCalc(plan), others, W);
+}
+/* redraw just the answer and the one-line explanations, so typing is never interrupted */
+function tcoLive(){
+  const plan = tcoCurrent(); if(!plan) return;
+  const c = tcoCalc(plan), head = $('#tcoHead'), out = $('#tcoOut'), chips = $('#tcoChips'), count = $('#tcoCount');
+  if(head) head.innerHTML = tcoHeadHtml(plan, c);
+  if(out) out.innerHTML = tcoOutHtml(plan, c);
+  if(chips) chips.outerHTML = tcoChipsHtml(tcoData());
+  if(count) count.textContent = plan.lines.length;
+  plan.lines.forEach(l=>{
+    const note = $('[data-lnote="' + l.id + '"]'), row = $('[data-lrow="' + l.id + '"]');
+    if(note) note.innerHTML = tcoNoteHtml(l, plan, c);
+    if(row) row.className = 'tco-line ' + tcoLineClass(l);
+  });
+  observeCharts();
+  tcoDrawChart();
+}
+
+function tcoFromInput(i, structural){
+  const plan = tcoCurrent(); if(!plan) return;
+  const raw = i.value, t = i.dataset.t || 's';
+  if(i.dataset.tp){
+    const f = i.dataset.tp;
+    if(f === 'name') plan.name = raw.slice(0, 60);
+    else if(f === 'notes') plan.notes = raw.slice(0, 500);
+    else if(f === 'horizon'){ const v = Math.round(num(raw)); if(v < 1) return; plan.horizon = clamp(v, 1, 40); }
+    else if(f === 'inflation') plan.inflation = clamp(num(raw), -10, 30);
+    else if(f === 'discount') plan.discount = clamp(num(raw), 0, 30);
+  } else {
+    const l = plan.lines.find(x=>x.id === i.dataset.lid); if(!l) return;
+    const f = i.dataset.tl;
+    l[f] = t === 's' ? raw : t === 'o' ? ((blankish(raw) || String(raw).trim() === '') ? '' : num(raw)) : num(raw);
+    Object.assign(l, tcoNormaliseLine(l));
+  }
+  save(true);
+  if(structural) render(); else tcoLive();
+}
+/* leaving a box: show what the plan actually holds (a typed 2.5 years became 3, 1,500 became 1500) */
+function tcoTidy(i){
+  const plan = tcoCurrent(); if(!plan) return;
+  if(i.dataset.tp){ i.value = tcoShowPlan(plan, i.dataset.tp); return; }
+  const l = plan.lines.find(x=>x.id === i.dataset.lid);
+  if(l) i.value = tcoShow(l, i.dataset.tl);
+}
+
+function tcoAct(act, arg){
+  const S = tcoData(), plan = tcoCurrent();
+  if(act === 'plan'){ S.current = arg; TCOUI.choosing = false; save(true); render({reset:true}); return; }
+  if(act === 'newplan'){ TCOUI.choosing = true; render({reset:true}); return; }
+  if(act === 'cancelnew'){ TCOUI.choosing = false; render({reset:true}); return; }
+  if(act === 'start' || act === 'example' || act === 'copy'){
+    if(S.plans.length >= 30){ toast('That is the most plans you can keep - delete one first'); return; }
+    let p;
+    if(act === 'copy'){
+      if(!plan) return;
+      p = JSON.parse(JSON.stringify(plan)); p.id = uid(); p.name = (plan.name + ' (copy)').slice(0, 60); p.lines.forEach(l=>{ l.id = uid(); });
+      S.plans.splice(S.plans.indexOf(plan) + 1, 0, p);
+    } else { p = act === 'start' ? tcoBlank(arg) : tcoExample(arg); S.plans.push(p); }
+    S.current = p.id; TCOUI.choosing = false; save(true); render({reset:true});
+    toast(act === 'example' ? 'Example loaded - the numbers are made up' : act === 'copy' ? 'Copied - change the copy and compare the two' : 'Plan started - fill in what you know');
+    return;
+  }
+  if(!plan) return;
+  if(act === 'delete'){
+    if(!confirm('Delete the plan "' + (plan.name || 'Plan') + '"? This cannot be undone.')) return;
+    S.plans = S.plans.filter(x=>x.id !== plan.id); S.current = S.plans[0] ? S.plans[0].id : '';
+    DB.ui.tcoCmp = (DB.ui.tcoCmp || []).filter(id => id !== plan.id);
+    save(true); render({reset:true}); return;
+  }
+  if(act === 'addline'){ const l = tcoNewLine(arg); plan.lines.push(l); TCOUI.focus = 'l:' + l.id + ':label'; save(true); render(); return; }
+  if(act === 'up' || act === 'down'){
+    const i = plan.lines.findIndex(x=>x.id === arg), dir = act === 'up' ? -1 : 1;
+    if(i >= 0 && moveItem(plan.lines, i, dir)){
+      const at = i + dir;       // keep the keyboard on a button that still works, so a line can be walked up or down with repeated presses
+      TCOUI.focus = (dir < 0 ? (at === 0 ? 'down:' : 'up:') : (at === plan.lines.length - 1 ? 'up:' : 'down:')) + arg;
+      save(true); render();
+    }
+    return;
+  }
+  if(act === 'del'){ plan.lines = plan.lines.filter(x=>x.id !== arg); save(true); render(); return; }
+  if(act === 'dir'){
+    const [id, d] = String(arg).split(':'), l = plan.lines.find(x=>x.id === id);
+    if(l){ l.dir = d === 'save' ? 'save' : 'cost'; save(true); render(); }
+    return;
+  }
+  if(act === 'cmp'){
+    const cur = tcoCmpIds(plan).slice(), k = cur.indexOf(arg);
+    if(k >= 0) cur.splice(k, 1); else cur.push(arg);
+    DB.ui.tcoCmp = cur; save(true); tcoLive(); return;
+  }
+  if(act === 'table'){ DB.ui.tcoTable = DB.ui.tcoTable !== true; save(true); tcoLive(); return; }
+  if(act === 'usemort'){
+    const l = plan.lines.find(x=>x.id === arg), m = (Y.mortgages || [])[0];
+    if(!l || !m){ toast('Add your mortgage on the Mortgage page first'); return; }
+    const pos = mortgagePosition(m);
+    l.balance = Math.round(pos.balance); l.years = Math.round(pos.payments / 12 * 10) / 10; l.rateNow = pos.rate;
+    save(true); render(); toast('Filled in from "' + (m.name || 'your mortgage') + '" - now enter the rate you would get'); return;
+  }
+  if(act === 'print'){ window.print(); return; }
+}
+
+function tcoWire(el){
+  /* one set of handlers on the page itself, replaced (not added to) on every redraw */
+  el.onclick = e=>{
+    const b = e.target.closest('[data-tact]');
+    if(b && !b.disabled) tcoAct(b.dataset.tact, b.dataset.arg);
+  };
+  el.oninput = e=>{
+    const i = e.target.closest && e.target.closest('[data-tp],[data-tl]');
+    if(i && i.tagName !== 'SELECT') tcoFromInput(i, false);
+  };
+  el.onchange = e=>{
+    const i = e.target.closest && e.target.closest('[data-tp],[data-tl]');
+    if(!i) return;
+    if(i.tagName === 'SELECT') tcoFromInput(i, true); else tcoTidy(i);
+  };
+}
 /* ---------------- init ---------------- */
 function applyTheme(){
   document.documentElement.dataset.theme = DB.theme || 'light';
@@ -8790,7 +9608,7 @@ function init(){
   applyTheme();
   $('#pages').innerHTML = ALL_TABS.map(([id])=>`<section id="tab-${id}" aria-label="${esc(id)}"></section>`).join('');
   Object.assign(RENDERERS, {
-    dashboard:renderDashboard, setup:renderSetup, tax:renderTax, payslip:renderPayslip, budget:renderBudget, disposable:renderDisposable, bank:renderBank,
+    dashboard:renderDashboard, setup:renderSetup, tax:renderTax, payslip:renderPayslip, tco:renderTco, budget:renderBudget, disposable:renderDisposable, bank:renderBank,
     renewals:renderRenewals, savings:renderSavingsPage, loans:renderLoans, mortgage:renderMortgage,
     networth:renderNetWorth, reliefs:renderReliefs, energy:renderEnergy, history:renderHistory,
     accounts:renderAccounts, maternity:renderMaternity, tracker:renderTracker, data:renderData

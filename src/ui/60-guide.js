@@ -27,6 +27,17 @@ const PAGES = {
       'More than one person in Set-up? A row of names at the top switches between them. Each person has their own saved payslips and their own half-finished one, and the saved ones show a <b>Move to...</b> menu if one was filed under the wrong person.',
       '<b>Save to history</b> keeps a copy so you can compare this payslip with the last one. <b>Next payslip</b> starts the following one with the year-to-date figures carried forward.',
       'Saved payslips include your PPS number and are part of your backup file, so keep that file private.']},
+  tco:{ico:'⚖️', title:'Cost of owning',
+    lead:'Thinking of a big spend that costs or saves money for years - a car, a home upgrade? List what it costs and what it saves, and see the net result.',
+    steps:['Describe the spend','List the costs and savings','Read the net result'],
+    tips:['Everything is compared with <b>not doing it</b>. Money going out is a <b>cost</b>; money coming in, or no longer going out (the bus fare you stop paying), is a <b>saving</b>.',
+      'Start from a template, or load an example to see how it works. The example numbers are made up, so replace them with your own.',
+      '<b>In year 0</b> means today: the price, a grant, selling the old one. Lines that repeat start in year 1 and rise by the plan\'s yearly price change, unless a line has its own.',
+      'Borrowing some of it? Enter the full price as a cost, then add <b>A loan for it</b>. Only the interest is added, because the price is already counted.',
+      'Time saved is a judgement, not cash. The page shows what the answer would be with and without it.',
+      'A better BER can mean a lower mortgage rate with some lenders. <b>Mortgage rate change</b> works out what that gap is worth over the years you have left.',
+      '<b>How sure are you?</b> shows how far the answer moves if savings are 20% lower or costs 20% higher. If the answer flips, the decision is close.',
+      'Plans are kept in this browser as you type and are part of your backup file. Use <b>Copy this plan</b> to compare two choices side by side.']},
   budget:{ico:'🧾', title:'Bills & budget',
     lead:'List what you spend and put aside. Everything is converted into weekly, monthly and yearly figures for you.',
     steps:['Add your bills','Add your savings','Check what is left over'],
@@ -273,7 +284,12 @@ const TERMS = [
   ['Home Carer credit','A credit for a married couple or civil partners where one cares for dependants at home and has low income.'],
   ['TRS','Tax Relief at Source. Health insurance premiums are quoted net of tax relief already given.'],
   ['DIRT','Deposit Interest Retention Tax. Tax taken from interest on savings accounts.'],
-  ['Net worth','Everything you own minus everything you owe.']
+  ['Net worth','Everything you own minus everything you owe.'],
+  ['Total cost of ownership','Everything something costs you over the years you keep it, not just the price: running costs, upkeep and interest on any loan, less what you get back when you sell it or what it saves you.'],
+  ['Break-even','The point where what you have saved or earned has caught up with what you spent. Before it you are behind; after it you are ahead.'],
+  ['Depreciation','How much value something loses as it ages. Cars lose the most in their first few years.'],
+  ['BER','Building Energy Rating: A (most efficient) to G, on the energy certificate a home needs to be sold or let. Some lenders offer a lower mortgage rate on better-rated homes.'],
+  ['Money later is worth less','A euro in ten years buys less than a euro today, and a euro today could be earning interest. The "your money could earn" box on Cost of owning turns the result into today\'s money.']
 ];
 
 /* Not a tab stop: the icon sits before its input, so a focusable "?" made Tab land on help instead of the

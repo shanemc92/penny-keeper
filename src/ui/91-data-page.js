@@ -32,6 +32,7 @@ function adoptDB(j, keepPrefs){
     j.netWorth = j.netWorth || DB.netWorth;
     j.tracker = j.tracker || DB.tracker;
     j.payslips = j.payslips || DB.payslips;
+    j.tco = j.tco || DB.tco;
     j.theme = j.theme || DB.theme;
     j.lastBackup = j.lastBackup || DB.lastBackup;
   }
@@ -112,7 +113,7 @@ function renderData(el){
     ${cardHead('🔒 Privacy')}
     <p style="margin:0">Everything you enter stays in this browser's local storage. There are no accounts, no analytics and no trackers, and nothing is sent anywhere.
     The page makes one request, to its own address, to check whether it is being served by a self-hosted sync server (<a href="homelab/README.md">see homelab</a>); that request carries none of your data.</p>
-    <div class="note">Clearing your browser's site data erases it - which is why backups matter. Your backup also includes any projects in the Budget tracker and any payslips you saved. <b>Saved payslips include your PPS number</b>, so keep the backup file somewhere private.</div>
+    <div class="note">Clearing your browser's site data erases it - which is why backups matter. Your backup also includes any projects in the Budget tracker, any payslips you saved and your cost-of-owning plans. <b>Saved payslips include your PPS number</b>, so keep the backup file somewhere private.</div>
   </div>
 
   <div class="card">
@@ -200,7 +201,7 @@ function renderData(el){
   $('#replayTour').onclick = startTour;
   $('#replayWelcome').onclick = showWelcome;
   $('#wipe').onclick = ()=>{
-    if(!confirm('Erase all years, your Budget tracker projects and your saved payslips from this browser? Download a backup first; this cannot be undone.')) return;
+    if(!confirm('Erase all years, your Budget tracker projects, your saved payslips and your cost-of-owning plans from this browser? Download a backup first; this cannot be undone.')) return;
     [KEY].concat(EARLIER_KEYS).forEach(k=> localStorage.removeItem(k));
     load(); active = 'dashboard'; render(); toast('Cleared');
   };
